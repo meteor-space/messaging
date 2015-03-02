@@ -14,7 +14,7 @@ describe "Space.messaging.Serializable", ->
 
     describe 'setting the type', ->
 
-      class BasicTestType extends Space.messaging.Serializable
+      BasicTestType = Space.messaging.Serializable.extend ->
         @type 'Space.messaging.BasicTestType'
 
       it 'allows the class to be instantiated', ->
@@ -49,6 +49,6 @@ describe "Space.messaging.Serializable", ->
         subType = new TestTypeWithFields name: 'Dominik', age: 26
         instance = new TestTypeWithNestedTypes sub: subType
         copy = EJSON.parse EJSON.stringify(instance)
-        
+
         expect(instance.sub).to.equal subType
         expect(instance).to.deep.equal copy
