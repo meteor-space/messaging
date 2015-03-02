@@ -21,6 +21,7 @@ Package.onUse(function(api) {
     'source/event.coffee',
     'source/command.coffee',
     'source/event_bus.coffee',
+    'source/command_bus.coffee',
     'source/controller.coffee',
   ]);
 
@@ -39,6 +40,7 @@ Package.onTest(function(api) {
     'tests/serializable.unit.coffee',
     'tests/event.unit.coffee',
     'tests/event_bus.unit.coffee',
+    'tests/command_bus.unit.coffee',
     'tests/controller.unit.coffee',
   ], 'server');
 
