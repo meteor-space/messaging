@@ -15,5 +15,5 @@ describe 'Space.messaging.Event', ->
 
   it 'defines its fields correctly', ->
     expect(Event.fields()).to.eql
-      sourceId: String
+      sourceId: Match.Optional(String)
       version: Match.Optional(Match.Integer)

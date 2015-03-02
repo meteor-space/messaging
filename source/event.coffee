@@ -2,5 +2,5 @@
 class Space.messaging.Event extends Space.messaging.Serializable
 
   @type 'Space.messaging.Event', ->
-    sourceId: String
+    sourceId: Match.Optional(String)
     version: Match.Optional(Match.Integer)

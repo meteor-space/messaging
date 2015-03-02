@@ -20,10 +20,12 @@ class Space.messaging.Serializable extends Space.Object
 
     fields = @_getSerializableFields()
     if not fields? then return
+    data ?= {}
+
     # Use the fields configuration to check given data during runtime
     check data, fields
     # Copy fields to instance
-    @[key] = data[key] for key of fields
+    @[key] = data[key] for key of fields when data[key]
 
   toJSONValue: ->
     fields = @_getSerializableFields()
