@@ -37,11 +37,11 @@ Package.onTest(function(api) {
   ]);
 
   api.addFiles([
-    'tests/serializable.unit.coffee',
-    'tests/event.unit.coffee',
-    'tests/event_bus.unit.coffee',
-    'tests/command_bus.unit.coffee',
-    'tests/controller.unit.coffee',
+    'tests/unit/serializable.unit.coffee',
+    'tests/unit/event.unit.coffee',
+    'tests/unit/event_bus.unit.coffee',
+    'tests/unit/command_bus.unit.coffee',
+    'tests/unit/controller.unit.coffee',
   ], 'server');
 
 });
