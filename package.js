@@ -19,6 +19,8 @@ Package.onUse(function(api) {
     'source/module.coffee',
     'source/serializable.coffee',
     'source/event.coffee',
+    'source/command.coffee',
+    'source/controller.coffee',
   ]);
 
 });
@@ -35,6 +37,7 @@ Package.onTest(function(api) {
   api.addFiles([
     'tests/event.unit.coffee',
     'tests/serializable.unit.coffee',
+    'tests/controller.unit.coffee',
   ], 'server');
 
 });
