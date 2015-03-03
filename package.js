@@ -1,5 +1,5 @@
 Package.describe({
-  summary: 'Rock solid messaging infrastructure for Meteor.',
+  summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
   version: '0.1.0',
   git: 'https://github.com/CodeAdventure/space-messaging.git',
