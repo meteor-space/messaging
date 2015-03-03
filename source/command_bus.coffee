@@ -15,7 +15,10 @@ class Space.messaging.CommandBus extends Space.Object
     if @configuration.createMeteorMethods
       commandBusMethods = {}
       commandBusMethods[CommandBus.METEOR_METHOD_NAME] = @_handleClientCommand
-      @meteor.methods commandBusMethods
+      try
+        @meteor.methods commandBusMethods
+      catch error
+        console.log error
 
   send: (command, callback) ->
     unless command instanceof Space.messaging.Command

@@ -17,6 +17,7 @@ Package.onUse(function(api) {
 
   api.addFiles([
     'source/module.coffee',
+    'source/configuration.coffee',
     'source/serializable.coffee',
     'source/event.coffee',
     'source/command.coffee',
@@ -42,6 +43,9 @@ Package.onTest(function(api) {
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/controller.unit.coffee',
-  ], 'server');
+
+    'tests/integration/test_app.coffee',
+    'tests/integration/integration_tests.coffee',
+  ]);
 
 });

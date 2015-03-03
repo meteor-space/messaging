@@ -4,10 +4,15 @@ Controller = Space.messaging.Controller
 describe 'Space.messaging.Controller', ->
 
   stubControllerDependencies = (controller) ->
-    controller.eventBus = subscribe: sinon.spy()
+    controller.eventBus = subscribeTo: sinon.spy()
     controller.commandBus = registerHandler: sinon.spy()
+    controller.meteor = bindEnvironment: (fn) -> fn
+    controller.utils = bind: (fn) -> fn
 
-  beforeEach -> class @TestController extends Controller
+  beforeEach ->
+    class @TestController extends Controller
+    @handler = on: sinon.spy()
+    @controller = new @TestController()
 
   it 'extends space object to be js compatible', ->
     expect(Controller).to.extend Space.Object
@@ -16,6 +21,8 @@ describe 'Space.messaging.Controller', ->
     expect(Controller).to.dependOn
       eventBus: 'Space.messaging.EventBus'
       commandBus: 'Space.messaging.CommandBus'
+      meteor: 'Meteor'
+      utils: 'underscore'
 
   it 'doesnt process messages by default', ->
     controller = new @TestController()
@@ -28,15 +35,12 @@ describe 'Space.messaging.Controller', ->
 
     it 'subscribes to the event bus', ->
 
-      handler = sinon.spy()
-      options = on: handler
-      @TestController.handle StubEvent, options
-      controller = new @TestController()
-      stubControllerDependencies controller
-      controller.onDependenciesReady()
+      @TestController.handle StubEvent, @handler
+      stubControllerDependencies @controller
+      @controller.onDependenciesReady()
 
-      expect(controller.eventBus.subscribe).to.have.been.calledWithExactly(
-        StubEvent.toString(), options, controller
+      expect(@controller.eventBus.subscribeTo).to.have.been.calledWithExactly(
+        StubEvent.toString(), @handler
       )
 
   describe 'handling commands', ->
@@ -46,13 +50,10 @@ describe 'Space.messaging.Controller', ->
 
     it 'registers handler on the command bus', ->
 
-      handler = sinon.spy()
-      options = on: handler
-      @TestController.handle StubCommand, options
-      controller = new @TestController()
-      stubControllerDependencies controller
-      controller.onDependenciesReady()
+      @TestController.handle StubCommand, @handler
+      stubControllerDependencies @controller
+      @controller.onDependenciesReady()
 
-      expect(controller.commandBus.registerHandler).to.have.been.calledWithExactly(
-        StubCommand.toString(), options, controller
+      expect(@controller.commandBus.registerHandler).to.have.been.calledWith(
+        StubCommand.toString(), @handler
       )
