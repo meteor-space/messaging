@@ -1,4 +1,6 @@
-# Messaging infrastructure for Meteor. [![Build Status](https://travis-ci.org/CodeAdventure/space-messaging.svg?branch=master)](https://travis-ci.org/CodeAdventure/space-messaging)
+# space:messaging [![Build Status](https://travis-ci.org/CodeAdventure/space-messaging.svg?branch=master)](https://travis-ci.org/CodeAdventure/space-messaging)
+
+**Messaing Infrastructure for Space applications**
 
 This package provides infrastructure to build your Meteor applications
 around rock solid messaging principles that make your code strongly checked
