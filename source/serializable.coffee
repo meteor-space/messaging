@@ -1,55 +1,41 @@
 
 class Space.messaging.Serializable extends Space.Object
 
-  @ERRORS:
-    typeRequired: 'You forgot to specify the type of the serializable.'
-
-  @type: (name, fields) ->
-
-    if fields? then @fields = fields
-    # make it EJSON serializable
+  # make this class EJSON serializable
+  @type: (name) ->
     this::typeName = @toString = generateTypeNameMethod(name)
-    EJSON.addType name, generateFromJSONValueFunction(this)
-    @__IS_SERIALIZABLE__ = true
+    EJSON.addType name, _.partial(fromJSONValueFunction, this)
 
   constructor: (data) ->
-
-    # Require type to be set statically
-    unless @constructor.__IS_SERIALIZABLE__
-      throw new Error Serializable.ERRORS.typeRequired
-
-    fields = @_getSerializableFields()
-    if not fields? then return
+    fields = @_getFields()
     data ?= {}
-
     # Use the fields configuration to check given data during runtime
-    check data, fields
-    # Copy fields to instance
-    @[key] = data[key] for key of fields when data[key]
+    if fields? then check data, fields
+    # Copy data to instance
+    @[key] = data[key] for key of data
 
   toJSONValue: ->
-    fields = @_getSerializableFields()
+    fields = @_getFields()
     # No special fields, simply parse instance to create deep copy
-    if not fields? then return JSON.parse JSON.stringify(this)
-    # Fields defined, parse them through EJSON to support nested types
-    serialized = {}
-    serialized[key] = EJSON.stringify(@[key]) for key of fields when @[key]?
-    return serialized
+    if not fields?
+      return JSON.parse JSON.stringify(this)
+    else
+      # Fields defined, parse them through EJSON to support nested types
+      serialized = {}
+      serialized[key] = EJSON.stringify(@[key]) for key of fields when @[key]?
+      return serialized
 
-  _getSerializableFields: ->
-    if @constructor.fields? then return @constructor.fields() else return null
+  _getFields: -> @constructor.fields
 
 # ========= HELPERS ========== #
 
 generateTypeNameMethod = (typeName) -> return -> typeName
 
-generateFromJSONValueFunction = (Class) -> return (json) ->
+fromJSONValueFunction = (Class, json) ->
 
-  fields = if Class.fields? then Class.fields() else null
-
-  if fields?
+  if Class.fields?
     # Parse all fields that are set in the given json
-    for field of fields when json[field]?
+    for field of Class.fields when json[field]?
       json[field] = EJSON.parse(json[field])
 
   return new Class(json)

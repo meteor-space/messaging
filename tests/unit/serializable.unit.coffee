@@ -5,20 +5,10 @@ describe "Space.messaging.Serializable", ->
 
   describe 'construction', ->
 
-    it 'cannot be instantiated directly', ->
-      expect(-> new Serializable).to.throw Error
-
-    it 'throws an error if type is not set on sub classes', ->
-      class TestClass extends Space.messaging.Serializable
-      expect(-> new TestClass).to.throw Error
-
     describe 'setting the type', ->
 
-      BasicTestType = Space.messaging.Serializable.extend ->
+      class BasicTestType extends Space.messaging.Serializable
         @type 'Space.messaging.BasicTestType'
-
-      it 'allows the class to be instantiated', ->
-        expect(-> new BasicTestType).not.to.throw Error
 
       it 'makes the class EJSON serializable', ->
         instance = new BasicTestType()
@@ -29,13 +19,12 @@ describe "Space.messaging.Serializable", ->
     describe 'defining fields', ->
 
       class TestTypeWithFields extends Space.messaging.Serializable
-        @type 'Space.messaging.TestTypeWithFields', ->
-          name: String
-          age: Match.Integer
+        @type 'Space.messaging.TestTypeWithFields'
+        @fields: name: String, age: Match.Integer
 
       class TestTypeWithNestedTypes extends Space.messaging.Serializable
-        @type 'Space.messaging.TestTypeWithNestedTypes', ->
-          sub: TestTypeWithFields
+        @type 'Space.messaging.TestTypeWithNestedTypes'
+        @fields: sub: TestTypeWithFields
 
       it 'creates the instance and copies the fields over', ->
         instance = new TestTypeWithFields name: 'Dominik', age: 26

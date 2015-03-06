@@ -11,6 +11,8 @@ Package.onUse(function(api) {
 
   api.use([
     'coffeescript',
+    'underscore',
+    'check',
     'ejson',
     'space:base@1.2.8'
   ]);
@@ -32,6 +34,9 @@ Package.onTest(function(api) {
 
   api.use([
     'coffeescript',
+    'check',
+    'ejson',
+    'underscore',
     'space:messaging',
     'practicalmeteor:munit@2.0.2',
     'space:testing@1.3.0'
