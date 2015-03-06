@@ -14,7 +14,7 @@ Package.onUse(function(api) {
     'underscore',
     'check',
     'ejson',
-    'space:base@1.2.8'
+    'space:base@1.3.0'
   ]);
 
   api.addFiles([
