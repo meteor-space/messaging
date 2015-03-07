@@ -15,10 +15,7 @@ describe 'Space.messaging.CommandBus', ->
       isClient: false
       isServer: true
     @commandBus.configuration = createMeteorMethods: true
-    @handler =
-      before: sinon.stub()
-      on: sinon.spy()
-      after: sinon.spy()
+    @handler = on: sinon.spy()
 
   it 'extends space object to be js compatible', ->
     expect(CommandBus).to.extend Space.Object
@@ -34,7 +31,6 @@ describe 'Space.messaging.CommandBus', ->
       methods = @commandBus.meteor.methods.firstCall.args[0]
 
       # setup server-side handler
-      @handler.before.returns true
       @handler.allowClient = true
       @commandBus.registerHandler TestCommand, @handler
 
@@ -53,7 +49,6 @@ describe 'Space.messaging.CommandBus', ->
       methods = @commandBus.meteor.methods.firstCall.args[0]
 
       # setup server-side handler
-      @handler.before.returns true
       @handler.allowClient = false
       @commandBus.registerHandler TestCommand, @handler
 
@@ -80,7 +75,6 @@ describe 'Space.messaging.CommandBus', ->
       expect(@commandBus.getHandlerFor TestCommand).to.equal second
 
     it 'calls the configured meteor method on client side', ->
-      @handler.before.returns true
       @commandBus.meteor.isClient = true
       callback = sinon.spy()
       @commandBus.registerHandler TestCommand, @handler
@@ -92,32 +86,8 @@ describe 'Space.messaging.CommandBus', ->
       expect(@handler.on).not.to.have.been.called
 
     it 'directly handles the command if it comes from server side', ->
-      @handler.before.returns true
       @commandBus.registerHandler TestCommand, @handler
       @commandBus.send @testCommand
 
       expect(@commandBus.meteor.call).not.to.have.been.called
       expect(@handler.on).to.have.been.calledWithExactly @testCommand
-
-    # ========== HOOKS =========== #
-
-    describe 'hooks', ->
-
-      it 'runs the main handler when before hook passes', ->
-        @handler.before.returns true
-        @commandBus.registerHandler TestCommand, @handler
-        @commandBus.send @testCommand
-
-        expect(@handler.before).to.have.been.calledWithExactly @testCommand
-        expect(@handler.on).to.have.been.calledWithExactly @testCommand
-        expect(@handler.after).to.have.been.calledWithExactly @testCommand
-
-      it 'skips the main handler and after hook when before hook fails', ->
-
-        @handler.before.returns false
-        @commandBus.registerHandler TestCommand, @handler
-        @commandBus.send @testCommand
-
-        expect(@handler.before).to.have.been.calledWithExactly @testCommand
-        expect(@handler.on).not.to.have.been.called
-        expect(@handler.after).not.to.have.been.called

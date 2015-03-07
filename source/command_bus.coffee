@@ -51,9 +51,6 @@ class Space.messaging.CommandBus extends Space.Object
       message = "Unauthorized command sent from client: #{command.typeName()}"
       throw new Error message
 
-    isAllowed = if handler.before? then handler.before(command) else true
-    if isAllowed
-      handler.on command
-      handler.after?(command)
+    handler.on command
 
   _handleClientCommand: (command) => @_handleCommand command, true

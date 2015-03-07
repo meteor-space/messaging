@@ -8,11 +8,6 @@ class Space.messaging.EventBus extends Space.Object
   publish: (event) ->
     eventType = event.typeName()
     if not @_handlers[eventType]? then return
-
-    for handler in @_handlers[eventType]
-      isAllowed = if handler.before? then handler.before(event) else true
-      if isAllowed
-        handler.on event
-        handler.after?(event)
+    handler.on(event) for handler in @_handlers[eventType]
 
   subscribeTo: (typeName, handler) -> (@_handlers[typeName] ?= []).push handler

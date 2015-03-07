@@ -8,10 +8,7 @@ describe 'Space.messaging.EventBus', ->
 
   beforeEach ->
     @eventBus = new EventBus()
-    @handler =
-      before: sinon.stub()
-      on: sinon.spy()
-      after: sinon.spy()
+    @handler = on: sinon.spy()
     @testEvent = new TestEvent()
 
   it 'extends space object to be js compatible', ->
@@ -28,24 +25,3 @@ describe 'Space.messaging.EventBus', ->
 
       expect(first.on).to.have.been.calledWith @testEvent
       expect(second.on).to.have.been.calledWith @testEvent
-
-    describe 'before hook', ->
-
-      it 'runs the main handler when before hook passes', ->
-        @handler.before.returns true
-        @eventBus.subscribeTo TestEvent, @handler
-        @eventBus.publish @testEvent
-
-        expect(@handler.before).to.have.been.calledWithExactly @testEvent
-        expect(@handler.on).to.have.been.calledWithExactly @testEvent
-        expect(@handler.after).to.have.been.calledWithExactly @testEvent
-
-      it 'skips the main handler and after hook when before hook fails', ->
-
-        @handler.before.returns false
-        @eventBus.subscribeTo TestEvent, @handler
-        @eventBus.publish @testEvent
-
-        expect(@handler.before).to.have.been.calledWithExactly @testEvent
-        expect(@handler.on).not.to.have.been.called
-        expect(@handler.after).not.to.have.been.called
