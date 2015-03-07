@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### 0.3.0
+Removes hooks for message handling because there is no real use case for it
+
 ### 0.2.1
 Fixes bug with binding message handlers to Meteor environment and controller
 instances.
