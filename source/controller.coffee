@@ -13,12 +13,10 @@ class Space.messaging.Controller extends Space.Object
   onDependenciesReady: ->
 
     for type, handler of @constructor._eventHandlers
-      @_bindHandler handler
-      @eventBus.subscribeTo type, handler
+      @eventBus.subscribeTo type, @_createBoundHandlers(handler)
 
     for type, handler of @constructor._commandHandlers
-      @_bindHandler handler
-      @commandBus.registerHandler type, handler
+      @commandBus.registerHandler type, @_createBoundHandlers(handler)
 
   @handle: (messageType, handler) ->
 
@@ -34,7 +32,15 @@ class Space.messaging.Controller extends Space.Object
     else
       throw new Error @ERRORS.unkownMessageType + "<#{messageType}>"
 
-  _bindHandler: (handler) ->
+  _createBoundHandlers: (handler) ->
 
-    for name, fn of handler when typeof(fn) is 'function'
-      handler[name] = @meteor.bindEnvironment @utils.bind(fn, this)
+    boundHandlers = {}
+
+    # Create handlers that are bound to this controller instance
+    for key, value of handler
+      if typeof(value) is 'function'
+        boundHandlers[key] = @meteor.bindEnvironment @utils.bind(value, this)
+      else
+        boundHandlers[key] = value
+
+    return boundHandlers
