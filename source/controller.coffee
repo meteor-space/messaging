@@ -33,11 +33,14 @@ class Space.messaging.Controller extends Space.Object
       throw new Error @ERRORS.unkownMessageType + "<#{messageType}>"
 
   _createBoundHandler: (handler) ->
-    boundHandler = {}
+    bound = {}
     # Create handlers that are bound to this controller instance
     for key, value of handler
       if typeof(value) is 'function'
-        boundHandler[key] = @meteor.bindEnvironment @utils.bind(value, this)
+        callback = @utils.bind(value, this)
+        bound[key] = @meteor.bindEnvironment callback, @_onException, this
       else
-        boundHandler[key] = value
-    return boundHandler
+        bound[key] = value
+    return bound
+
+  _onException: (error) -> throw error
