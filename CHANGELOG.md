@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 0.3.1
+Improves error handling for `Space.messaging.Controller` when handling events
+in the callback that is bound via `Meteor.bindEnvironment`. Now you can just
+throw `Meteor.Error` instances and they are correctly routed back to the client.
+
 ### 0.3.0
 Removes hooks for message handling because there is no real use case for it
 
