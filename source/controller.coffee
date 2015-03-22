@@ -10,6 +10,31 @@ class Space.messaging.Controller extends Space.Object
   @ERRORS:
     unkownMessageType: "Message type unknown: "
 
+  @handle: (messageType, handler) ->
+    @_ensureHandlersAreInitialized()
+    if @_isEvent messageType
+      @_eventHandlers[messageType] = handler
+    else if @_isCommand messageType
+      @_commandHandlers[messageType] = handler
+    else
+      throw new Error @ERRORS.unkownMessageType + "<#{messageType}>"
+
+  @on: (messageType, options..., callback) ->
+    @_ensureHandlersAreInitialized()
+    options = options[0] ? {} # Use splat for optional options
+    options.on = callback
+    @handle messageType, options
+
+  @_ensureHandlersAreInitialized: ->
+    unless @_eventHandlers? then @_eventHandlers = {}
+    unless @_commandHandlers? then @_commandHandlers = {}
+
+  @_isEvent: (message) ->
+    message.__super__.constructor is Space.messaging.Event
+
+  @_isCommand: (message) ->
+    message.__super__.constructor is Space.messaging.Command
+
   onDependenciesReady: ->
 
     for type, handler of @constructor._eventHandlers
@@ -17,20 +42,6 @@ class Space.messaging.Controller extends Space.Object
 
     for type, handler of @constructor._commandHandlers
       @commandBus.registerHandler type, @_createBoundHandler(handler)
-
-  @handle: (messageType, handler) ->
-
-    unless @_eventHandlers? then @_eventHandlers = {}
-    unless @_commandHandlers? then @_commandHandlers = {}
-
-    if messageType.__super__.constructor is Space.messaging.Event
-      @_eventHandlers[messageType] = handler
-
-    else if messageType.__super__.constructor is Space.messaging.Command
-      @_commandHandlers[messageType] = handler
-
-    else
-      throw new Error @ERRORS.unkownMessageType + "<#{messageType}>"
 
   _createBoundHandler: (handler) ->
     bound = {}

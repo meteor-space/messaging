@@ -9,6 +9,12 @@ describe 'Space.messaging.Controller', ->
     controller.meteor = bindEnvironment: (fn) -> fn
     controller.utils = bind: (fn) -> fn
 
+  class StubEvent extends Space.messaging.Event
+    @type 'Space.messaging.__test__.ControllerStubEvent'
+
+  class StubCommand extends Space.messaging.Command
+    @type 'Space.messaging.__test__.ControllerStubCommand'
+
   beforeEach ->
     class @TestController extends Controller
     @handler = on: sinon.spy()
@@ -30,9 +36,6 @@ describe 'Space.messaging.Controller', ->
 
   describe 'handling events', ->
 
-    class StubEvent extends Space.messaging.Event
-      @type 'Space.messaging.__test__.ControllerStubEvent'
-
     it 'subscribes to the event bus', ->
 
       @TestController.handle StubEvent, @handler
@@ -45,9 +48,6 @@ describe 'Space.messaging.Controller', ->
 
   describe 'handling commands', ->
 
-    class StubCommand extends Space.messaging.Command
-      @type 'Space.messaging.__test__.ControllerStubCommand'
-
     it 'registers handler on the command bus', ->
 
       @TestController.handle StubCommand, @handler
@@ -55,5 +55,27 @@ describe 'Space.messaging.Controller', ->
       @controller.onDependenciesReady()
 
       expect(@controller.commandBus.registerHandler).to.have.been.calledWith(
+        StubCommand.toString(), @handler
+      )
+
+  describe 'short hand api', ->
+
+    it 'can be called without options', ->
+
+      @TestController.on StubEvent, @handler.on
+      stubControllerDependencies @controller
+      @controller.onDependenciesReady()
+
+      expect(@controller.eventBus.subscribeTo).to.have.been.calledWithMatch(
+        StubEvent.toString(), @handler
+      )
+
+    it 'supports options as second argument', ->
+      @handler.allowClient = true
+      @TestController.on StubCommand, {allowClient: true}, @handler.on
+      stubControllerDependencies @controller
+      @controller.onDependenciesReady()
+
+      expect(@controller.commandBus.registerHandler).to.have.been.calledWithMatch(
         StubCommand.toString(), @handler
       )
