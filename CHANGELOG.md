@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### 0.3.2
+Adds short-hand API for handling controller messages
+
 ### 0.3.1
 Improves error handling for `Space.messaging.Controller` when handling events
 in the callback that is bound via `Meteor.bindEnvironment`. Now you can just
