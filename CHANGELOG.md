@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.3.3
+Allow (optionally) to provide source id of events as first parameter. This is
+more convenient in scenarios where data is handed over from other places.
+
 ### 0.3.2
 Adds short-hand API for handling controller messages
 
