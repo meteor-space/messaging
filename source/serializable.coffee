@@ -25,6 +25,12 @@ class Space.messaging.Serializable extends Space.Object
       serialized[key] = EJSON.stringify(@[key]) for key of fields when @[key]?
       return serialized
 
+  toPlainObject: ->
+    fields = @_getFields() ? {}
+    copy = {}
+    copy[key] = @[key] for key of fields when @[key]?
+    return copy
+
   _getFields: -> @constructor.fields
 
 # ========= HELPERS ========== #

@@ -41,3 +41,11 @@ describe "Space.messaging.Serializable", ->
 
         expect(instance.sub).to.equal subType
         expect(instance).to.deep.equal copy
+
+      it 'provides a method to cast to plain object', ->
+        instance = new TestTypeWithFields name: 'Dominik', age: 26
+        copy = instance.toPlainObject()
+        expect(copy.name).to.equal 'Dominik'
+        expect(copy.age).to.equal 26
+        expect(copy).to.be.an.object
+        expect(copy).not.to.be.instanceof TestTypeWithFields
