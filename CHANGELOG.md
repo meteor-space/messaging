@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.3.4
+Adds `toPlainObject` method to `Space.messaging.Serializable` so that events
+and commands can easily be casted to DTOs instead of class instances.
+
 ### 0.3.3
 Allow (optionally) to provide source id of events as first parameter. This is
 more convenient in scenarios where data is handed over from other places.
