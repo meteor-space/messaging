@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '0.3.4',
+  version: '0.3.5',
   git: 'https://github.com/CodeAdventure/space-messaging.git',
 });
 
@@ -14,7 +14,7 @@ Package.onUse(function(api) {
     'underscore',
     'check',
     'ejson',
-    'space:base@1.3.0'
+    'space:base@1.4.2'
   ]);
 
   api.addFiles([

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.3.5
+Adds static `@method` function to `Space.messaging.Controller` that sets up
+a Meteor method with a future to reduce boilerplate for async methods.
+
 ### 0.3.4
 Adds `toPlainObject` method to `Space.messaging.Serializable` so that events
 and commands can easily be casted to DTOs instead of class instances.
