@@ -25,6 +25,29 @@ class Space.messaging.Controller extends Space.Object
     options.on = callback
     @handle messageType, options
 
+  # Register a handler for a Meteor method that invokes async
+  # code and make it easy to return values to the client via automatic
+  # setup of a Future. Reduces boilerplate code otherwise necessary
+
+  @method: (name, handler) ->
+
+    handlers = @_methodHandlers ?= {}
+    # Save a reference to the handler to bind it to the controller later
+    handlers[name] = handler
+    # Register the method statically, so that is done only once
+    method = {}
+    method[name] = ->
+      # Setup a future for this request that can be resolved later
+      Future = Npm.require 'fibers/future'
+      future = new Future()
+      # Call the handler and provide the request (this) and future as params
+      args = [this, future].concat Array::slice.call(arguments)
+      handlers[name].apply null, args
+      # Wait until we have a result, then return it to the client
+      return future.wait()
+
+    Meteor.methods method
+
   @_ensureHandlersAreInitialized: ->
     unless @_eventHandlers? then @_eventHandlers = {}
     unless @_commandHandlers? then @_commandHandlers = {}
@@ -34,6 +57,11 @@ class Space.messaging.Controller extends Space.Object
 
   @_isCommand: (message) ->
     message.__super__.constructor is Space.messaging.Command
+
+  constructor: ->
+    # Bind method handlers to the controller instance
+    for name, handler of @constructor._methodHandlers
+      @[name] = @constructor._methodHandlers[name] = _.bind(handler, this)
 
   onDependenciesReady: ->
 
