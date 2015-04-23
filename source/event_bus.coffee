@@ -8,6 +8,6 @@ class Space.messaging.EventBus extends Space.Object
   publish: (event) ->
     eventType = event.typeName()
     if not @_handlers[eventType]? then return
-    handler.on(event) for handler in @_handlers[eventType]
+    handler(event) for handler in @_handlers[eventType]
 
   subscribeTo: (typeName, handler) -> (@_handlers[typeName] ?= []).push handler

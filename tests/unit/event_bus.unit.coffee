@@ -8,7 +8,7 @@ describe 'Space.messaging.EventBus', ->
 
   beforeEach ->
     @eventBus = new EventBus()
-    @handler = on: sinon.spy()
+    @handler = sinon.spy()
     @testEvent = new TestEvent()
 
   it 'extends space object to be js compatible', ->
@@ -17,11 +17,11 @@ describe 'Space.messaging.EventBus', ->
   describe 'subscribing and publishing', ->
 
     it 'allows multiple subscribers for one event', ->
-      first = on: sinon.spy()
-      second = on: sinon.spy()
+      first = sinon.spy()
+      second = sinon.spy()
       @eventBus.subscribeTo TestEvent, first
       @eventBus.subscribeTo TestEvent, second
       @eventBus.publish @testEvent
 
-      expect(first.on).to.have.been.calledWith @testEvent
-      expect(second.on).to.have.been.calledWith @testEvent
+      expect(first).to.have.been.calledWith @testEvent
+      expect(second).to.have.been.calledWith @testEvent

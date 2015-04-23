@@ -14,19 +14,23 @@ Package.onUse(function(api) {
     'underscore',
     'check',
     'ejson',
-    'space:base@1.4.2'
+    'space:base@1.4.3'
   ]);
 
+  // SHARED
   api.addFiles([
     'source/module.coffee',
-    'source/configuration.coffee',
     'source/serializable.coffee',
     'source/event.coffee',
-    'source/command.coffee',
     'source/event_bus.coffee',
+    'source/command.coffee',
     'source/command_bus.coffee',
     'source/controller.coffee',
   ]);
+
+  api.addFiles([
+    'source/api.coffee'
+  ], 'server');
 
 });
 
@@ -34,6 +38,7 @@ Package.onTest(function(api) {
 
   api.use([
     'coffeescript',
+    'underscore',
     'check',
     'ejson',
     'underscore',
@@ -52,5 +57,9 @@ Package.onTest(function(api) {
     'tests/integration/test_app.coffee',
     'tests/integration/integration_tests.coffee',
   ]);
+
+  api.addFiles([
+    'tests/unit/api.unit.coffee',
+  ], 'server');
 
 });

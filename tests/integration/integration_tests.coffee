@@ -14,7 +14,7 @@ describe 'Space.messaging (integration)', ->
   it 'handles events correctly', ->
 
     handler = sinon.spy()
-    subscriber = @app.eventBus.subscribeTo TestApp.TestEvent, on: handler
+    subscriber = @app.eventBus.subscribeTo TestApp.TestEvent, handler
     @app.eventBus.publish @testEvent
     expect(handler).to.have.been.calledWithExactly @testEvent
 
@@ -22,12 +22,12 @@ describe 'Space.messaging (integration)', ->
 
     testEvent = @testEvent
     class Controller extends Space.messaging.Controller
-      @handle TestApp.TestCommand, on: (command) -> @eventBus.publish testEvent
+      @handle TestApp.TestCommand, (command) -> @eventBus.publish testEvent
 
     @app.injector.map('Controller').toSingleton Controller
     @app.injector.create 'Controller'
 
     handler = sinon.spy()
-    subscriber = @app.eventBus.subscribeTo TestApp.TestEvent, on: handler
+    subscriber = @app.eventBus.subscribeTo TestApp.TestEvent, handler
     @app.commandBus.send new TestApp.TestCommand version: 1, value: @testValue
     expect(handler).to.have.been.calledWithExactly @testEvent
