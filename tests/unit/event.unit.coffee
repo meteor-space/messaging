@@ -12,7 +12,3 @@ describe 'Space.messaging.Event', ->
 
   it 'defines its EJSON type correctly', ->
     expect(@event.typeName()).to.equal 'Space.messaging.Event'
-
-  it 'allows to provide source id as extra argument', ->
-    event = new Event @params.sourceId, version: @params.version
-    expect(event).to.deep.equal @event
