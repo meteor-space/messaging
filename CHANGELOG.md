@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 0.5.0
+Breaking Changes:
+=================
+- Removed the usage of futures for method apis
+
 ### 0.4.0
 Breaking Changes:
 =================
