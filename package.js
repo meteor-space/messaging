@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '0.5.0',
+  version: '1.0.0',
   git: 'https://github.com/CodeAdventure/space-messaging.git',
 });
 
@@ -43,7 +43,7 @@ Package.onTest(function(api) {
     'ejson',
     'underscore',
     'space:messaging',
-    'practicalmeteor:munit@2.0.2',
+    'practicalmeteor:munit@2.1.4',
     'space:testing@1.3.0'
   ]);
 
@@ -53,7 +53,6 @@ Package.onTest(function(api) {
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/controller.unit.coffee',
-
     'tests/integration/test_app.coffee',
     'tests/integration/integration_tests.coffee',
   ]);
