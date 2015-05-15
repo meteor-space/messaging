@@ -9,7 +9,7 @@ describe 'Space.messaging (integration)', ->
       value: @testValue
 
     @app = new TestApp()
-    @app.run()
+    @app.start()
 
   it 'handles events correctly', ->
 

@@ -14,7 +14,7 @@ Package.onUse(function(api) {
     'underscore',
     'check',
     'ejson',
-    'space:base@1.4.3'
+    'space:base@2.0.0'
   ]);
 
   // SHARED
