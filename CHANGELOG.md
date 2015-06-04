@@ -1,6 +1,23 @@
 Changelog
 =========
 
+## 1.1.0
+- Introduces (optional) typed methods for `Space.messaging.Api`. This makes it
+possible that the message type is automatically checked for you like this:
+
+```coffeescript
+order = new BeerOrder {
+  brand: 'Budweiser'
+  quantity: 20
+  address: new Address( … )
+}
+
+Meteor.call BeerOrder, order
+
+class BeerOrderApi extends Space.messaging.Api
+  @method BeerOrder, (order) -> # No need to check!
+```
+
 ## 1.0.0
 #### Breaking Changes:
 - Upgrades to `space:base@2.0.0` which had some (minor) breaking changes to the modules and application API.
