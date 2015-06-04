@@ -9,17 +9,24 @@ class Space.messaging.Api extends Space.Object
 
   # Register a handler for a Meteor method and add it as
   # method to instance to simplify testing of methods.
-  @method: (name, handler) ->
-
-    handlers = @_methodHandlers ?= {}
-    handlers[name] = original: handler, bound: null
-
-    # Register the method statically, so that is done only once
-    method = {}
-    method[name] = ->
+  @method: (type, handler) ->
+    name = type.toString()
+    handlers = @_setupHandler name, handler
+    @_registerMethod name, (param) ->
+      if type.isSerializable then check param, type
       # Provide the method context to bound handler
       args = [this].concat Array::slice.call(arguments)
       handlers[name].bound.apply null, args
+
+  @_setupHandler: (name, handler) ->
+    handlers = @_methodHandlers ?= {}
+    handlers[name] = original: handler, bound: null
+    return handlers
+
+  # Register the method statically, so that is done only once
+  @_registerMethod: (name, body) ->
+    method = {}
+    method[name] = body
     Meteor.methods method
 
   onDependenciesReady: ->

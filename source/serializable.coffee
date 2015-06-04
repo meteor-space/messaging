@@ -1,6 +1,8 @@
 
 class Space.messaging.Serializable extends Space.Struct
 
+  @isSerializable: true
+
   # make this class EJSON serializable
   @type: (name) ->
     this::typeName = @toString = generateTypeNameMethod(name)
