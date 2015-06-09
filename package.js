@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '1.1.0',
+  version: '1.2.0',
   git: 'https://github.com/CodeAdventure/space-messaging.git',
 });
 
@@ -14,13 +14,14 @@ Package.onUse(function(api) {
     'underscore',
     'check',
     'ejson',
-    'space:base@2.0.0'
+    'space:base@2.1.0'
   ]);
 
   // SHARED
   api.addFiles([
     'source/module.coffee',
     'source/serializable.coffee',
+    'source/helpers.coffee',
     'source/event.coffee',
     'source/event_bus.coffee',
     'source/command.coffee',
