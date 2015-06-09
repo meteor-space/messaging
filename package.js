@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '1.2.0',
+  version: '1.2.1',
   git: 'https://github.com/CodeAdventure/space-messaging.git',
 });
 

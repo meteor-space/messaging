@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.2.1
+Introduces convenient API `Space.messaging.defineSerializables` which can be
+used to define any number of serializables at once without the boilerplate of
+class definitions.
+
 ## 1.1.0
 - Introduces (optional) typed methods for `Space.messaging.Api`. This makes it
 possible that the message type is automatically checked for you like this:
