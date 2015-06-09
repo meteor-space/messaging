@@ -1,8 +1,8 @@
 Serializable = Space.messaging.Serializable
 
-Space.messaging.defineMessages = (Type, namespace, definitions) ->
+Space.messaging.defineSerializables = (Type, namespace, definitions) ->
   if (Type is not Serializable) and (Type.__super__ is not Serializable)
-    throw new Error 'Message type must extend Space.messaging.Serializable'
+    throw new Error 'Type type must extend Space.messaging.Serializable'
 
   # Namespace is optional
   if not definitions?
