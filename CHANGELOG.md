@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 1.2.2
+
+- Improves error handling while defining event and command handlers in
+`Space.messaging.Controller`
+- Fixes problem with defining serializables
+- Allow null values to be serialized
+
 ## 1.2.1
 Introduces convenient API `Space.messaging.defineSerializables` which can be
 used to define any number of serializables at once without the boilerplate of
