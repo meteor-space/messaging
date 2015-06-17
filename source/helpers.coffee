@@ -10,9 +10,8 @@ Space.messaging.defineSerializables = (Type, namespace, definitions) ->
     namespace = ''
 
   parent = Space.resolvePath(namespace)
-
   for key, fields of definitions
-    parent[key] = Type.extend ->
-      @type namespace + '.' + key
-      @fields = fields
-      return this
+    Klass = Type.extend()
+    Klass.type namespace + '.' + key
+    Klass.fields = fields
+    parent[key] = Klass
