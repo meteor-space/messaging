@@ -9,13 +9,21 @@ class Space.messaging.Controller extends Space.Object
 
   # Register command handler
   @handle: (commandType, handler) ->
+    if !commandType?
+      throw new Error "Cannot register command handler for #{commandType}"
+    if !handler?
+      throw new Error "You have to provide a handler function."
     @_commandHandlers ?= {}
-    @_commandHandlers[commandType] = handler
+    @_commandHandlers[commandType.toString()] = handler
 
   # Subscribe to an event type
   @on: (eventType, handler) ->
+    if !eventType?
+      throw new Error "Cannot register event handler for #{eventType}"
+    if !handler?
+      throw new Error "You have to provide a handler function."
     @_eventHandlers ?= {}
-    @_eventHandlers[eventType] = handler
+    @_eventHandlers[eventType.toString()] = handler
 
   # Subscribe to events and register command handlers
   onDependenciesReady: ->
