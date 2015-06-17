@@ -16,7 +16,7 @@ class Space.messaging.Serializable extends Space.Struct
     else
       # Fields defined, parse them through EJSON to support nested types
       serialized = {}
-      serialized[key] = EJSON.stringify(@[key]) for key of fields when @[key]?
+      serialized[key] = EJSON.stringify(@[key]) for key of fields
       return serialized
 
 # ========= HELPERS ========== #
