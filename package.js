@@ -28,6 +28,7 @@ Package.onUse(function(api) {
     'source/command_bus.coffee',
     'source/controller.coffee',
     'source/tracker.coffee',
+    'source/publication.coffee',
   ]);
 
   api.addFiles([
