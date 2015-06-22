@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.3.1
+Moves `Space.messaging.Api` into shared environment so that you can also
+setup a method simulations like normal in Meteor. To check if it is a simulation
+just use the first context param where `isSimulation` should be defined.
+
 ## 1.3.0
 
 - Adds a very simple wrapper around `Tracker.autorung` called `Space.messaging.Tracker`
