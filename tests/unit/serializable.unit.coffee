@@ -33,6 +33,7 @@ describe "Space.messaging.Serializable", ->
         instance = new TestTypeWithFields name: 'Dominik', age: 26
         copy = EJSON.parse EJSON.stringify(instance)
 
+        expect(copy).to.instanceof TestTypeWithFields
         expect(instance.name).to.equal 'Dominik'
         expect(instance.age).to.equal 26
         expect(instance).to.deep.equal copy
@@ -43,4 +44,25 @@ describe "Space.messaging.Serializable", ->
         copy = EJSON.parse EJSON.stringify(instance)
 
         expect(instance.sub).to.equal subType
+        expect(instance).to.deep.equal copy
+
+    describe 'define serializables helper', ->
+      Space.messaging.__test__ = {}
+
+      Space.messaging.defineSerializables Serializable, 'Space.messaging.__test__',
+        SubType: type: String
+
+      Space.messaging.defineSerializables Serializable, 'Space.messaging.__test__',
+        SuperType:
+          sub: Space.messaging.__test__.SubType
+
+      it 'sets up serializables correctly', ->
+
+        subType = new Space.messaging.__test__.SubType type: 'test'
+        instance = new Space.messaging.__test__.SuperType sub: subType
+        copy = EJSON.parse EJSON.stringify(instance)
+
+        expect(instance.sub).to.be.instanceof Space.messaging.__test__.SubType
+        expect(instance.sub).to.equal subType
+        expect(instance).to.be.instanceof Space.messaging.__test__.SuperType
         expect(instance).to.deep.equal copy
