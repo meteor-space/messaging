@@ -17,7 +17,6 @@ Package.onUse(function(api) {
     'space:base@2.1.0'
   ]);
 
-  // SHARED
   api.addFiles([
     'source/module.coffee',
     'source/serializable.coffee',
@@ -29,11 +28,8 @@ Package.onUse(function(api) {
     'source/controller.coffee',
     'source/tracker.coffee',
     'source/publication.coffee',
-  ]);
-
-  api.addFiles([
     'source/api.coffee'
-  ], 'server');
+  ]);
 
 });
 
@@ -58,10 +54,7 @@ Package.onTest(function(api) {
     'tests/unit/controller.unit.coffee',
     'tests/integration/test_app.coffee',
     'tests/integration/integration_tests.coffee',
-  ]);
-
-  api.addFiles([
     'tests/unit/api.unit.coffee',
-  ], 'server');
+  ]);
 
 });

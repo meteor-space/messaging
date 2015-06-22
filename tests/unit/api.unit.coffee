@@ -17,7 +17,7 @@ describe 'Space.messaging - Api', ->
 
   describe 'registering methods', ->
 
-    it 'statically registers a meteor method', ->
+    it.server 'statically registers a meteor method', ->
       expect(Meteor.default_server.method_handlers[methodName]).to.exist
 
     it 'provides the correct arguments to the method handler', ->
@@ -26,7 +26,7 @@ describe 'Space.messaging - Api', ->
       Meteor.call methodName, arg1, arg2
       expect(handler).to.have.been.calledWithMatch sinon.match.object, arg1, arg2
 
-    it 'registers a method with the type name', ->
+    it.server 'registers a method with the type name', ->
       expect(Meteor.default_server.method_handlers[TestType.toString()]).to.exist
 
     it 'checks the param for typed methods', ->
@@ -36,5 +36,5 @@ describe 'Space.messaging - Api', ->
         sinon.match.object, sinon.match.instanceOf(TestType)
       )
 
-    it 'throws exception if the check fails', ->
+    it.server 'throws exception if the check fails', ->
       expect(-> Meteor.call TestType, null).to.throw Error
