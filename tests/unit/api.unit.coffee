@@ -38,3 +38,10 @@ describe 'Space.messaging - Api', ->
 
     it.server 'throws exception if the check fails', ->
       expect(-> Meteor.call TestType, null).to.throw Error
+
+  describe.server 'sending messages to the server', ->
+
+    it 'provides a static sugar to Meteor.call', ->
+      message = new TestType()
+      Space.messaging.Api.send message
+      expect(handler).to.have.been.calledWith sinon.match(message)

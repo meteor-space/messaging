@@ -18,6 +18,9 @@ class Space.messaging.Api extends Space.Object
       args = [this].concat Array::slice.call(arguments)
       handlers[name].bound.apply null, args
 
+  # Sugar for sending messages to the server
+  @send: (message) -> Meteor.call message.typeName(), message
+
   @_setupHandler: (name, handler) ->
     handlers = @_methodHandlers ?= {}
     handlers[name] = original: handler, bound: null
