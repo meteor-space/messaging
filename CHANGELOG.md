@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.3.2
+Adds `Space.messaging.Api.send` method which is a simple sugar wrapper around
+`Meteor.call` to send events and commands to the server.
+
 ## 1.3.1
 Moves `Space.messaging.Api` into shared environment so that you can also
 setup a method simulations like normal in Meteor. To check if it is a simulation
