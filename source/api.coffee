@@ -19,7 +19,8 @@ class Space.messaging.Api extends Space.Object
       handlers[name].bound.apply null, args
 
   # Sugar for sending messages to the server
-  @send: (message) -> Meteor.call message.typeName(), message
+  @send: (message, callback) ->
+    Meteor.call message.typeName(), message, callback
 
   @_setupHandler: (name, handler) ->
     handlers = @_methodHandlers ?= {}
