@@ -44,6 +44,10 @@ class Space.messaging.Controller extends Space.Object
       throw new Error "No event handler found for <#{event.typeName()}>"
     handler.call this, event
 
+  publish: (event) -> @eventBus.publish event
+
+  send: (command) -> @commandBus.send command
+
   # All event handlers are bound to the meteor environment by default
   # so that the application code can mainly stay clear of having to
   # deal with these things.
