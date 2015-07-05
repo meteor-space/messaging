@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.4.1
+- Adds the sugar methods `publish` and `send` to `Space.messaging.Controller`
+which forward the respective messages to the event and command busses.
+
 ## 1.4.0
 - Map `Space.messaging.Api` as static value
 - Allow to pass a callback for `Space.messaging.Api#send` as last param
