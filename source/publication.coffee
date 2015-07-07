@@ -10,7 +10,10 @@ class Space.messaging.Publication extends Space.Object
     # Setup handlers
     handlers = @_handlers ?= {}
     handlers[name] = original: handler, bound: null
-    @_registerPublication name, -> handlers[name].bound.apply null, arguments
+    @_registerPublication name, ->
+      # Provide the publish context to bound handler as first argument
+      args = [this].concat Array::slice.call(arguments)
+      handlers[name].bound.apply null, args
 
   @_registerPublication: (name, callback) -> Meteor.publish name, callback
 
