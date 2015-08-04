@@ -15,3 +15,5 @@ Space.messaging.defineSerializables = (Type, namespace, definitions) ->
     Klass.type namespace + '.' + key
     Klass.fields = fields
     parent[key] = Klass
+
+Space.messaging.define = Space.messaging.defineSerializables
