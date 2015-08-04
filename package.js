@@ -14,6 +14,7 @@ Package.onUse(function(api) {
     'underscore',
     'check',
     'ejson',
+    'fongandrew:find-and-modify@0.2.1',
     'space:base@2.1.0'
   ]);
 
@@ -40,6 +41,7 @@ Package.onTest(function(api) {
     'underscore',
     'check',
     'ejson',
+    'mongo',
     'underscore',
     'space:messaging',
     'practicalmeteor:munit@2.1.4',
@@ -52,9 +54,13 @@ Package.onTest(function(api) {
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/controller.unit.coffee',
+    'tests/unit/api.unit.coffee',
     'tests/integration/test_app.coffee',
     'tests/integration/integration_tests.coffee',
-    'tests/unit/api.unit.coffee',
   ]);
+
+  api.addFiles([
+    'tests/integration/distributed_messaging.coffee',
+  ], 'server');
 
 });
