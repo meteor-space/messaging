@@ -1,5 +1,9 @@
 Changelog
 =========
+## 1.5.0
+- Adds first draft of a basic API for distributed events via a shared mongo
+collection that can be used to integrate separate apps.
+
 ## 1.4.2
 - Provide publish context as first argument like for api methods.
 
