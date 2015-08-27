@@ -31,11 +31,12 @@ describe 'distributed messaging via mongo collections', ->
       savedEvent = SharedCollection.findOne type: 'Space.messaging.DistributedEvent'
       expect(savedEvent).toMatch {
         type: 'Space.messaging.DistributedEvent'
-        payload: testEvent
+        payload: EJSON.stringify(testEvent)
         sentBy: @firstAppId
         receivedBy: []
       }
-      expect(savedEvent.payload).to.be.instanceOf Space.messaging.DistributedEvent
+      parsedEvent = EJSON.parse(savedEvent.payload)
+      expect(parsedEvent).to.be.instanceOf Space.messaging.DistributedEvent
 
   describe 'receive distributed events', ->
 

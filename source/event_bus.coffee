@@ -16,7 +16,7 @@ class Space.messaging.EventBus extends Space.Object
     for eventType in events
       @subscribeTo eventType, (event) -> collection.insert {
         type: eventType.toString()
-        payload: event
+        payload: EJSON.stringify(event)
         sentBy: appId
         receivedBy: []
       }
@@ -35,5 +35,5 @@ class Space.messaging.EventBus extends Space.Object
           update: $push: receivedBy: appId
         })
         # Only publish the event if this process was the one that locked it
-        @publish event.payload if lockedEvent?
+        @publish EJSON.parse(event.payload) if lockedEvent?
     }
