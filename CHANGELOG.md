@@ -1,5 +1,9 @@
 Changelog
 =========
+## 1.5.1
+- EJSON stringify and parse distributed events to avoid the weird transformations done by Meteor mongo driver. This makes integration
+with standard EJSON much easier, e.g when using the ejson npm package.
+
 ## 1.5.0
 - Adds first draft of a basic API for distributed events via a shared mongo
 collection that can be used to integrate separate apps.
