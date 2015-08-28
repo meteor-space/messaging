@@ -1,5 +1,10 @@
 Changelog
 =========
+## 1.5.2
+- Improves the way `Space.messaging.Serializable` objects are serialized from and
+to EJSON values. It uses `toJSONValue` and `fromJSONValue` instead of `stringify`
+and `parse` to tranform the fields now.
+
 ## 1.5.1
 - EJSON stringify and parse distributed events to avoid the weird transformations done by Meteor mongo driver. This makes integration
 with standard EJSON much easier, e.g when using the ejson npm package.
