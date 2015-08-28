@@ -1,4 +1,3 @@
-
 describe 'Space.messaging - Api', ->
 
   handler = sinon.stub()
@@ -23,7 +22,7 @@ describe 'Space.messaging - Api', ->
     it 'provides the correct arguments to the method handler', ->
       arg1 = {}
       arg2 = {}
-      Meteor.call methodName, arg1, arg2
+      Meteor.call methodName, arg1, arg2, ->
       expect(handler).to.have.been.calledWithMatch sinon.match.object, arg1, arg2
 
     it.server 'registers a method with the type name', ->
@@ -31,13 +30,13 @@ describe 'Space.messaging - Api', ->
 
     it 'checks the param for typed methods', ->
       param = new TestType()
-      Meteor.call TestType, param
+      Meteor.call TestType.toString(), param, ->
       expect(handler).to.have.been.calledWithMatch(
         sinon.match.object, sinon.match.instanceOf(TestType)
       )
 
     it.server 'throws exception if the check fails', ->
-      expect(-> Meteor.call TestType, null).to.throw Error
+      expect(-> Meteor.call TestType.toString(), null).to.throw Error
 
   describe.server 'sending messages to the server', ->
 
