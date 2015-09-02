@@ -48,11 +48,12 @@ describe "Space.messaging.Serializable", ->
 
     describe 'define serializables helper', ->
       Space.messaging.__test__ = {}
+      namespace = Space.messaging.__test__
 
-      Space.messaging.defineSerializables Serializable, 'Space.messaging.__test__',
+      Space.messaging.define Serializable, namespace, 'Space.messaging.__test__',
         SubType: type: String
 
-      Space.messaging.defineSerializables Serializable, 'Space.messaging.__test__',
+      Space.messaging.define Serializable, namespace, 'Space.messaging.__test__',
         SuperType:
           sub: Space.messaging.__test__.SubType
 

@@ -2,7 +2,7 @@ describe 'distributed messaging via mongo collections', ->
 
   SharedCollection = new Mongo.Collection 'Space.messaging.Distributed'
 
-  Space.messaging.define Space.messaging.Event, 'Space.messaging',
+  Space.messaging.define Space.messaging.Event, Space.messaging, 'Space.messaging',
     DistributedEvent: { value: String }
 
   beforeEach ->
