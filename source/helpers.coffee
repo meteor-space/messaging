@@ -1,19 +1,27 @@
 Serializable = Space.messaging.Serializable
+global = this
 
-Space.messaging.define = (Type, namespace, definitions) ->
-  if (Type is not Serializable) and (Type.__super__ is not Serializable)
+Space.messaging.define = (ParentType, options..., definitions) ->
+
+  if (ParentType is not Serializable) and (ParentType.__super__ is not Serializable)
     throw new Error 'Type type must extend Space.messaging.Serializable'
 
-  # Namespace is optional
-  if not definitions?
-    definitions = namespace
-    namespace = ''
+  if !definitions?
+    throw new Error "Space.messaging.define is missing definitions for #{Type}."
 
-  parent = Space.resolvePath(namespace)
-  for key, fields of definitions
-    Klass = Type.extend()
-    Klass.type namespace + '.' + key
+  if options.length is 0
+    namespace = global
+    prefix = ''
+  else if options.length is 2
+    namespace = options[0]
+    prefix = options[1] + '.'
+  else
+    throw new Error "Wrong call to Space.messaging.define(Type, [namespace, prefix], definitions)."
+
+  for className, fields of definitions
+    Klass = ParentType.extend(className)
+    Klass.type(prefix + className)
     Klass.fields = fields
-    parent[key] = Klass
+    namespace[className] = Klass
 
 Space.messaging.defineSerializables = Space.messaging.define
