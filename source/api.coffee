@@ -17,6 +17,7 @@ class Space.messaging.Api extends Space.Object
       # Provide the method context to bound handler
       args = [this].concat Array::slice.call(arguments)
       handlers[name].bound.apply null, args
+    return this
 
   # Sugar for sending messages to the server
   @send: (message, callback) ->

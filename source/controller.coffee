@@ -15,6 +15,7 @@ class Space.messaging.Controller extends Space.Object
       throw new Error "You have to provide a handler function."
     @_commandHandlers ?= {}
     @_commandHandlers[commandType.toString()] = handler
+    return this
 
   # Subscribe to an event type
   @on: (eventType, handler) ->
@@ -24,6 +25,7 @@ class Space.messaging.Controller extends Space.Object
       throw new Error "You have to provide a handler function."
     @_eventHandlers ?= {}
     @_eventHandlers[eventType.toString()] = handler
+    return this
 
   # Subscribe to events and register command handlers
   onDependenciesReady: ->

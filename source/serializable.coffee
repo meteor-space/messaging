@@ -7,6 +7,7 @@ class Space.messaging.Serializable extends Space.Struct
   @type: (name) ->
     this::typeName = @toString = generateTypeNameMethod(name)
     EJSON.addType name, _.partial(fromJSONValueFunction, this)
+    return this
 
   toJSONValue: ->
     fields = @_getFields()
