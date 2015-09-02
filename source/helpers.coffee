@@ -12,6 +12,10 @@ Space.messaging.define = (ParentType, options..., definitions) ->
   if options.length is 0
     namespace = global
     prefix = ''
+  else if options.length is 1
+    # This only works if the path is globally accessible
+    namespace = Space.resolvePath(options[0])
+    prefix = options[0] + '.'
   else if options.length is 2
     namespace = options[0]
     prefix = options[1] + '.'
