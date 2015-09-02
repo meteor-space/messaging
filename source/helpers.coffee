@@ -1,6 +1,6 @@
 Serializable = Space.messaging.Serializable
 
-Space.messaging.defineSerializables = (Type, namespace, definitions) ->
+Space.messaging.define = (Type, namespace, definitions) ->
   if (Type is not Serializable) and (Type.__super__ is not Serializable)
     throw new Error 'Type type must extend Space.messaging.Serializable'
 
@@ -16,4 +16,4 @@ Space.messaging.defineSerializables = (Type, namespace, definitions) ->
     Klass.fields = fields
     parent[key] = Klass
 
-Space.messaging.define = Space.messaging.defineSerializables
+Space.messaging.defineSerializables = Space.messaging.define
