@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '1.5.2',
+  version: '1.6.0',
   git: 'https://github.com/CodeAdventure/space-messaging.git',
 });
 
@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@2.1.0'
+    'space:base@2.2.0'
   ]);
 
   api.addFiles([

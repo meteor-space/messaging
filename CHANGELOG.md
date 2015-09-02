@@ -1,5 +1,10 @@
 Changelog
 =========
+## 1.6.0
+- Improves API of `Space.messaging.define` for use in Javascript.
+- Let static methods like `Controller::handle` and `on` always return the class
+instance so that it can be chained (again more beautiful in Javascript).
+
 ## 1.5.2
 - Improves the way `Space.messaging.Serializable` objects are serialized from and
 to EJSON values. It uses `toJSONValue` and `fromJSONValue` instead of `stringify`
