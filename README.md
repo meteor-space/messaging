@@ -1,4 +1,4 @@
-# space:messaging [![Build Status](https://travis-ci.org/CodeAdventure/space-messaging.svg?branch=master)](https://travis-ci.org/CodeAdventure/space-messaging)
+# space:messaging [![Build Status](https://travis-ci.org/meteor-space/messaging.svg?branch=master)](https://travis-ci.org/meteor-space/messaging)
 
 **Rock solid Messaging Infrastructure for Space applications**
 
@@ -21,7 +21,7 @@ Add unit / integration tests for any new or changed functionality.
 `meteor test-packages ./`
 
 ## Release History
-You can find the release history in the [changelog](https://github.com/CodeAdventure/space-messaging/blob/master/CHANGELOG.md)
+You can find the release history in the [changelog](https://github.com/meteor-space/messaging/blob/master/CHANGELOG.md)
 
 ## License
 Copyright (c) 2015 Code Adventure

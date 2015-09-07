@@ -1,5 +1,9 @@
 Changelog
 =========
+
+## 1.6.1
+Updated location of Github repository to https://github.com/meteor-space/messaging
+
 ## 1.6.0
 - Improves API of `Space.messaging.define` for use in Javascript.
 - Let static methods like `Controller::handle` and `on` always return the class
