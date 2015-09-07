@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 1.7.0
+Adds versioning support for `Space.messaging.Event`. This makes it possible
+to have multiple versions of saved event data and dynamically migrate older
+versions to the latest required structure. Take a look at the unit tests to
+get a feeling how this works ;-)
+
 ## 1.6.1
 Updated location of Github repository to https://github.com/meteor-space/messaging
 
