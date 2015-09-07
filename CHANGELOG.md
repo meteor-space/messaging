@@ -50,7 +50,7 @@ just use the first context param where `isSimulation` should be defined.
 
 ## 1.3.0
 
-- Adds a very simple wrapper around `Tracker.autorung` called `Space.messaging.Tracker`
+- Adds a very simple wrapper around `Tracker.autorun` called `Space.messaging.Tracker`
 which can be used in scenarios where you want to run code reactively in response
 to property changes.
 - Another sweet sugar around `Meteor.publish` called `Space.messaging.Publication`
