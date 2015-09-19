@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.7.1
+Adds small api helpers to `Space.messaging.Controller`:
+- Now you can ask if a controller can handle a certain message with `canHandleEvent` and `canHandleCommand`
+
 ## 1.7.0
 Adds versioning support for `Space.messaging.Event`. This makes it possible
 to have multiple versions of saved event data and dynamically migrate older
