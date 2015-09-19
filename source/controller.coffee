@@ -35,13 +35,13 @@ class Space.messaging.Controller extends Space.Object
       @commandBus.registerHandler type, @_bindCommandHandler(handler)
 
   handle: (command) ->
-    handler = @constructor._commandHandlers[command.typeName()]
+    handler = @_getCommandHandlerFor(command)
     if not handler?
       throw new Error "No command handler found for <#{command.typeName()}>"
     handler.call this, command
 
   on: (event) ->
-    handler = @constructor._eventHandlers[event.typeName()]
+    handler = @_getEventHandlerFor(event)
     if not handler?
       throw new Error "No event handler found for <#{event.typeName()}>"
     handler.call this, event
@@ -49,6 +49,14 @@ class Space.messaging.Controller extends Space.Object
   publish: (event) -> @eventBus.publish event
 
   send: (command) -> @commandBus.send command
+
+  canHandleEvent: (event) -> @_getEventHandlerFor(event)?
+
+  canHandleCommand: (command) -> @_getCommandHandlerFor(command)?
+
+  _getEventHandlerFor: (event) -> @constructor._eventHandlers[event.typeName()]
+
+  _getCommandHandlerFor: (command) -> @constructor._commandHandlers[command.typeName()]
 
   # All event handlers are bound to the meteor environment by default
   # so that the application code can mainly stay clear of having to
