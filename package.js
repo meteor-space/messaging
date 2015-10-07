@@ -53,10 +53,10 @@ Package.onTest(function(api) {
     'tests/unit/event.unit.coffee',
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
-    'tests/unit/controller.unit.coffee',
     'tests/unit/api.unit.coffee',
+    'tests/integration/controller_event_handling.js',
+    'tests/integration/controller_command_handling.js',
     'tests/integration/test_app.coffee',
-    'tests/integration/integration_tests.coffee',
   ]);
 
   api.addFiles([
