@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 1.7.2
+Adds declarative API for defining event / command handlers in `Space.messaging.Controller`.
+Now you can define them like this:
+```javascript
+Space.messaging.Controller.extend('MyController', {
+  events: function() {
+    return [{
+      'TestApp.TestEvent': this._handleTestEvent,
+      'TestApp.AnotherEvent': this._anotherEventHandler
+    }];
+  },
+  commands: function() {
+    return [{
+      'TestApp.TestCommand': this._handleTestCommand,
+      'TestApp.AnotherCommand': this._anotherCommandHandler
+    }];
+  }
+});
+```
+
 ## 1.7.1
 Adds small api helpers to `Space.messaging.Controller`:
 - Now you can ask if a controller can handle a certain message with `canHandleEvent` and `canHandleCommand`

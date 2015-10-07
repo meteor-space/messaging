@@ -7,6 +7,9 @@ class Space.messaging.Controller extends Space.Object
     meteor: 'Meteor'
     underscore: 'underscore'
 
+  events: -> []
+  commands: -> []
+
   # Register command handler
   @handle: (commandType, handler) ->
     if !commandType?
@@ -29,6 +32,8 @@ class Space.messaging.Controller extends Space.Object
 
   # Subscribe to events and register command handlers
   onDependenciesReady: ->
+    @_setupDeclarativeEventHandlers()
+    @_setupDeclarativeCommandHandlers()
     for type, handler of @constructor._eventHandlers
       @eventBus.subscribeTo type, @_bindEventHandler(handler)
     for type, handler of @constructor._commandHandlers
@@ -53,6 +58,22 @@ class Space.messaging.Controller extends Space.Object
   canHandleEvent: (event) -> @_getEventHandlerFor(event)?
 
   canHandleCommand: (command) -> @_getCommandHandlerFor(command)?
+
+  _setupDeclarativeEventHandlers: ->
+    eventHandlers = {}
+    declaredHandlers = @events()
+    declaredHandlers.unshift eventHandlers
+    @underscore.extend.apply null, declaredHandlers
+    @underscore.each eventHandlers, (handler, eventType) =>
+      @constructor.on eventType, handler
+
+  _setupDeclarativeCommandHandlers: ->
+    commandHandlers = {}
+    declaredHandlers = @commands()
+    declaredHandlers.unshift commandHandlers
+    @underscore.extend.apply null, declaredHandlers
+    @underscore.each commandHandlers, (handler, commandType) =>
+      @constructor.handle commandType, handler
 
   _getEventHandlerFor: (event) -> @constructor._eventHandlers[event.typeName()]
 

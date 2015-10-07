@@ -1,13 +1,13 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '1.7.1',
+  version: '1.7.2',
   git: 'https://github.com/meteor-space/messaging.git',
 });
 
 Package.onUse(function(api) {
 
-  api.versionsFrom("METEOR@1.1.0.3");
+  api.versionsFrom("METEOR@1.0");
 
   api.use([
     'coffeescript',
@@ -53,10 +53,10 @@ Package.onTest(function(api) {
     'tests/unit/event.unit.coffee',
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
-    'tests/unit/controller.unit.coffee',
     'tests/unit/api.unit.coffee',
+    'tests/integration/controller_event_handling.js',
+    'tests/integration/controller_command_handling.js',
     'tests/integration/test_app.coffee',
-    'tests/integration/integration_tests.coffee',
   ]);
 
   api.addFiles([
