@@ -29,7 +29,8 @@ Package.onUse(function(api) {
     'source/controller.coffee',
     'source/tracker.coffee',
     'source/publication.coffee',
-    'source/api.coffee'
+    'source/api.coffee',
+    'source/application_helpers.coffee'
   ]);
 
 });
