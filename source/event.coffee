@@ -4,14 +4,20 @@ class Space.messaging.Event extends Space.messaging.Serializable
   eventVersion: 1
 
   constructor: (data) ->
-    if data?.eventVersion? and data.eventVersion < @eventVersion
+    data ?= {}
+    if data.eventVersion? and data.eventVersion < @eventVersion
       @_migrateToLatestVersion data
-    data?.eventVersion = @eventVersion
+    data.eventVersion = @eventVersion
+    data.timestamp = new Date()
     super(data)
 
   _getFields: ->
     fields = super()
+    # Add default fields to all events
+    fields?.sourceId = String
     fields?.eventVersion = Match.Optional(Match.Integer)
+    fields?.version = Match.Optional(Match.Integer)
+    fields?.timestamp = Date
     return fields
 
   _migrateToLatestVersion: (data) ->

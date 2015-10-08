@@ -6,6 +6,7 @@ describe 'distributed messaging via mongo collections', ->
     DistributedEvent: { value: String }
 
   beforeEach ->
+    @clock = sinon.useFakeTimers('Date')
     @firstAppId = 'FirstApp'
     @secondAppId = 'SecondApp'
     @firstBus = new Space.messaging.EventBus()
@@ -17,6 +18,7 @@ describe 'distributed messaging via mongo collections', ->
     @secondBusReceive = @secondBus.receive @secondAppId, SharedCollection, @distributedEvents
 
   afterEach ->
+    @clock.restore()
     # Stop observing the query after each test!
     @secondBusReceive.stop()
 
@@ -24,7 +26,7 @@ describe 'distributed messaging via mongo collections', ->
 
     it 'saves the events into the configured collection', ->
       # Publish the event like normal
-      testEvent = new Space.messaging.DistributedEvent value: 'test'
+      testEvent = new Space.messaging.DistributedEvent sourceId: '123', value: 'test'
       @firstBus.publish testEvent
 
       # But now it should be saved into the collection
@@ -46,7 +48,7 @@ describe 'distributed messaging via mongo collections', ->
       @secondBus.subscribeTo Space.messaging.DistributedEvent, listener
 
       # Publish the event on the first bus
-      testEvent = new Space.messaging.DistributedEvent value: 'test'
+      testEvent = new Space.messaging.DistributedEvent sourceId: '123', value: 'test'
       @firstBus.publish testEvent
 
       Meteor.setTimeout (waitFor ->
@@ -68,7 +70,7 @@ describe 'distributed messaging via mongo collections', ->
       thirdBus.subscribeTo Space.messaging.DistributedEvent, thirdBusListener
 
       # Publish the event on the first bus
-      testEvent = new Space.messaging.DistributedEvent value: 'test'
+      testEvent = new Space.messaging.DistributedEvent sourceId: '123', value: 'test'
       @firstBus.publish testEvent
 
       Meteor.setTimeout (waitFor ->
@@ -90,7 +92,7 @@ describe 'distributed messaging via mongo collections', ->
       thirdBus.subscribeTo Space.messaging.DistributedEvent, thirdBusListener
 
       # Publish the event on the first bus
-      testEvent = new Space.messaging.DistributedEvent value: 'test'
+      testEvent = new Space.messaging.DistributedEvent sourceId: '123', value: 'test'
       @firstBus.publish testEvent
 
       Meteor.setTimeout (waitFor ->
