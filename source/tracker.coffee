@@ -1,7 +1,9 @@
 class Space.messaging.Tracker extends Space.Object
 
-  Dependencies:
+  Dependencies: {
     tracker: 'Tracker'
+    meteor: 'Meteor'
+  }
 
   onDependenciesReady: -> @tracker.autorun => @autorun()
 
