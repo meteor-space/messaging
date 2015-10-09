@@ -14,7 +14,7 @@ class Space.messaging.Event extends Space.messaging.Serializable
   _getFields: ->
     fields = super()
     # Add default fields to all events
-    fields?.sourceId = String
+    fields?.sourceId ?= Match.Optional(String)
     fields?.eventVersion = Match.Optional(Match.Integer)
     fields?.version = Match.Optional(Match.Integer)
     fields?.timestamp = Date
