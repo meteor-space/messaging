@@ -30,7 +30,8 @@ Package.onUse(function(api) {
     'source/tracker.coffee',
     'source/publication.coffee',
     'source/api.coffee',
-    'source/application_helpers.coffee'
+    'source/application_helpers.coffee',
+    'source/value-objects/guid.coffee'
   ]);
 
 });
@@ -55,6 +56,7 @@ Package.onTest(function(api) {
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
+    'tests/unit/value-objects/guid.unit.coffee',
     'tests/integration/controller_event_handling.js',
     'tests/integration/controller_command_handling.js',
     'tests/integration/test_app.coffee',
