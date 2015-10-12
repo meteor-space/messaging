@@ -13,6 +13,14 @@ describe 'Space.messaging.Event', ->
   it 'defines its EJSON type correctly', ->
     expect(@event.typeName()).to.equal 'Space.messaging.Event'
 
+  describe 'default fields', ->
+
+    it 'can be created using string source id', ->
+      expect(-> new Event(sourceId: '123')).not.to.throw
+
+    it 'can be created using Guid source id', ->
+      expect(-> new Event(sourceId: new Guid())).not.to.throw
+
   describe 'versioning', ->
 
     class TestEvent extends Event
