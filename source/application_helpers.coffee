@@ -7,11 +7,11 @@ Space.Application.mixin {
     commandBus: 'Space.messaging.CommandBus'
   }
 
-  publish: (event) -> @eventBus.publish event
+  publish: -> @eventBus.publish.apply(@eventBus, arguments)
 
-  subscribeTo: (type, handler) -> @eventBus.subscribeTo type, handler
+  subscribeTo: (type, handler) -> @eventBus.subscribeTo.apply(@eventBus, arguments)
 
-  send: (command) -> @commandBus.send command
+  send: (command) -> @commandBus.send.apply(@commandBus, arguments)
 
   # Tell all sub-modules to reset their data / stop long-living observers
   reset: -> module.reset?() for _, module of @modules
