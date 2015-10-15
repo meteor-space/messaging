@@ -20,3 +20,5 @@ class Space.messaging.CommandBus extends Space.Object
     @registerHandler typeName, handler, true
 
   getHandlerFor: (commandType) -> @_handlers[commandType]
+
+  hasHandlerFor: (commandType) -> @getHandlerFor(commandType)?

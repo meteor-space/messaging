@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '1.7.2',
+  version: '1.8.0',
   git: 'https://github.com/meteor-space/messaging.git',
 });
 
@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@2.4.2'
+    'space:base@2.5.1'
   ]);
 
   api.addFiles([
@@ -29,7 +29,9 @@ Package.onUse(function(api) {
     'source/controller.coffee',
     'source/tracker.coffee',
     'source/publication.coffee',
-    'source/api.coffee'
+    'source/api.coffee',
+    'source/application_helpers.coffee',
+    'source/value-objects/guid.coffee'
   ]);
 
 });
@@ -54,6 +56,7 @@ Package.onTest(function(api) {
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
+    'tests/unit/value-objects/guid.unit.coffee',
     'tests/integration/controller_event_handling.js',
     'tests/integration/controller_command_handling.js',
     'tests/integration/test_app.coffee',
