@@ -18,6 +18,10 @@ class Space.messaging.EventBus extends Space.Object
 
   subscribeTo: (typeName, handler) -> (@_eventHandlers[typeName] ?= []).push handler
 
+  getHandledEventTypes: -> eventType for eventType of @_eventHandlers
+
+  hasHandlerFor: (eventType) -> @_eventHandlers[eventType]?
+
   distribute: (appId, collection, events) ->
     for eventType in events
       @subscribeTo eventType, (event) -> collection.insert {
