@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## 1.8.0
+The following improvements have been made:
+- Adds `Space.messaging.EvenBus::onPublish` hook that is called for any event
+  that goes through the system. Useful for testing or when you want to aggregate
+  event statistics.
+- Event and command handling capabilities are now mixed into `Space.Application`
+  by default. So you can use `publish`, `subscribeTo` for events and `send` commands.
+- Event `sourceId` and command `targetId` are now optional fields that match
+  to `String` and `Guid` by default. So you only have to define these yourself
+  in rare cases where you need extra control or something.
+
 ## 1.7.2
 Adds declarative API for defining event / command handlers in `Space.messaging.Controller`.
 Now you can define them like this:
