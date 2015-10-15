@@ -8,9 +8,9 @@ class Space.messaging.EventBus extends Space.Object
     @_eventHandlers = {}
     @_onPublishHooks = []
 
-  publish: (event) ->
+  publish: (event, options={}) ->
     eventType = event.typeName()
-    hook(event) for hook in @_onPublishHooks
+    hook(event) for hook in @_onPublishHooks when !options.ignoreHooks
     if not @_eventHandlers[eventType]? then return
     handler(event) for handler in @_eventHandlers[eventType]
 
