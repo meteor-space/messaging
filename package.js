@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@2.4.2'
+    'space:base@2.5.1'
   ]);
 
   api.addFiles([
