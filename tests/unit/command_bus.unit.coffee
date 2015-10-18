@@ -7,21 +7,15 @@ describe 'Space.messaging.CommandBus', ->
     @type 'Space.messaging.CommandBusStubCommand'
 
   beforeEach ->
-    @commandBus = new CommandBus()
+    @api = send: sinon.spy()
+    @commandBus = new CommandBus { meteor: Meteor, api: @api }
     @testCommand = new TestCommand()
     @handler = sinon.spy()
 
   it 'extends space object to be js compatible', ->
     expect(CommandBus).to.extend Space.Object
 
-  # ========== REGISTERING AND SENDING COMMANDS =========== #
-
-  describe 'registering handler and sending commands', ->
-
-    it 'calls the registered handler with the command', ->
-      @commandBus.registerHandler TestCommand, @handler
-      @commandBus.send @testCommand
-      expect(@handler).to.have.been.calledWithExactly @testCommand
+  describe 'registering handlers', ->
 
     it 'only allows one handler for a command', ->
       first = sinon.spy()
@@ -36,3 +30,15 @@ describe 'Space.messaging.CommandBus', ->
       @commandBus.registerHandler TestCommand, first
       @commandBus.registerHandler TestCommand, second, true
       expect(@commandBus.getHandlerFor TestCommand).to.equal second
+
+  describe 'sending commands', ->
+
+    it.server 'calls the registered handler with the command', ->
+      @commandBus.registerHandler TestCommand, @handler
+      @commandBus.send @testCommand
+      expect(@handler).to.have.been.calledWithExactly @testCommand
+
+    it.client 'sends the command to the server via the api', ->
+      callback = ->
+      @commandBus.send @testCommand, callback
+      expect(@api.send).to.have.been.calledWithExactly @testCommand, callback

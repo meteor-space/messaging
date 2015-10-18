@@ -1,10 +1,5 @@
 class @TestApp extends Space.Application
-
   RequiredModules: ['Space.messaging']
-
-  Dependencies:
-    eventBus: 'Space.messaging.EventBus'
-    commandBus: 'Space.messaging.CommandBus'
 
 class TestApp.TestValue extends Space.messaging.Serializable
   @type 'TestApp.TestValue'
