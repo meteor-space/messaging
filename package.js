@@ -62,8 +62,4 @@ Package.onTest(function(api) {
     'tests/integration/test_app.coffee',
   ]);
 
-  api.addFiles([
-    'tests/integration/distributed_messaging.coffee',
-  ], 'server');
-
 });
