@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 2.0.0
+Cleanup and breaking changes release:
+- Updated to `space:base@3.0.0` with improved module lifecycle api
+- Removed distributed messaging api in favor of the distributed commit store
+in the `event-sourcing` package.
+- The package mixes in application helpers for publishing events and sending
+commands as well as subscribing etc.
+- The `Space.messaging.Controller` functionality was split up into four mixins
+`EventSubscribing`, `EventPublishing`, `CommandHandling` and `CommandSending`
+
 ## 1.8.0
 The following improvements have been made:
 - Adds `Space.messaging.EvenBus::onPublish` hook that is called for any event
