@@ -18,10 +18,23 @@ Package.onUse(function(api) {
     'space:base@3.0.0'
   ]);
 
+  // SHARED
   api.addFiles([
     'source/module.coffee',
-    'source/serializable.coffee',
+    'source/mixins/event-subscribing.coffee',
+    'source/mixins/application-helpers.coffee',
+  ]);
+
+  // SERVER
+  api.addFiles([
+    'source/mixins/command-handling.coffee',
+  ], 'server');
+
+  // SHARED
+  api.addFiles([
     'source/helpers.coffee',
+    'source/serializable.coffee',
+    'source/value-objects/guid.coffee',
     'source/event.coffee',
     'source/event_bus.coffee',
     'source/command.coffee',
@@ -29,9 +42,7 @@ Package.onUse(function(api) {
     'source/controller.coffee',
     'source/tracker.coffee',
     'source/publication.coffee',
-    'source/api.coffee',
-    'source/application_helpers.coffee',
-    'source/value-objects/guid.coffee'
+    'source/api.coffee'
   ]);
 
 });
@@ -58,8 +69,11 @@ Package.onTest(function(api) {
     'tests/unit/api.unit.coffee',
     'tests/unit/value-objects/guid.unit.coffee',
     'tests/integration/controller_event_handling.js',
-    'tests/integration/controller_command_handling.js',
     'tests/integration/test_app.coffee',
   ]);
+
+  api.addFiles([
+    'tests/integration/controller_command_handling.js',
+  ], 'server');
 
 });

@@ -47,32 +47,4 @@ describe("Space.messaging.Controller - event handling", function () {
 
     });
   });
-
-  describe("using static api", function () {
-
-    it("sets up context bound event handler", function () {
-
-      var eventHandlerSpy = sinon.spy();
-
-      // Define a controller that uses the `events` API to declare handlers
-      TestApp.TestController = Space.messaging.Controller.extend('TestController')
-      .on(TestApp.TestEvent, eventHandlerSpy);
-
-      // Integrate the controller in our test app
-      var ControllerTestApp = TestApp.extend('ControllerTestApp', {
-        Singletons: ['TestApp.TestController']
-      });
-
-      // Startup app and send event through the bus
-      var app = new ControllerTestApp();
-      var controller = app.injector.get('TestApp.TestController');
-      app.start();
-      app.eventBus.publish(this.testEvent);
-
-      // Expect that the controller routed the event correctly
-      expect(eventHandlerSpy).to.have.been.calledWithExactly(this.testEvent);
-      expect(eventHandlerSpy).to.have.been.calledOn(controller);
-
-    });
-  });
 });

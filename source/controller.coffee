@@ -1,97 +1,11 @@
 
 class Space.messaging.Controller extends Space.Object
 
-  Dependencies:
-    eventBus: 'Space.messaging.EventBus'
-    commandBus: 'Space.messaging.CommandBus'
-    meteor: 'Meteor'
-    underscore: 'underscore'
+  @mixin Space.messaging.EventSubscribing
 
-  events: -> []
-  commands: -> []
-
-  # Register command handler
-  @handle: (commandType, handler) ->
-    if !commandType?
-      throw new Error "Cannot register command handler for #{commandType}"
-    if !handler?
-      throw new Error "You have to provide a handler function."
-    @_commandHandlers ?= {}
-    @_commandHandlers[commandType.toString()] = handler
-    return this
-
-  # Subscribe to an event type
-  @on: (eventType, handler) ->
-    if !eventType?
-      throw new Error "Cannot register event handler for #{eventType}"
-    if !handler?
-      throw new Error "You have to provide a handler function."
-    @_eventHandlers ?= {}
-    @_eventHandlers[eventType.toString()] = handler
-    return this
-
-  # Subscribe to events and register command handlers
   onDependenciesReady: ->
-    @_setupDeclarativeEventHandlers()
-    @_setupDeclarativeCommandHandlers()
-    for type, handler of @constructor._eventHandlers
-      @eventBus.subscribeTo type, @_bindEventHandler(handler)
-    for type, handler of @constructor._commandHandlers
-      @commandBus.registerHandler type, @_bindCommandHandler(handler)
+    @_setupEventSubscribing()
+    @_setupCommandHandling?()
 
-  handle: (command) ->
-    handler = @_getCommandHandlerFor(command)
-    if not handler?
-      throw new Error "No command handler found for <#{command.typeName()}>"
-    handler.call this, command
-
-  on: (event) ->
-    handler = @_getEventHandlerFor(event)
-    if not handler?
-      throw new Error "No event handler found for <#{event.typeName()}>"
-    handler.call this, event
-
-  publish: (event) -> @eventBus.publish event
-
-  send: (command) -> @commandBus.send command
-
-  canHandleEvent: (event) -> @_getEventHandlerFor(event)?
-
-  canHandleCommand: (command) -> @_getCommandHandlerFor(command)?
-
-  _setupDeclarativeEventHandlers: ->
-    eventHandlers = {}
-    declaredHandlers = @events()
-    declaredHandlers.unshift eventHandlers
-    @underscore.extend.apply null, declaredHandlers
-    @underscore.each eventHandlers, (handler, eventType) =>
-      @constructor.on eventType, handler
-
-  _setupDeclarativeCommandHandlers: ->
-    commandHandlers = {}
-    declaredHandlers = @commands()
-    declaredHandlers.unshift commandHandlers
-    @underscore.extend.apply null, declaredHandlers
-    @underscore.each commandHandlers, (handler, commandType) =>
-      @constructor.handle commandType, handler
-
-  _getEventHandlerFor: (event) -> @constructor._eventHandlers[event.typeName()]
-
-  _getCommandHandlerFor: (command) -> @constructor._commandHandlers[command.typeName()]
-
-  # All event handlers are bound to the meteor environment by default
-  # so that the application code can mainly stay clear of having to
-  # deal with these things.
-  _bindEventHandler: (handler) ->
-    if @meteor.isServer
-      @meteor.bindEnvironment handler, @_onException, this
-    else
-      @underscore.bind handler, this
-
-  # Command handlers are only bound to the controller instance but not
-  # the Meteor environment because the command-sending part of the system
-  # could expect a return value from the executed handler and
-  # Meteor.bindEnvironment returns undefined if no current fiber exists.
-  _bindCommandHandler: (handler) -> @underscore.bind handler, this
-
-  _onException: (error) -> throw error
+if Meteor.isServer
+  Space.messaging.Controller.mixin Space.messaging.CommandHandling
