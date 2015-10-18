@@ -2,7 +2,6 @@ Space.messaging.CommandHandling = {
 
   Dependencies: {
     commandBus: 'Space.messaging.CommandBus'
-    meteor: 'Meteor'
     underscore: 'underscore'
   }
 
@@ -11,8 +10,6 @@ Space.messaging.CommandHandling = {
   commands: -> []
 
   onDependenciesReady: -> @_setupCommandHandling()
-
-  send: (command) -> @commandBus.send command
 
   register: (commandType, handler) ->
     if !commandType?

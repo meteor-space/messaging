@@ -12,8 +12,6 @@ Space.messaging.EventSubscribing = {
 
   onDependenciesReady: -> @_setupEventSubscribing()
 
-  publish: (event) -> @eventBus.publish event
-
   canHandleEvent: (event) -> @_getEventHandlerFor(event)?
 
   subscribe: (eventType, handler) ->
