@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@2.5.1'
+    'space:base@3.0.0'
   ]);
 
   api.addFiles([
@@ -46,8 +46,8 @@ Package.onTest(function(api) {
     'mongo',
     'underscore',
     'space:messaging',
-    'practicalmeteor:munit@2.1.4',
-    'space:testing@1.3.0'
+    'practicalmeteor:munit@2.1.5',
+    'space:testing@1.5.0'
   ]);
 
   api.addFiles([
