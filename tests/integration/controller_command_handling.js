@@ -9,9 +9,9 @@ describe("Space.messaging.Controller - command handling", function () {
     this.anotherCommand = new TestApp.AnotherCommand({ targetId: '123' });
   });
 
-  describe("using event maps", function () {
+  describe("using command maps", function () {
 
-    it("sets up context bound event handlers", function () {
+    it.server("sets up context bound command handlers", function () {
 
       var commandHandlerSpy = sinon.spy();
       var anotherCommandHandler = sinon.spy();
@@ -49,7 +49,7 @@ describe("Space.messaging.Controller - command handling", function () {
 
   describe("using static api", function () {
 
-    it("sets up context bound event handler", function () {
+    it.server("sets up context bound command handler", function () {
 
       var commandHandlerSpy = sinon.spy();
 
