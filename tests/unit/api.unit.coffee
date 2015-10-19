@@ -1,17 +1,19 @@
 describe 'Space.messaging - Api', ->
 
   handler = sinon.stub()
-  methodName = 'Space.messaging.Api.__TestMethod__'
+  methodName = 'ApiTest.TestMethod'
 
-  class TestType extends Space.messaging.Serializable
-    @type 'Space.messaging.Api.__TestType__'
+  ApiTest = Space.namespace 'ApiTest'
 
-  class MyApi extends Space.messaging.Api
+  class ApiTest.TestType extends Space.messaging.Serializable
+    @type 'ApiTest.TestType'
+
+  class ApiTest.MyApi extends Space.messaging.Api
     @method methodName, handler
-    @method TestType, handler
+    methods: -> ['ApiTest.TestType': handler]
 
   beforeEach ->
-    @api = new MyApi()
+    @api = new ApiTest.MyApi underscore: _
     @api.onDependenciesReady()
 
   describe 'registering methods', ->
@@ -26,21 +28,21 @@ describe 'Space.messaging - Api', ->
       expect(handler).to.have.been.calledWithMatch sinon.match.object, arg1, arg2
 
     it.server 'registers a method with the type name', ->
-      expect(Meteor.default_server.method_handlers[TestType.toString()]).to.exist
+      expect(Meteor.default_server.method_handlers[ApiTest.TestType.toString()]).to.exist
 
     it 'checks the param for typed methods', ->
-      param = new TestType()
-      Meteor.call TestType.toString(), param, ->
+      param = new ApiTest.TestType()
+      Meteor.call ApiTest.TestType.toString(), param, ->
       expect(handler).to.have.been.calledWithMatch(
-        sinon.match.object, sinon.match.instanceOf(TestType)
+        sinon.match.object, sinon.match.instanceOf(ApiTest.TestType)
       )
 
     it.server 'throws exception if the check fails', ->
-      expect(-> Meteor.call TestType.toString(), null).to.throw Error
+      expect(-> Meteor.call ApiTest.TestType.toString(), null).to.throw Error
 
   describe.server 'sending messages to the server', ->
 
     it 'provides a static sugar to Meteor.call', ->
-      message = new TestType()
+      message = new ApiTest.TestType()
       Space.messaging.Api.send message
       expect(handler).to.have.been.calledWith sinon.match(message)
