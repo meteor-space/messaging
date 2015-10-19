@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@3.0.0'
+    'space:base@3.1.0'
   ]);
 
   // SHARED
