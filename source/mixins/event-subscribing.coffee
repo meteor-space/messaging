@@ -8,7 +8,7 @@ Space.messaging.EventSubscribing = {
 
   _eventHandlers: null
 
-  events: -> []
+  eventSubscriptions: -> []
 
   onDependenciesReady: -> @_setupEventSubscribing()
 
@@ -34,7 +34,7 @@ Space.messaging.EventSubscribing = {
 
   _setupDeclarativeEventHandlers: ->
     eventHandlers = {}
-    declaredHandlers = @events()
+    declaredHandlers = @eventSubscriptions()
     declaredHandlers.unshift eventHandlers
     @underscore.extend.apply null, declaredHandlers
     @underscore.each eventHandlers, (handler, eventType) =>

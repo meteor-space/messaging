@@ -7,7 +7,7 @@ Space.messaging.CommandHandling = {
 
   _commandHandlers: null
 
-  commands: -> []
+  commandHandlers: -> []
 
   onDependenciesReady: -> @_setupCommandHandling()
 
@@ -33,7 +33,7 @@ Space.messaging.CommandHandling = {
 
   _setupDeclarativeCommandHandlers: ->
     commandHandlers = {}
-    declaredHandlers = @commands()
+    declaredHandlers = @commandHandlers()
     declaredHandlers.unshift commandHandlers
     @underscore.extend.apply null, declaredHandlers
     @underscore.each commandHandlers, (handler, commandType) =>

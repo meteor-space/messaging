@@ -19,7 +19,7 @@ describe("Space.messaging.Controller - event handling", function () {
 
       // Define a controller that uses the `events` API to declare handlers
       TestApp.TestController = Space.messaging.Controller.extend('TestController', {
-        events: function() {
+        eventSubscriptions: function() {
           return [{
             'TestApp.TestEvent': eventHandlerSpy,
             'TestApp.AnotherEvent': anotherEventHandler
