@@ -21,6 +21,7 @@ Package.onUse(function(api) {
   // SHARED
   api.addFiles([
     'source/module.coffee',
+    'source/mixins/declarative-mappings.coffee',
     'source/mixins/event-subscribing.coffee',
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',

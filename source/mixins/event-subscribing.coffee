@@ -3,7 +3,6 @@ Space.messaging.EventSubscribing = {
   Dependencies: {
     eventBus: 'Space.messaging.EventBus'
     meteor: 'Meteor'
-    underscore: 'underscore'
   }
 
   _eventHandlers: null
@@ -30,14 +29,7 @@ Space.messaging.EventSubscribing = {
 
   _setupEventSubscribing: ->
     @_eventHandlers ?= {}
-    @_setupDeclarativeEventHandlers()
-
-  _setupDeclarativeEventHandlers: ->
-    eventHandlers = {}
-    declaredHandlers = @eventSubscriptions()
-    declaredHandlers.unshift eventHandlers
-    @underscore.extend.apply null, declaredHandlers
-    @underscore.each eventHandlers, (handler, eventType) =>
+    @_setupDeclarativeMappings 'eventSubscriptions', (handler, eventType) =>
       @subscribe eventType, handler
 
   # All event handlers are bound to the meteor environment by default
@@ -53,3 +45,5 @@ Space.messaging.EventSubscribing = {
 
   _onException: (error) -> throw error
 }
+
+_.deepExtend Space.messaging.EventSubscribing, Space.messaging.DeclarativeMappings

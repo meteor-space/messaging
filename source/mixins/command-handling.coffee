@@ -2,7 +2,6 @@ Space.messaging.CommandHandling = {
 
   Dependencies: {
     commandBus: 'Space.messaging.CommandBus'
-    underscore: 'underscore'
   }
 
   _commandHandlers: null
@@ -29,14 +28,7 @@ Space.messaging.CommandHandling = {
 
   _setupCommandHandling: ->
     @_commandHandlers ?= {}
-    @_setupDeclarativeCommandHandlers()
-
-  _setupDeclarativeCommandHandlers: ->
-    commandHandlers = {}
-    declaredHandlers = @commandHandlers()
-    declaredHandlers.unshift commandHandlers
-    @underscore.extend.apply null, declaredHandlers
-    @underscore.each commandHandlers, (handler, commandType) =>
+    @_setupDeclarativeMappings 'commandHandlers', (handler, commandType) =>
       @register commandType, handler
 
   # Command handlers are only bound to the controller instance but not
@@ -47,3 +39,5 @@ Space.messaging.CommandHandling = {
 
   _getCommandHandlerFor: (command) -> @_commandHandlers[command.typeName()]
 }
+
+_.deepExtend Space.messaging.CommandHandling, Space.messaging.DeclarativeMappings
