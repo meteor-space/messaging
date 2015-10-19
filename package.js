@@ -22,6 +22,7 @@ Package.onUse(function(api) {
   api.addFiles([
     'source/module.coffee',
     'source/mixins/declarative-mappings.coffee',
+    'source/mixins/static-handlers.coffee',
     'source/mixins/event-subscribing.coffee',
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
