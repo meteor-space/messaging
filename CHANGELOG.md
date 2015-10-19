@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 2.1.0
+This is a continuous breaking changes release because nobody is using 2.0.0 yet.
+- Improved naming of event subscribing / command handling api to `eventSubscriptions`
+and `commandHandlers`
+- Added mixin that simplifies the declaration of handlers with array maps. This
+is used in several classes / mixins now.
+- Adds declarative api to `Space.messaging.Api` and `Space.messaging.Publication`
+to make them more Javascript compatible.
+- Updates to `space:base@3.1.0`
+
 ## 2.0.0
 Cleanup and breaking changes release:
 - Updated to `space:base@3.0.0` with improved module lifecycle api
