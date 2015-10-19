@@ -1,15 +1,19 @@
 class Space.messaging.Publication extends Space.Object
 
-  Dependencies:
+  Dependencies: {
     meteor: 'Meteor'
-    underscore: 'underscore'
+  }
 
-  @_handlers: null
+  @mixin [
+    Space.messaging.DeclarativeMappings
+    Space.messaging.StaticHandlers
+  ]
+
+  publications: -> []
 
   @publish: (name, handler) ->
-    # Setup handlers
-    handlers = @_handlers ?= {}
-    handlers[name] = original: handler, bound: null
+    @_setupHandler name, handler
+    handlers = @_handlers
     @_registerPublication name, ->
       # Provide the publish context to bound handler as first argument
       args = [this].concat Array::slice.call(arguments)
@@ -18,10 +22,13 @@ class Space.messaging.Publication extends Space.Object
 
   @_registerPublication: (name, callback) -> Meteor.publish name, callback
 
-  onDependenciesReady: -> @_bindHandlersToInstance()
+  onDependenciesReady: ->
+    @_setupDeclarativeMappings 'publications', @_setupDeclarativeHandler
+    @_bindHandlersToInstance()
 
-  _bindHandlersToInstance: ->
-    handlers = @constructor._handlers
-    for methodName, handler of handlers
-      boundHandler = @underscore.bind handler.original, this
-      handlers[methodName].bound = @[methodName] = boundHandler
+  _setupDeclarativeHandler: (handler, type) =>
+    existingHandler = @_getHandlerFor type
+    if existingHandler?
+      @constructor._setupHandler type, handler
+    else
+      @constructor.publish type, handler

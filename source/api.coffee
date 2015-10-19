@@ -6,9 +6,12 @@ class Space.messaging.Api extends Space.Object
     commandBus: 'Space.messaging.CommandBus'
   }
 
-  @mixin Space.messaging.DeclarativeMappings
+  @mixin [
+    Space.messaging.DeclarativeMappings
+    Space.messaging.StaticHandlers
+  ]
 
-  @_methodHandlers: {}
+  methods: -> []
 
   # Register a handler for a Meteor method and add it as
   # method to instance to simplify testing of methods.
@@ -20,9 +23,6 @@ class Space.messaging.Api extends Space.Object
   @send: (message, callback) ->
     Meteor.call message.typeName(), message, callback
 
-  @_setupHandler: (name, handler) ->
-    @_methodHandlers[name] = original: handler, bound: null
-
   # Register the method statically, so that is done only once
   @_registerMethod: (name, body) ->
     method = {}
@@ -31,7 +31,7 @@ class Space.messaging.Api extends Space.Object
 
   @_setupMethod: (type) =>
     name = type.toString()
-    handlers = @_methodHandlers
+    handlers = @_handlers
     return (param) ->
       try type = Space.resolvePath(name)
       if type.isSerializable then check param, type
@@ -41,10 +41,7 @@ class Space.messaging.Api extends Space.Object
 
   onDependenciesReady: ->
     @_setupDeclarativeMappings 'methods', @_setupDeclarativeHandler
-    handlers = @constructor._methodHandlers
-    for methodName, handler of handlers
-      boundHandler = _.bind handler.original, this
-      handlers[methodName].bound = @[methodName] = boundHandler
+    @_bindHandlersToInstance()
 
   _setupDeclarativeHandler: (handler, type) =>
     existingHandler = @_getHandlerFor type
@@ -52,5 +49,3 @@ class Space.messaging.Api extends Space.Object
       @constructor._setupHandler type, handler
     else
       @constructor.method type, handler
-
-  _getHandlerFor: (method) -> @constructor._methodHandlers[method]
