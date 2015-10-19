@@ -16,7 +16,7 @@ describe("Space.messaging.Controller - command handling", function () {
 
     // Define a controller that uses the `events` API to declare handlers
     TestApp.TestController = Space.messaging.Controller.extend('TestController', {
-      commands: function() {
+      commandHandlers: function() {
         return [{
           'TestApp.TestCommand': commandHandlerSpy,
           'TestApp.AnotherCommand': anotherCommandHandler

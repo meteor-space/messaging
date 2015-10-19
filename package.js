@@ -15,12 +15,14 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@3.0.0'
+    'space:base@3.1.0'
   ]);
 
   // SHARED
   api.addFiles([
     'source/module.coffee',
+    'source/mixins/declarative-mappings.coffee',
+    'source/mixins/static-handlers.coffee',
     'source/mixins/event-subscribing.coffee',
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
