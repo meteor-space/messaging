@@ -1,11 +1,11 @@
 describe("handling api messages", function () {
 
   it("handles and re-hydrates commands", function () {
-    var command = new MyApp.TestCommand({
+    var command = new MyCommand({
       targetId: '123',
       version: 1,
       timestamp: new Date(),
-      value: new TestValue({ value: 'test' })
+      value: new MyValue({ value: 'test' })
     });
     MyApp.test(MyApi).send(command).expect([command]);
   });
@@ -13,7 +13,7 @@ describe("handling api messages", function () {
   it("handles normal method calls", function () {
     var id = '123';
     MyApp.test(MyApi).send('UncheckedMethod', id).expect([
-      new MyApp.AnotherCommand({ targetId: id })
+      new AnotherCommand({ targetId: id })
     ]);
   });
 

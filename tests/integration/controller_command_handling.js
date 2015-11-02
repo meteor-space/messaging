@@ -2,11 +2,11 @@
 describe("Space.messaging.Controller - command handling", function () {
 
   beforeEach(function() {
-    this.testCommand = new MyApp.TestCommand({
+    this.testCommand = new MyCommand({
       targetId: '123',
-      value: new TestValue({ value: 'test' })
+      value: new MyValue({ value: 'test' })
     });
-    this.anotherCommand = new MyApp.AnotherCommand({ targetId: '123' });
+    this.anotherCommand = new AnotherCommand({ targetId: '123' });
   });
 
   it("sets up context bound command handlers", function () {
@@ -18,8 +18,8 @@ describe("Space.messaging.Controller - command handling", function () {
     MyApp.TestController = Space.messaging.Controller.extend('TestController', {
       commandHandlers: function() {
         return [{
-          'MyApp.TestCommand': commandHandlerSpy,
-          'MyApp.AnotherCommand': anotherCommandHandler
+          'MyCommand': commandHandlerSpy,
+          'AnotherCommand': anotherCommandHandler
         }];
       }
     });

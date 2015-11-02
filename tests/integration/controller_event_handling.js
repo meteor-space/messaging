@@ -2,12 +2,12 @@
 describe("Space.messaging.Controller - event handling", function () {
 
   beforeEach(function() {
-    this.testEvent = new MyApp.TestEvent({
+    this.testEvent = new MyEvent({
       sourceId: '123',
       version: 1,
-      value: new TestValue({ value: 'test' })
+      value: new MyValue({ value: 'test' })
     });
-    this.anotherEvent = new MyApp.AnotherEvent({ sourceId: '123' });
+    this.anotherEvent = new AnotherEvent({ sourceId: '123' });
   });
 
   describe("using event maps", function () {
@@ -21,8 +21,8 @@ describe("Space.messaging.Controller - event handling", function () {
       MyApp.TestController = Space.messaging.Controller.extend('TestController', {
         eventSubscriptions: function() {
           return [{
-            'MyApp.TestEvent': eventHandlerSpy,
-            'MyApp.AnotherEvent': anotherEventHandler
+            'MyEvent': eventHandlerSpy,
+            'AnotherEvent': anotherEventHandler
           }];
         }
       });
