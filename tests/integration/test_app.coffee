@@ -1,39 +1,26 @@
-class @TestApp extends Space.Application
+class @MyApp extends Space.Application
   RequiredModules: ['Space.messaging']
-  Singletons: ['TestApp.Api']
+  Singletons: ['MyApi']
 
-class TestApp.TestValue extends Space.messaging.Serializable
-  @type 'TestApp.TestValue'
+class @TestValue extends Space.messaging.Serializable
+  @type 'ExampleValue'
   @fields: { value: String }
 
-class TestApp.TestEvent extends Space.messaging.Event
-  @type 'TestApp.TestEvent'
-  @fields: {
-    sourceId: String
-    version: Match.Integer
-    value: TestApp.TestValue
-  }
+Space.messaging.define Space.messaging.Event, 'MyApp', {
+  TestEvent: { value: TestValue }
+  AnotherEvent: {}
+}
 
-class TestApp.AnotherEvent extends Space.messaging.Event
-  @type 'TestApp.AnotherEvent'
-  @fields: { sourceId: String }
+Space.messaging.define Space.messaging.Command, 'MyApp', {
+  TestCommand: { value: TestValue }
+  AnotherCommand: {}
+}
 
-class TestApp.TestCommand extends Space.messaging.Command
-  @type 'TestApp.TestCommand'
-  @fields: {
-    targetId: String
-    value: TestApp.TestValue
-  }
-
-class TestApp.AnotherCommand extends Space.messaging.Command
-  @type 'TestApp.AnotherCommand'
-  @fields: { targetId: String }
-
-class TestApp.Api extends Space.messaging.Api
+class @MyApi extends Space.messaging.Api
 
   sendSilently: (command) -> @commandBus.send command, null, silent: true
 
   methods: -> [
-    'TestApp.TestCommand': (_, command) -> @sendSilently command
-    'UncheckedMethod': (_, id) -> @sendSilently new TestApp.AnotherCommand(targetId: id)
+    'MyApp.TestCommand': (_, command) -> @sendSilently command
+    'UncheckedMethod': (_, id) -> @sendSilently new MyApp.AnotherCommand(targetId: id)
   ]

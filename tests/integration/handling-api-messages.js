@@ -1,21 +1,19 @@
 describe("handling api messages", function () {
 
   it("handles and re-hydrates commands", function () {
-    var command = new TestApp.TestCommand({
+    var command = new MyApp.TestCommand({
       targetId: '123',
       version: 1,
       timestamp: new Date(),
-      value: new TestApp.TestValue({ value: 'test' })
+      value: new TestValue({ value: 'test' })
     });
-    TestApp.test(TestApp.Api).send(command).expect([command]);
+    MyApp.test(MyApi).send(command).expect([command]);
   });
 
   it("handles normal method calls", function () {
     var id = '123';
-    TestApp.test(TestApp.Api)
-    .send('UncheckedMethod', id)
-    .expect([
-      new TestApp.AnotherCommand({ targetId: id })
+    MyApp.test(MyApi).send('UncheckedMethod', id).expect([
+      new MyApp.AnotherCommand({ targetId: id })
     ]);
   });
 
