@@ -1,6 +1,6 @@
 class @MyApp extends Space.Application
   RequiredModules: ['Space.messaging']
-  Singletons: ['MyApi']
+  Singletons: ['MyApi', 'MyCommandHandler']
 
 class @MyValue extends Space.messaging.Serializable
   @type 'MyValue'
@@ -17,10 +17,14 @@ Space.messaging.define Space.messaging.Command, {
 }
 
 class @MyApi extends Space.messaging.Api
-
-  sendSilently: (command) -> @commandBus.send command, null, silent: true
-
   methods: -> [
-    'MyCommand': (_, command) -> @sendSilently command
-    'UncheckedMethod': (_, id) -> @sendSilently new AnotherCommand(targetId: id)
+    'MyCommand': (_, command) -> @send command
+    'UncheckedMethod': (_, id) -> @send new AnotherCommand(targetId: id)
+  ]
+
+class @MyCommandHandler extends Space.Object
+  @mixin Space.messaging.CommandHandling
+  commandHandlers: -> [
+    'MyCommand': ->
+    'AnotherCommand': ->
   ]
