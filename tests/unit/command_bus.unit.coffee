@@ -50,6 +50,7 @@ describe 'Space.messaging.CommandBus', ->
       secondHook = sinon.spy()
       @commandBus.onSend firstHook
       @commandBus.onSend secondHook
-      @commandBus.send @testCommand, null, silent: true
+      @commandBus.registerHandler TestCommand, @handler
+      @commandBus.send @testCommand
       expect(firstHook).to.have.been.calledWithExactly @testCommand
       expect(secondHook).to.have.been.calledWithExactly @testCommand
