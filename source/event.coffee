@@ -8,7 +8,7 @@ class Space.messaging.Event extends Space.messaging.Serializable
     if data.eventVersion? and data.eventVersion < @eventVersion
       @_migrateToLatestVersion data
     data.eventVersion = @eventVersion
-    data.timestamp = new Date()
+    data.timestamp ?= new Date()
     super(data)
 
   _getFields: ->
