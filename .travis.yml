@@ -3,4 +3,4 @@ sudo: required
 node_js:
 - "0.10"
 before_install:
-- "curl -L http://git.io/ejPSng | /bin/sh"
+- "curl -L http://git.io/vlgSX | /bin/sh"
