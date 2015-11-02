@@ -42,3 +42,14 @@ describe 'Space.messaging.CommandBus', ->
       callback = ->
       @commandBus.send @testCommand, callback
       expect(@api.send).to.have.been.calledWithExactly @testCommand, callback
+
+  describe 'registering send hooks', ->
+
+    it.server 'notifies all hooks about the sending of a command', ->
+      firstHook = sinon.spy()
+      secondHook = sinon.spy()
+      @commandBus.onSend firstHook
+      @commandBus.onSend secondHook
+      @commandBus.send @testCommand, null, silent: true
+      expect(firstHook).to.have.been.calledWithExactly @testCommand
+      expect(secondHook).to.have.been.calledWithExactly @testCommand
