@@ -62,7 +62,7 @@ Package.onTest(function(api) {
     'underscore',
     'space:messaging',
     'practicalmeteor:munit@2.1.5',
-    'space:testing@1.5.0'
+    'space:testing@2.0.0'
   ]);
 
   api.addFiles([
@@ -78,6 +78,7 @@ Package.onTest(function(api) {
 
   api.addFiles([
     'tests/integration/controller_command_handling.js',
+    'tests/integration/handling-api-messages.js',
   ], 'server');
 
 });

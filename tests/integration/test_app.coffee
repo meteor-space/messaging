@@ -1,5 +1,6 @@
 class @TestApp extends Space.Application
   RequiredModules: ['Space.messaging']
+  Singletons: ['TestApp.Api']
 
 class TestApp.TestValue extends Space.messaging.Serializable
   @type 'TestApp.TestValue'
@@ -27,3 +28,12 @@ class TestApp.TestCommand extends Space.messaging.Command
 class TestApp.AnotherCommand extends Space.messaging.Command
   @type 'TestApp.AnotherCommand'
   @fields: { targetId: String }
+
+class TestApp.Api extends Space.messaging.Api
+
+  sendSilently: (command) -> @commandBus.send command, null, silent: true
+
+  methods: -> [
+    'TestApp.TestCommand': (_, command) -> @sendSilently command
+    'UncheckedMethod': (_, id) -> @sendSilently new TestApp.AnotherCommand(targetId: id)
+  ]
