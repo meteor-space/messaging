@@ -4,7 +4,7 @@ class @MyApp extends Space.Application
 
 class @MyValue extends Space.messaging.Serializable
   @type 'MyValue'
-  @fields: { value: String }
+  @fields: { name: String }
 
 Space.messaging.define Space.messaging.Event, {
   MyEvent: { value: MyValue }
@@ -18,7 +18,10 @@ Space.messaging.define Space.messaging.Command, {
 
 class @MyApi extends Space.messaging.Api
   methods: -> [
-    'MyCommand': (_, command) -> @send command
+    # Simulate some simple method validation
+    'MyCommand': (_, command) ->
+      @send(command) if command.value.name is 'good-value'
+    # Showcase that you can also call your methods "like normal"
     'UncheckedMethod': (_, id) -> @send new AnotherCommand(targetId: id)
   ]
 

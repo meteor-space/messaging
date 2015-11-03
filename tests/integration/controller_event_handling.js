@@ -5,7 +5,7 @@ describe("Space.messaging.Controller - event handling", function () {
     this.testEvent = new MyEvent({
       sourceId: '123',
       version: 1,
-      value: new MyValue({ value: 'test' })
+      value: new MyValue({ name: 'test' })
     });
     this.anotherEvent = new AnotherEvent({ sourceId: '123' });
   });
@@ -18,7 +18,7 @@ describe("Space.messaging.Controller - event handling", function () {
       var anotherEventHandler = sinon.spy();
 
       // Define a controller that uses the `events` API to declare handlers
-      MyApp.TestController = Space.messaging.Controller.extend('TestController', {
+      MyController = Space.messaging.Controller.extend('MyController', {
         eventSubscriptions: function() {
           return [{
             'MyEvent': eventHandlerSpy,
@@ -28,13 +28,15 @@ describe("Space.messaging.Controller - event handling", function () {
       });
 
       // Integrate the controller in our test app
-      var ControllerTestApp = MyApp.extend('ControllerTestApp', {
-        Singletons: ['MyApp.TestController']
+      var ControllerTestApp = Space.Application.define('ControllerTestApp', {
+        afterInitialize: function() {
+          this.injector.map('MyController').toSingleton(MyController);
+        }
       });
 
       // Startup app and send event through the bus
       var app = new ControllerTestApp();
-      var controller = app.injector.get('MyApp.TestController');
+      var controller = app.injector.get('MyController');
       app.start();
       app.eventBus.publish(this.testEvent);
       app.eventBus.publish(this.anotherEvent);

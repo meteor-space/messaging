@@ -1,18 +1,26 @@
 describe("handling api messages", function () {
 
-  it("handles and re-hydrates commands", function () {
-    var command = new MyCommand({
+  beforeEach(function () {
+    this.command = new MyCommand({
       targetId: '123',
       version: 1,
       timestamp: new Date(),
-      value: new MyValue({ value: 'test' })
+      value: new MyValue({ name: 'good-value' })
     });
-    MyApp.test(MyApi).send(command).expect([command]);
   });
 
-  it("handles normal method calls", function () {
+  it("sends a handled command on the server-side command bus if passes validation", function () {
+    MyApp.test(MyApi).send(this.command).expect([this.command]);
+  });
+
+  it("does not send a handled command on the server-side command bus if fails validation", function () {
+    this.command.value = new MyValue({ name: 'bad-value' });
+    MyApp.test(MyApi).send(this.command).expect([]);
+  });
+
+  it("receives any values that are compatible with meteor methods", function () {
     var id = '123';
-    MyApp.test(MyApi).send('UncheckedMethod', id).expect([
+    MyApp.test(MyApi).call('UncheckedMethod', id).expect([
       new AnotherCommand({ targetId: id })
     ]);
   });

@@ -7,18 +7,18 @@ class Space.messaging.CommandBus extends Space.Object
   }
 
   _handlers: null
-  _onSendHooks: null
+  _onSendCallbacks: null
 
   constructor: ->
     super
     @_handlers = {}
-    @_onSendHooks = []
+    @_onSendCallbacks = []
 
   send: (command, callback) ->
     if @meteor.isServer
       # ON THE SERVER
       handler = @_handlers[command.typeName()]
-      hook(command) for hook in @_onSendHooks
+      callback(command) for callback in @_onSendCallbacks
       if !handler?
         message = "Missing command handler for <#{command.typeName()}>."
         throw new Error message
@@ -39,4 +39,4 @@ class Space.messaging.CommandBus extends Space.Object
 
   hasHandlerFor: (commandType) -> @getHandlerFor(commandType)?
 
-  onSend: (handler) -> @_onSendHooks.push handler
+  onSend: (handler) -> @_onSendCallbacks.push handler
