@@ -1,4 +1,4 @@
-# space:messaging [![Build Status](https://travis-ci.org/meteor-space/messaging.svg?branch=master)](https://travis-ci.org/meteor-space/messaging)
+# space:messaging [![Circle CI](https://circleci.com/gh/meteor-space/messaging.svg?style=svg)](https://circleci.com/gh/meteor-space/messaging)
 
 **Rock solid Messaging Infrastructure for Space applications**
 
