@@ -25,3 +25,14 @@ describe 'Space.messaging.EventBus', ->
 
       expect(first).to.have.been.calledWith @testEvent
       expect(second).to.have.been.calledWith @testEvent
+
+  describe 'registering onPublish callbacks', ->
+
+    it.server 'notifies all callbacks when publishing an event', ->
+      firstHook = sinon.spy()
+      secondHook = sinon.spy()
+      @eventBus.onPublish firstHook
+      @eventBus.onPublish secondHook
+      @eventBus.publish @testEvent
+      expect(firstHook).to.have.been.calledWithExactly @testEvent
+      expect(secondHook).to.have.been.calledWithExactly @testEvent
