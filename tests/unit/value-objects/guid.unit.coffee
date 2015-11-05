@@ -29,13 +29,13 @@ describe "Guid", ->
 
   describe 'equality', ->
 
-    it 'is equal when same id', ->
+    it 'is equal when ids match', ->
 
       guid1 = new Guid()
       guid2 = new Guid guid1
       expect(guid1.equals(guid2)).to.be.true
 
-    it 'is equal when same id', ->
+    it 'is not equal when ids do not match', ->
 
       guid1 = new Guid()
       guid2 = new Guid()
