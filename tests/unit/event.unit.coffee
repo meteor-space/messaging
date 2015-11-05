@@ -30,7 +30,7 @@ describe 'Space.messaging.Event', ->
       migrateFromVersion1: (data) -> data.first = 'first'
       migrateFromVersion2: (data) -> data.second = 'second'
 
-    it 'has version 1 by default', ->
+    it 'is version 1 when constructed', ->
       event = new Event()
       expect(event.eventVersion).to.equal(1)
 

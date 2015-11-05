@@ -17,14 +17,14 @@ describe 'Space.messaging.CommandBus', ->
 
   describe 'registering handlers', ->
 
-    it 'only allows one handler for a command', ->
+    it 'protects against multiple handler registrations for any one command', ->
       first = sinon.spy()
       second = sinon.spy()
       @commandBus.registerHandler TestCommand, first
       registerTwice = => @commandBus.registerHandler TestCommand, second
       expect(registerTwice).to.throw Error
 
-    it 'allows to override an existing handler', ->
+    it 'allows handler registrations to be overridden', ->
       first = sinon.spy()
       second = sinon.spy()
       @commandBus.registerHandler TestCommand, first
@@ -38,19 +38,19 @@ describe 'Space.messaging.CommandBus', ->
       @commandBus.send @testCommand
       expect(@handler).to.have.been.calledWithExactly @testCommand
 
-    it.client 'sends the command to the server via the api', ->
+    it.client 'uses api.send for sending commands', ->
       callback = ->
       @commandBus.send @testCommand, callback
       expect(@api.send).to.have.been.calledWithExactly @testCommand, callback
 
-  describe 'registering onSend callbacks', ->
+  describe 'onSend callbacks', ->
 
-    it.server 'notifies all callbacks when sending a command', ->
-      firstHook = sinon.spy()
-      secondHook = sinon.spy()
-      @commandBus.onSend firstHook
-      @commandBus.onSend secondHook
+    it.server 'calls all callbacks when sending a command', ->
+      firstCallback = sinon.spy()
+      secondCallback = sinon.spy()
+      @commandBus.onSend firstCallback
+      @commandBus.onSend secondCallback
       @commandBus.registerHandler TestCommand, @handler
       @commandBus.send @testCommand
-      expect(firstHook).to.have.been.calledWithExactly @testCommand
-      expect(secondHook).to.have.been.calledWithExactly @testCommand
+      expect(firstCallback).to.have.been.calledWithExactly @testCommand
+      expect(secondCallback).to.have.been.calledWithExactly @testCommand

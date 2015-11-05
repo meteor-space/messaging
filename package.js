@@ -72,7 +72,7 @@ Package.onTest(function(api) {
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
     'tests/unit/value-objects/guid.unit.coffee',
-    'tests/integration/controller_event_handling.js',
+    'tests/integration/controller_event_subscribing.js',
     'tests/integration/test_app.coffee',
   ]);
 
