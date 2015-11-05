@@ -1,14 +1,11 @@
 
 class Space.messaging.Api extends Space.Object
 
-  Dependencies: {
-    eventBus: 'Space.messaging.EventBus'
-    commandBus: 'Space.messaging.CommandBus'
-  }
-
   @mixin [
     Space.messaging.DeclarativeMappings
     Space.messaging.StaticHandlers
+    Space.messaging.CommandSending
+    Space.messaging.EventPublishing
   ]
 
   methods: -> []

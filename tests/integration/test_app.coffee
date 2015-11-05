@@ -1,29 +1,33 @@
-class @TestApp extends Space.Application
+class @MyApp extends Space.Application
   RequiredModules: ['Space.messaging']
+  Singletons: ['MyApi', 'MyCommandHandler']
 
-class TestApp.TestValue extends Space.messaging.Serializable
-  @type 'TestApp.TestValue'
-  @fields: { value: String }
+class @MyValue extends Space.messaging.Serializable
+  @type 'MyValue'
+  @fields: { name: String }
 
-class TestApp.TestEvent extends Space.messaging.Event
-  @type 'TestApp.TestEvent'
-  @fields: {
-    sourceId: String
-    version: Match.Integer
-    value: TestApp.TestValue
-  }
+Space.messaging.define Space.messaging.Event, {
+  MyEvent: { value: MyValue }
+  AnotherEvent: {}
+}
 
-class TestApp.AnotherEvent extends Space.messaging.Event
-  @type 'TestApp.AnotherEvent'
-  @fields: { sourceId: String }
+Space.messaging.define Space.messaging.Command, {
+  MyCommand: { value: MyValue }
+  AnotherCommand: {}
+}
 
-class TestApp.TestCommand extends Space.messaging.Command
-  @type 'TestApp.TestCommand'
-  @fields: {
-    targetId: String
-    value: TestApp.TestValue
-  }
+class @MyApi extends Space.messaging.Api
+  methods: -> [
+    # Simulate some simple method validation
+    'MyCommand': (_, command) ->
+      @send(command) if command.value.name is 'good-value'
+    # Showcase that you can also call your methods "like normal"
+    'UncheckedMethod': (_, id) -> @send new AnotherCommand(targetId: id)
+  ]
 
-class TestApp.AnotherCommand extends Space.messaging.Command
-  @type 'TestApp.AnotherCommand'
-  @fields: { targetId: String }
+class @MyCommandHandler extends Space.Object
+  @mixin Space.messaging.CommandHandling
+  commandHandlers: -> [
+    'MyCommand': ->
+    'AnotherCommand': ->
+  ]

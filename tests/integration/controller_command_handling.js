@@ -1,46 +1,47 @@
 
-describe("Space.messaging.Controller - command handling", function () {
+describe("Handling commands", function () {
 
-  beforeEach(function() {
-    this.testCommand = new TestApp.TestCommand({
+  beforeEach(function () {
+    this.myCommand = new MyCommand({
       targetId: '123',
-      value: new TestApp.TestValue({ value: 'test' })
+      value: new MyValue({name: 'test'})
     });
-    this.anotherCommand = new TestApp.AnotherCommand({ targetId: '123' });
+    this.anotherCommand = new AnotherCommand({
+      targetId: '123'
+    });
   });
 
-  it("sets up context bound command handlers", function () {
+  it("handles commands", function () {
+    var myHandler = sinon.spy();
+    var anotherHandler = sinon.spy();
 
-    var commandHandlerSpy = sinon.spy();
-    var anotherCommandHandler = sinon.spy();
-
-    // Define a controller that uses the `events` API to declare handlers
-    TestApp.TestController = Space.messaging.Controller.extend('TestController', {
-      commandHandlers: function() {
+    // Define a controller, declare handlers
+    MyController = Space.messaging.Controller.extend('MyController', {
+      commandHandlers: function () {
         return [{
-          'TestApp.TestCommand': commandHandlerSpy,
-          'TestApp.AnotherCommand': anotherCommandHandler
+          'MyCommand': myHandler,
+          'AnotherCommand': anotherHandler
         }];
       }
     });
 
     // Integrate the controller in our test app
-    var ControllerTestApp = TestApp.extend('ControllerTestApp', {
-      Singletons: ['TestApp.TestController']
+    var ControllerTestApp = Space.Application.define('ControllerTestApp', {
+      afterInitialize: function () {
+        this.injector.map('MyController').toSingleton(MyController);
+      }
     });
 
-    // Startup app and send event through the bus
+    // Startup app and send the commands through the bus
     var app = new ControllerTestApp();
-    var controller = app.injector.get('TestApp.TestController');
+    var myController = app.injector.get('MyController');
     app.start();
-    app.commandBus.send(this.testCommand);
+    app.commandBus.send(this.myCommand);
     app.commandBus.send(this.anotherCommand);
 
-    // Expect that the controller routed the events correctly
-    expect(commandHandlerSpy).to.have.been.calledWithExactly(this.testCommand);
-    expect(commandHandlerSpy).to.have.been.calledOn(controller);
-    expect(anotherCommandHandler).to.have.been.calledWithExactly(this.anotherCommand);
-    expect(anotherCommandHandler).to.have.been.calledOn(controller);
+    // Expect that the controller handled the commands
+    expect(myHandler).to.have.been.calledWithExactly(this.myCommand).calledOn(myController);
+    expect(anotherHandler).to.have.been.calledWithExactly(this.anotherCommand).calledOn(myController);
 
   });
 });

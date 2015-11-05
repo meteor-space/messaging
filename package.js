@@ -62,7 +62,7 @@ Package.onTest(function(api) {
     'underscore',
     'space:messaging',
     'practicalmeteor:munit@2.1.5',
-    'space:testing@1.5.0'
+    'space:testing@2.0.0'
   ]);
 
   api.addFiles([
@@ -72,12 +72,13 @@ Package.onTest(function(api) {
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
     'tests/unit/value-objects/guid.unit.coffee',
-    'tests/integration/controller_event_handling.js',
+    'tests/integration/controller_event_subscribing.js',
     'tests/integration/test_app.coffee',
   ]);
 
   api.addFiles([
     'tests/integration/controller_command_handling.js',
+    'tests/integration/handling-api-messages.js',
   ], 'server');
 
 });

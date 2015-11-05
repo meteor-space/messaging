@@ -5,7 +5,7 @@ class Space.messaging.Command extends Space.messaging.Serializable
 
   constructor: (data) ->
     data ?= {}
-    data.timestamp = new Date()
+    data.timestamp ?= new Date()
     super(data)
 
   _getFields: ->
