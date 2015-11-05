@@ -10,7 +10,7 @@ class Space.messaging.Serializable extends Space.Struct
     return this
 
   toJSONValue: ->
-    fields = @_getFields()
+    fields = @fields()
     # No special fields, simply parse instance to create deep copy
     if not fields?
       return JSON.parse JSON.stringify(this)
@@ -25,9 +25,8 @@ class Space.messaging.Serializable extends Space.Struct
 generateTypeNameMethod = (typeName) -> return -> typeName
 
 fromJSONValueFunction = (Class, json) ->
-  if Class.fields?
-    # Parse all fields that are set in the given json
-    for field of Class.fields when json[field]?
-      json[field] = EJSON.fromJSONValue(json[field])
+  # Parse all fields that are set in the given json
+  for field of Class::fields() when json[field]?
+    json[field] = EJSON.fromJSONValue(json[field])
 
   return new Class(json)
