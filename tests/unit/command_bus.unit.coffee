@@ -9,7 +9,7 @@ describe 'Space.messaging.CommandBus', ->
   beforeEach ->
     @api = send: sinon.spy()
     @commandBus = new CommandBus { meteor: Meteor, api: @api }
-    @testCommand = new TestCommand()
+    @testCommand = new TestCommand targetId: new Guid()
     @handler = sinon.spy()
 
   it 'extends space object to be js compatible', ->
