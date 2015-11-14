@@ -1,7 +1,7 @@
 {
   "space:base": {
     "git": "https://github.com/meteor-space/base.git",
-    "version": "develop"
+    "version": "fix/remaining-camel-case-api-changes"
   },
   "space:testing": {
     "git": "https://github.com/meteor-space/testing.git",
