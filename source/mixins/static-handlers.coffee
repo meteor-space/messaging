@@ -1,10 +1,10 @@
 Space.messaging.StaticHandlers = {
 
-  Dependencies: {
+  dependencies: {
     underscore: 'underscore'
   }
 
-  Static: {
+  static: {
     _handlers: null
     _setupHandler: (name, handler) ->
       @_handlers[name] = original: handler, bound: null

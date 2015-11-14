@@ -1,6 +1,6 @@
 Space.messaging.CommandHandling = {
 
-  Dependencies: {
+  dependencies: {
     commandBus: 'Space.messaging.CommandBus'
   }
 

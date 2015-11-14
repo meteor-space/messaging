@@ -1,7 +1,7 @@
 
-describe("Handling commands", function () {
+describe("Handling commands", function() {
 
-  beforeEach(function () {
+  beforeEach(function() {
     this.myCommand = new MyCommand({
       targetId: '123',
       value: new MyValue({name: 'test'})
@@ -11,13 +11,13 @@ describe("Handling commands", function () {
     });
   });
 
-  it("handles commands", function () {
-    var myHandler = sinon.spy();
-    var anotherHandler = sinon.spy();
+  it("handles commands", function() {
+    let myHandler = sinon.spy();
+    let anotherHandler = sinon.spy();
 
     // Define a controller, declare handlers
     MyController = Space.messaging.Controller.extend('MyController', {
-      commandHandlers: function () {
+      commandHandlers: function() {
         return [{
           'MyCommand': myHandler,
           'AnotherCommand': anotherHandler
@@ -26,15 +26,15 @@ describe("Handling commands", function () {
     });
 
     // Integrate the controller in our test app
-    var ControllerTestApp = Space.Application.define('ControllerTestApp', {
-      afterInitialize: function () {
+    let ControllerTestApp = Space.Application.define('ControllerTestApp', {
+      afterInitialize: function() {
         this.injector.map('MyController').toSingleton(MyController);
       }
     });
 
     // Startup app and send the commands through the bus
-    var app = new ControllerTestApp();
-    var myController = app.injector.get('MyController');
+    let app = new ControllerTestApp();
+    let myController = app.injector.get('MyController');
     app.start();
     app.commandBus.send(this.myCommand);
     app.commandBus.send(this.anotherCommand);

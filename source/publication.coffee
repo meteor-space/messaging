@@ -1,6 +1,6 @@
 class Space.messaging.Publication extends Space.Object
 
-  Dependencies: {
+  dependencies: {
     meteor: 'Meteor'
   }
 

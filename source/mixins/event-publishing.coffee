@@ -1,9 +1,9 @@
 Space.messaging.EventPublishing = {
 
-  Dependencies: {
+  dependencies: {
     eventBus: 'Space.messaging.EventBus'
   }
-  
+
   publish: (event) -> @eventBus.publish event
 
 }

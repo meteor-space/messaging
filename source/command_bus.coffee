@@ -1,7 +1,7 @@
 
 class Space.messaging.CommandBus extends Space.Object
 
-  Dependencies: {
+  dependencies: {
     meteor: 'Meteor'
     api: 'Space.messaging.Api'
   }

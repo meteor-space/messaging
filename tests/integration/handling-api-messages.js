@@ -1,6 +1,6 @@
-describe("handling api messages", function () {
+describe("handling api messages", function() {
 
-  beforeEach(function () {
+  beforeEach(function() {
     this.command = new MyCommand({
       targetId: '123',
       version: 1,
@@ -9,17 +9,17 @@ describe("handling api messages", function () {
     });
   });
 
-  it("sends a handled command on the server-side command bus if passes validation", function () {
+  it("sends a handled command on the server-side command bus if passes validation", function() {
     MyApp.test(MyApi).send(this.command).expect([this.command]);
   });
 
-  it("does not send a handled command on the server-side command bus if fails validation", function () {
+  it("does not send a handled command on the server-side command bus if fails validation", function() {
     this.command.value = new MyValue({ name: 'bad-value' });
     MyApp.test(MyApi).send(this.command).expect([]);
   });
 
-  it("receives any values that are compatible with meteor methods", function () {
-    var id = '123';
+  it("receives any values that are compatible with meteor methods", function() {
+    let id = '123';
     MyApp.test(MyApi).call('UncheckedMethod', id).expect([
       new AnotherCommand({ targetId: id })
     ]);

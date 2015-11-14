@@ -1,6 +1,6 @@
 class @MyApp extends Space.Application
-  RequiredModules: ['Space.messaging']
-  Singletons: ['MyApi', 'MyCommandHandler']
+  requiredModules: ['Space.messaging']
+  singletons: ['MyApi', 'MyCommandHandler']
 
 class @MyValue extends Space.messaging.Serializable
   @type 'MyValue'
