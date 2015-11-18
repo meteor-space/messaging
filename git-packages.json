@@ -1,10 +1,10 @@
 {
   "space:base": {
     "git": "https://github.com/meteor-space/base.git",
-    "version": "7be0c39355c5ac52fcee5c7631af57191dcdf6c8"
+    "branch": "feature/improve-working-with-static-apis"
   },
   "space:testing": {
     "git": "https://github.com/meteor-space/testing.git",
-    "version": "develop"
+    "branch": "develop"
   }
 }
