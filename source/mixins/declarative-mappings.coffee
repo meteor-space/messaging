@@ -1,6 +1,6 @@
 Space.messaging.DeclarativeMappings = {
 
-  Dependencies: {
+  dependencies: {
     underscore: 'underscore'
   }
 

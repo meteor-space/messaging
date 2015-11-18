@@ -1,6 +1,6 @@
 Space.messaging.EventSubscribing = {
 
-  Dependencies: {
+  dependencies: {
     eventBus: 'Space.messaging.EventBus'
     meteor: 'Meteor'
   }

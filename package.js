@@ -2,7 +2,7 @@ Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
   version: '2.1.0',
-  git: 'https://github.com/meteor-space/messaging.git',
+  git: 'https://github.com/meteor-space/messaging.git'
 });
 
 Package.onUse(function(api) {
@@ -14,6 +14,7 @@ Package.onUse(function(api) {
     'underscore',
     'check',
     'ejson',
+    'ecmascript',
     'fongandrew:find-and-modify@0.2.1',
     'space:base@3.1.0'
   ]);
@@ -26,12 +27,12 @@ Package.onUse(function(api) {
     'source/mixins/event-subscribing.coffee',
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
-    'source/mixins/application-helpers.coffee',
+    'source/mixins/application-helpers.coffee'
   ]);
 
   // SERVER
   api.addFiles([
-    'source/mixins/command-handling.coffee',
+    'source/mixins/command-handling.coffee'
   ], 'server');
 
   // SHARED
@@ -59,7 +60,7 @@ Package.onTest(function(api) {
     'check',
     'ejson',
     'mongo',
-    'underscore',
+    'ecmascript',
     'space:messaging',
     'practicalmeteor:munit@2.1.5',
     'space:testing@2.0.0'
@@ -73,12 +74,12 @@ Package.onTest(function(api) {
     'tests/unit/api.unit.coffee',
     'tests/unit/value-objects/guid.unit.coffee',
     'tests/integration/controller_event_subscribing.js',
-    'tests/integration/test_app.coffee',
+    'tests/integration/test_app.coffee'
   ]);
 
   api.addFiles([
     'tests/integration/controller_command_handling.js',
-    'tests/integration/handling-api-messages.js',
+    'tests/integration/handling-api-messages.js'
   ], 'server');
 
 });

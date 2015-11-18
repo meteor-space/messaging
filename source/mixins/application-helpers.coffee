@@ -2,7 +2,7 @@
 # Add basic messaging capabilities to Space applications
 Space.Application.mixin {
 
-  Dependencies: {
+  dependencies: {
     eventBus: 'Space.messaging.EventBus'
     commandBus: 'Space.messaging.CommandBus'
   }
