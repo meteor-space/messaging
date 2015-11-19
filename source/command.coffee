@@ -14,4 +14,5 @@ class Space.messaging.Command extends Space.messaging.Serializable
     fields.targetId ?= Match.OneOf(String, Guid)
     fields.version = Match.Optional(Match.Integer)
     fields.timestamp = Date
+    fields.meta = Match.Optional(Object)
     return fields

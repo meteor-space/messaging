@@ -19,6 +19,7 @@ class Space.messaging.Event extends Space.messaging.Serializable
     fields.eventVersion = Match.Optional(Match.Integer)
     fields.version = Match.Optional(Match.Integer)
     fields.timestamp = Date
+    fields.meta = Match.Optional(Object)
     return fields
 
   _migrateToLatestVersion: (data) ->
