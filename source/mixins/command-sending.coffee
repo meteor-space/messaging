@@ -4,6 +4,6 @@ Space.messaging.CommandSending = {
     commandBus: 'Space.messaging.CommandBus'
   }
 
-  send: (command) -> @commandBus.send command
+  send: -> @commandBus.send.apply(@commandBus, arguments)
 
 }
