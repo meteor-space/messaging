@@ -10,8 +10,6 @@ Space.messaging.StaticHandlers = {
       @_handlers[name] = original: handler, bound: null
   }
 
-  onMixinApplied: -> @_handlers ?= {}
-
   _getHandlerFor: (method) ->
     @constructor._handlers ?= {}
     @constructor._handlers[method]
