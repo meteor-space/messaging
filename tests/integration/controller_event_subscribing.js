@@ -27,6 +27,7 @@ describe("Event subscribing", function() {
 
     // Integrate the controller in our test app
     let ControllerTestApp = Space.Application.define('ControllerTestApp', {
+      requiredModules: ['Space.messaging'],
       afterInitialize: function() {
         this.injector.map('MyController').toSingleton(MyController);
       }
