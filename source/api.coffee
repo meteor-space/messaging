@@ -26,8 +26,9 @@ class Space.messaging.Api extends Space.Object
     method[name] = body
     Meteor.methods method
 
-  @_setupMethod: (type) =>
+  @_setupMethod: (type) ->
     name = type.toString()
+    @_handlers ?= {}
     handlers = @_handlers
     return (param) ->
       try type = Space.resolvePath(name)

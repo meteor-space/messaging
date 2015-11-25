@@ -23,6 +23,7 @@ class Space.messaging.Publication extends Space.Object
   @_registerPublication: (name, callback) -> Meteor.publish name, callback
 
   onDependenciesReady: ->
+    super
     @_setupDeclarativeMappings 'publications', @_setupDeclarativeHandler
     @_bindHandlersToInstance()
 
