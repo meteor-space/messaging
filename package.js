@@ -42,6 +42,7 @@ Package.onUse(function(api) {
     'source/value-objects/guid.coffee',
     'source/serializables/event.js',
     'source/serializables/command.js',
+    'source/serializables/error.js',
     'source/event_bus.coffee',
     'source/command_bus.coffee',
     'source/controller.coffee',
@@ -69,6 +70,7 @@ Package.onTest(function(api) {
   api.addFiles([
     'tests/unit/serializable.unit.coffee',
     'tests/unit/serializables/event.unit.coffee',
+    'tests/unit/serializables/space-error.tests.js',
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
