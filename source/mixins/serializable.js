@@ -38,14 +38,14 @@ Space.messaging.SerializableMixin = {
    */
   toJSONValue() {
     let fields = this.fields();
-    if (!fields) {
+    if (!fields || _.isEmpty(fields)) {
       // No special fields, simply parse instance to create deep copy
       return JSON.parse(JSON.stringify(this));
     } else {
       // Fields defined, parse them through EJSON to support nested types
       let serialized = {};
       for (let key in fields) {
-        if (this[key] !== undefined) {
+        if (fields.hasOwnProperty(key) && this[key] !== undefined) {
           serialized[key] = EJSON.toJSONValue(this[key]);
         }
       }
