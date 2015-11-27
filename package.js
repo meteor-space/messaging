@@ -68,7 +68,7 @@ Package.onTest(function(api) {
 
   api.addFiles([
     'tests/unit/serializable.unit.coffee',
-    'tests/unit/event.unit.coffee',
+    'tests/unit/serializables/event.unit.coffee',
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
