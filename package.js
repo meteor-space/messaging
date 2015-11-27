@@ -27,7 +27,8 @@ Package.onUse(function(api) {
     'source/mixins/event-subscribing.coffee',
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
-    'source/mixins/application-helpers.coffee'
+    'source/mixins/application-helpers.coffee',
+    'source/mixins/serializable.js'
   ]);
 
   // SERVER
@@ -38,7 +39,6 @@ Package.onUse(function(api) {
   // SHARED
   api.addFiles([
     'source/helpers.coffee',
-    'source/serializable.coffee',
     'source/value-objects/guid.coffee',
     'source/event.coffee',
     'source/event_bus.coffee',
