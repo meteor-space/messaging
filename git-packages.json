@@ -1,7 +1,7 @@
 {
   "space:base": {
     "git": "https://github.com/meteor-space/base.git",
-    "branch": "feature/space-error-as-struct"
+    "branch": "develop"
   },
   "space:testing": {
     "git": "https://github.com/meteor-space/testing.git",
