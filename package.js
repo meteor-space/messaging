@@ -40,9 +40,9 @@ Package.onUse(function(api) {
   api.addFiles([
     'source/helpers.coffee',
     'source/value-objects/guid.coffee',
-    'source/event.coffee',
+    'source/serializables/event.js',
+    'source/serializables/command.js',
     'source/event_bus.coffee',
-    'source/command.coffee',
     'source/command_bus.coffee',
     'source/controller.coffee',
     'source/tracker.coffee',
