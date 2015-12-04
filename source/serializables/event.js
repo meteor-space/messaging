@@ -12,8 +12,7 @@ Space.Struct.extend(Space.messaging, 'Event', {
   Constructor(params) {
     let data = params || {};
     this._migrateToLatestVersion(data);
-    data.eventVersion = this.eventVersion;
-    if (!data.timestamp) data.timestamp = new Date();
+    this._applyDefaultValues(data);
     return Space.Struct.call(this, data);
   },
 
@@ -26,6 +25,11 @@ Space.Struct.extend(Space.messaging, 'Event', {
     fields.timestamp = Date;
     fields.meta = Match.Optional(Object);
     return fields;
+  },
+
+  _applyDefaultValues(data) {
+    data.eventVersion = this.eventVersion;
+    if (!data.timestamp) data.timestamp = new Date();
   },
 
   _migrateToLatestVersion(data) {
