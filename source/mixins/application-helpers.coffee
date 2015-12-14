@@ -13,6 +13,4 @@ Space.Application.mixin {
 
   send: (command) -> @commandBus.send.apply(@commandBus, arguments)
 
-  # Tell all sub-modules to reset their data / stop long-living observers
-  reset: -> module.reset?() for _, module of @modules
 }
