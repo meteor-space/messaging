@@ -24,7 +24,9 @@ Space.messaging.SerializableMixin = {
     // Make this class EJSON serializable
     type(name) {
       this.prototype.typeName = this.toString = generateTypeNameMethod(name);
+      this.classPath = name;
       EJSON.addType(name, _.partial(fromJSONValueFunction, this));
+      Space.Struct.type(name, this);
       return this;
     },
 
