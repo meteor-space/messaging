@@ -1,7 +1,7 @@
 {
   "space:base": {
     "git": "https://github.com/meteor-space/base.git",
-    "branch": "feature/serializing-structs"
+    "version": "c6b32c392ef3e2e79173cc8bb9f82229032af893"
   },
   "space:testing": {
     "git": "https://github.com/meteor-space/testing.git",
