@@ -17,20 +17,55 @@ let fromJSONValueFunction = function(Class, json) {
   return new Class(json);
 };
 
+let registry = {};
+
 Space.messaging.SerializableMixin = {
 
   statics: {
 
-    // Make this class EJSON serializable
+    // Mark this class as serializable
+    isSerializable: true,
+
+    // Add unique type for serialization
     type(name) {
       this.prototype.typeName = this.toString = generateTypeNameMethod(name);
       EJSON.addType(name, _.partial(fromJSONValueFunction, this));
+      registry[name] = this;
       return this;
     },
 
-    // Mark this class as serializable
-    isSerializable: true
+    fromData(raw) {
+      let data = {};
+      _.each(this.prototype.fields(), function(Type, key) {
+        if (raw[key] === undefined) return;
+        let value = raw[key];
+        if (value._type !== undefined) {
+          // This is a sub-serializable
+          data[key] = registry[value._type].fromData(raw[key]);
+        } else if (_.isArray(value)) {
+          // This is an array of values / sub-serializables
+          data[key] = value.map(function(v) {
+            if (v._type !== undefined) {
+              return registry[v._type].fromData(v);
+            } else {
+              return v;
+            }
+          });
+        } else {
+          data[key] = value;
+        }
+      });
+      return new this(data);
+    },
+
+    resolve(type) {
+      return registry[type];
+    }
+
   },
+
+  // Mark this object as serializable
+  isSerializable: true,
 
   /**
    * Recursivly turn this object and all it's sub-serializables into one
@@ -51,7 +86,28 @@ Space.messaging.SerializableMixin = {
       }
       return serialized;
     }
+  },
+
+  toData() {
+    let data = { _type: this.typeName() };
+    _.each(this.fields(), (Type, key) => {
+      if (this[key] === undefined) return;
+      let value = this[key];
+      if (value.isSerializable) {
+        // This is another serializable
+        data[key] = value.toData();
+      } else if (_.isArray(value)) {
+        // This is an array of sub values / Serializable
+        data[key] = value.map(function(v) {
+          return v.isSerializable ? v.toData() : v;
+        });
+      } else {
+        data[key] = value;
+      }
+    });
+    return data;
   }
+
 };
 
 // Todo: Refactor to mixin only! This is just there to support current systems

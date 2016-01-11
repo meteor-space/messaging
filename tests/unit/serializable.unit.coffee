@@ -1,16 +1,28 @@
 
 Serializable = Space.messaging.Serializable
+test = Space.namespace 'Space.messaging.__test__'
 
-describe "Space.messaging.Serializable", ->
+class test.MySerializable extends Serializable
+  @type 'test.MySerializable'
+  fields: -> name: String, age: Match.Integer
 
-  it 'is a struct', ->
-    expect(Space.messaging.Serializable).to.extend Space.Struct
+class test.MyNestedSerializable extends Serializable
+  @type 'test.MyNestedSerializable'
+  fields: -> {
+    single: test.MySerializable
+    multiple: [test.MySerializable]
+  }
+
+describe "Serializable", ->
+
+  it 'is a test', ->
+    expect(Serializable).to.extend Space.Struct
 
   describe 'construction', ->
 
     describe 'setting the type', ->
 
-      class BasicTestType extends Space.messaging.Serializable
+      class BasicTestType extends Serializable
         @type 'Space.messaging.BasicTestType'
 
       it 'makes the class EJSON serializable', ->
@@ -19,13 +31,17 @@ describe "Space.messaging.Serializable", ->
         expect(instance).not.to.equal copy
         expect(copy).to.be.instanceof BasicTestType
 
+      it 'makes the serializable resolvable via the type name', ->
+        resolvedType = Serializable.resolve('Space.messaging.BasicTestType')
+        expect(resolvedType).to.equal(BasicTestType)
+
     describe 'defining fields', ->
 
-      class TestTypeWithFields extends Space.messaging.Serializable
+      class TestTypeWithFields extends Serializable
         @type 'Space.messaging.TestTypeWithFields'
         @fields: name: String, age: Match.Integer
 
-      class TestTypeWithNestedTypes extends Space.messaging.Serializable
+      class TestTypeWithNestedTypes extends Serializable
         @type 'Space.messaging.TestTypeWithNestedTypes'
         @fields: sub: TestTypeWithFields
 
@@ -66,3 +82,36 @@ describe "Space.messaging.Serializable", ->
         expect(instance.sub).to.equal subType
         expect(instance).to.be.instanceof Space.messaging.__test__.SuperType
         expect(instance).to.deep.equal copy
+
+  describe "serializing to and from plain object hierarchies", ->
+
+    exampleNestedData = {
+      _type: 'test.MyNestedSerializable'
+      single: { _type: 'test.MySerializable', name: 'Test', age: 10 }
+      multiple: [
+        { _type: 'test.MySerializable', name: 'Bla', age: 2 }
+        { _type: 'test.MySerializable', name: 'Blub', age: 5 }
+      ]
+    }
+
+    describe "::toData", ->
+
+      it "returns a hierarchy of plain data objects", ->
+        mySerializable = new test.MyNestedSerializable {
+          single: new test.MySerializable(name: 'Test', age: 10)
+          multiple: [
+            new test.MySerializable(name: 'Bla', age: 2)
+            new test.MySerializable(name: 'Blub', age: 5)
+          ]
+        }
+        expect(mySerializable.toData()).to.deep.equal exampleNestedData
+
+    describe ".fromData", ->
+
+      it "constructs the struct hierarchy from plain data object hierarchy", ->
+
+        mySerializable = test.MyNestedSerializable.fromData exampleNestedData
+        expect(mySerializable).to.be.instanceOf(test.MyNestedSerializable)
+        expect(mySerializable.single).to.be.instanceOf(test.MySerializable)
+        expect(mySerializable.multiple[0].toData()).to.deep.equal exampleNestedData.multiple[0]
+        expect(mySerializable.multiple[1].toData()).to.deep.equal exampleNestedData.multiple[1]
