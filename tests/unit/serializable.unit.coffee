@@ -1,29 +1,28 @@
 
 Serializable = Space.messaging.Serializable
+test = Space.namespace 'Space.messaging.__test__'
 
-test = Space.namespace('Space.messaging.__test__')
-
-class test.MySerializable extends Space.messaging.Serializable
+class test.MySerializable extends Serializable
   @type 'test.MySerializable'
   fields: -> name: String, age: Match.Integer
 
-class test.MyNestedSerializable extends Space.messaging.Serializable
+class test.MyNestedSerializable extends Serializable
   @type 'test.MyNestedSerializable'
   fields: -> {
     single: test.MySerializable
     multiple: [test.MySerializable]
   }
 
-describe "Space.messaging.Serializable", ->
+describe "Serializable", ->
 
   it 'is a test', ->
-    expect(Space.messaging.Serializable).to.extend Space.Struct
+    expect(Serializable).to.extend Space.Struct
 
   describe 'construction', ->
 
     describe 'setting the type', ->
 
-      class BasicTestType extends Space.messaging.Serializable
+      class BasicTestType extends Serializable
         @type 'Space.messaging.BasicTestType'
 
       it 'makes the class EJSON serializable', ->
@@ -32,13 +31,17 @@ describe "Space.messaging.Serializable", ->
         expect(instance).not.to.equal copy
         expect(copy).to.be.instanceof BasicTestType
 
+      it 'makes the serializable resolvable via the type name', ->
+        resolvedType = Serializable.resolve('Space.messaging.BasicTestType')
+        expect(resolvedType).to.equal(BasicTestType)
+
     describe 'defining fields', ->
 
-      class TestTypeWithFields extends Space.messaging.Serializable
+      class TestTypeWithFields extends Serializable
         @type 'Space.messaging.TestTypeWithFields'
         @fields: name: String, age: Match.Integer
 
-      class TestTypeWithNestedTypes extends Space.messaging.Serializable
+      class TestTypeWithNestedTypes extends Serializable
         @type 'Space.messaging.TestTypeWithNestedTypes'
         @fields: sub: TestTypeWithFields
 

@@ -56,6 +56,10 @@ Space.messaging.SerializableMixin = {
         }
       });
       return new this(data);
+    },
+
+    resolve(type) {
+      return registry[type];
     }
 
   },
