@@ -1,9 +1,22 @@
 
 Serializable = Space.messaging.Serializable
 
+test = Space.namespace('Space.messaging.__test__')
+
+class test.MySerializable extends Space.messaging.Serializable
+  @type 'test.MySerializable'
+  fields: -> name: String, age: Match.Integer
+
+class test.MyNestedSerializable extends Space.messaging.Serializable
+  @type 'test.MyNestedSerializable'
+  fields: -> {
+    single: test.MySerializable
+    multiple: [test.MySerializable]
+  }
+
 describe "Space.messaging.Serializable", ->
 
-  it 'is a struct', ->
+  it 'is a test', ->
     expect(Space.messaging.Serializable).to.extend Space.Struct
 
   describe 'construction', ->
@@ -66,3 +79,36 @@ describe "Space.messaging.Serializable", ->
         expect(instance.sub).to.equal subType
         expect(instance).to.be.instanceof Space.messaging.__test__.SuperType
         expect(instance).to.deep.equal copy
+
+  describe "serializing to and from plain object hierarchies", ->
+
+    exampleNestedData = {
+      _type: 'test.MyNestedSerializable'
+      single: { _type: 'test.MySerializable', name: 'Test', age: 10 }
+      multiple: [
+        { _type: 'test.MySerializable', name: 'Bla', age: 2 }
+        { _type: 'test.MySerializable', name: 'Blub', age: 5 }
+      ]
+    }
+
+    describe "::toData", ->
+
+      it "returns a hierarchy of plain data objects", ->
+        mySerializable = new test.MyNestedSerializable {
+          single: new test.MySerializable(name: 'Test', age: 10)
+          multiple: [
+            new test.MySerializable(name: 'Bla', age: 2)
+            new test.MySerializable(name: 'Blub', age: 5)
+          ]
+        }
+        expect(mySerializable.toData()).to.deep.equal exampleNestedData
+
+    describe ".fromData", ->
+
+      it "constructs the struct hierarchy from plain data object hierarchy", ->
+
+        mySerializable = test.MyNestedSerializable.fromData exampleNestedData
+        expect(mySerializable).to.be.instanceOf(test.MyNestedSerializable)
+        expect(mySerializable.single).to.be.instanceOf(test.MySerializable)
+        expect(mySerializable.multiple[0].toData()).to.deep.equal exampleNestedData.multiple[0]
+        expect(mySerializable.multiple[1].toData()).to.deep.equal exampleNestedData.multiple[1]
