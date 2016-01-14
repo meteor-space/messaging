@@ -17,8 +17,6 @@ let fromJSONValueFunction = function(Class, json) {
   return new Class(json);
 };
 
-let registry = {};
-
 Space.messaging.SerializableMixin = {
 
   statics: {
@@ -28,9 +26,9 @@ Space.messaging.SerializableMixin = {
 
     // Add unique type for serialization
     type(name) {
+      Space.Object.type.call(this, name);
       this.prototype.typeName = this.toString = generateTypeNameMethod(name);
       EJSON.addType(name, _.partial(fromJSONValueFunction, this));
-      registry[name] = this;
       return this;
     },
 
@@ -41,12 +39,12 @@ Space.messaging.SerializableMixin = {
         let value = raw[key];
         if (value._type !== undefined) {
           // This is a sub-serializable
-          data[key] = registry[value._type].fromData(raw[key]);
+          data[key] = Space.resolvePath(value._type).fromData(raw[key]);
         } else if (_.isArray(value)) {
           // This is an array of values / sub-serializables
           data[key] = value.map(function(v) {
             if (v._type !== undefined) {
-              return registry[v._type].fromData(v);
+              return Space.resolvePath(v._type).fromData(v);
             } else {
               return v;
             }
@@ -56,10 +54,6 @@ Space.messaging.SerializableMixin = {
         }
       });
       return new this(data);
-    },
-
-    resolve(type) {
-      return registry[type];
     }
 
   },
