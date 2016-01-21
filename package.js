@@ -1,13 +1,13 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '2.1.0',
+  version: '3.0.0',
   git: 'https://github.com/meteor-space/messaging.git'
 });
 
 Package.onUse(function(api) {
 
-  api.versionsFrom("METEOR@1.0");
+  api.versionsFrom('1.2.0.1');
 
   api.use([
     'coffeescript',
@@ -63,7 +63,7 @@ Package.onTest(function(api) {
     'mongo',
     'ecmascript',
     'space:testing@3.0.1',
-    'space:testing-messaging@0.1.0',
+    'space:testing-messaging@3.0.0',
     'space:messaging',
     'practicalmeteor:munit@2.1.5'
   ]);
