@@ -28,7 +28,7 @@ Package.onUse(function(api) {
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
     'source/mixins/application-helpers.coffee',
-    'source/mixins/serializable.js'
+    'source/mixins/ejsonable.js'
   ]);
 
   // SERVER
