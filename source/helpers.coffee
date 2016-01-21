@@ -11,7 +11,7 @@ Space.messaging.define = (BaseType, options..., definitions) ->
 
   if !BaseType.isSerializable then throw new Error 'BaseType must extend Space.messaging.Serializable'
   if !definitions? then throw new Error "Space.messaging.define is missing definitions for #{BaseType}."
-  if options.length is 1 then namespace = options[0] else namespace = ''
+  if options.length is 1 then namespace = options[0].toString() else namespace = ''
   defineTypeWithFields(BaseType, namespace, className, fields) for className, fields of definitions
 
 Space.messaging.defineSerializables = Space.messaging.define
