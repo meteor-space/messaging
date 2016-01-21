@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 3.0.0
+Breaking changes
+- `Space.messaging.SerializableMixin` renamed to `Space.messaging.Ejsonable`. Best practice is to use this mixin and extend from `Space.Struct` as `Space.messaging.Serializable` will be depreciated in the future.
+
 ## 2.1.0
 This is a continuous breaking changes release because nobody is using 2.0.0 yet.
 - Improved naming of event subscribing / command handling api to `eventSubscriptions`
