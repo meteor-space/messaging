@@ -16,7 +16,7 @@ Package.onUse(function(api) {
     'ejson',
     'ecmascript',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@3.1.0'
+    'space:base@4.0.0'
   ]);
 
   // SHARED
@@ -62,9 +62,10 @@ Package.onTest(function(api) {
     'ejson',
     'mongo',
     'ecmascript',
+    'space:testing@3.0.1',
+    'space:testing-messaging@0.1.0',
     'space:messaging',
-    'practicalmeteor:munit@2.1.5',
-    'space:testing@2.0.0'
+    'practicalmeteor:munit@2.1.5'
   ]);
 
   api.addFiles([
@@ -75,6 +76,7 @@ Package.onTest(function(api) {
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
     'tests/unit/value-objects/guid.unit.coffee',
+    'tests/unit/helpers.tests.js',
     'tests/integration/controller_event_subscribing.js',
     'tests/integration/test-app.js'
   ]);
