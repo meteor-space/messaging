@@ -1,11 +1,7 @@
 
-Space.Struct.extend(Space.messaging, 'Command', {
+Space.Struct.extend('Space.messaging.Command', {
 
   mixin: [Space.messaging.SerializableMixin],
-
-  onExtending() {
-    this.type('Space.messaging.Command');
-  },
 
   Constructor(params) {
     let data = params || {};

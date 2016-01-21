@@ -1,11 +1,7 @@
 
-Space.Struct.extend(Space.messaging, 'Event', {
+Space.Struct.extend('Space.messaging.Event', {
 
   mixin: [Space.messaging.SerializableMixin],
-
-  onExtending() {
-    this.type('Space.messaging.Event');
-  },
 
   eventVersion: 1,
 

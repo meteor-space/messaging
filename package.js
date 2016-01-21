@@ -16,8 +16,7 @@ Package.onUse(function(api) {
     'ejson',
     'ecmascript',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@4.0.0',
-    'space:testing@3.0.1'
+    'space:base@4.0.0'
   ]);
 
   // SHARED
@@ -52,11 +51,6 @@ Package.onUse(function(api) {
     'source/api.coffee'
   ]);
 
-  // Test helpers
-  api.addFiles([
-    'source/bdd/messaging-api-bdd-api.coffee'
-  ]);
-
 });
 
 Package.onTest(function(api) {
@@ -68,10 +62,10 @@ Package.onTest(function(api) {
     'ejson',
     'mongo',
     'ecmascript',
+    'space:testing@3.0.1',
+    'space:testing-messaging@0.1.0',
     'space:messaging',
-    'practicalmeteor:munit@2.1.5',
-    'space:base@4.0.0',
-    'space:testing@3.0.1'
+    'practicalmeteor:munit@2.1.5'
   ]);
 
   api.addFiles([

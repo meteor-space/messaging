@@ -1,13 +1,11 @@
 describe("Space.messaging - Serializable Space.Error", function() {
 
-  let MyCustomValue = Space.Struct.extend({
+  let MyCustomValue = Space.Struct.extend('MyCustomValue', {
     mixin: [Space.messaging.SerializableMixin],
-    onExtending() { this.type('MyCustomValue'); },
     statics: { fields: { value: String } }
   });
 
   let MyCustomError = Space.Error.extend('MyCustomError', {
-    onExtending() { this.type('MyCustomError'); },
     statics: { fields: { custom: MyCustomValue } }
   });
 

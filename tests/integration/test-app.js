@@ -4,8 +4,6 @@ this.MyValue = Space.messaging.Serializable.extend('MyValue', {
   }
 });
 
-this.MyValue.type('MyValue');
-
 Space.messaging.define(Space.messaging.Event, {
   MyEvent: { value: MyValue },
   AnotherEvent: {}
