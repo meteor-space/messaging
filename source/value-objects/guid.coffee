@@ -1,5 +1,7 @@
 
-class @Guid extends Space.messaging.Serializable
+class @Guid extends Space.Struct
+
+  @mixin [Space.messaging.Ejsonable]
 
   @type 'Guid'
   @fields: id: String

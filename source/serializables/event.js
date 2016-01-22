@@ -1,7 +1,7 @@
 
 Space.Struct.extend('Space.messaging.Event', {
 
-  mixin: [Space.messaging.SerializableMixin],
+  mixin: [Space.messaging.Ejsonable],
 
   eventVersion: 1,
 

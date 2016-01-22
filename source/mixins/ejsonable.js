@@ -17,7 +17,7 @@ let fromJSONValueFunction = function(Class, json) {
   return new Class(json);
 };
 
-Space.messaging.SerializableMixin = {
+Space.messaging.Ejsonable = {
 
   statics: {
 
@@ -106,5 +106,5 @@ Space.messaging.SerializableMixin = {
 
 // Todo: Refactor to mixin only! This is just there to support current systems
 Space.Struct.extend(Space.messaging, 'Serializable', {
-  mixin: [Space.messaging.SerializableMixin]
+  mixin: [Space.messaging.Ejsonable]
 });

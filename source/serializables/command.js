@@ -1,7 +1,7 @@
 
 Space.Struct.extend('Space.messaging.Command', {
 
-  mixin: [Space.messaging.SerializableMixin],
+  mixin: [Space.messaging.Ejsonable],
 
   Constructor(params) {
     let data = params || {};

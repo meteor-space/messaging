@@ -9,6 +9,6 @@
   },
   "space:testing-messaging": {
     "git":"https://github.com/meteor-space/testing-messaging.git",
-    "version": "52c8dd74b95b72113c182f08845b5e26f3fcd4e0"
+    "version": "e87949b0b7b30628ccb37d632c843c215423beec"
   }
 }
