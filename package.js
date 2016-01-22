@@ -71,6 +71,7 @@ Package.onTest(function(api) {
   api.addFiles([
     'tests/unit/serializable.unit.coffee',
     'tests/unit/serializables/event.unit.coffee',
+    'tests/unit/serializables/command.unit.coffee',
     'tests/unit/serializables/space-error.tests.js',
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
