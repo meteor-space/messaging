@@ -3,11 +3,9 @@ describe("Event subscribing", function() {
 
   beforeEach(function() {
     this.myEvent = new MyEvent({
-      sourceId: '123',
-      version: 1,
       value: new MyValue({ name: 'test' })
     });
-    this.anotherEvent = new AnotherEvent({ sourceId: '123' });
+    this.anotherEvent = new AnotherEvent({ });
   });
 
   it("subscribes to events", function() {
