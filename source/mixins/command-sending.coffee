@@ -1,9 +1,9 @@
 Space.messaging.CommandSending = {
 
-  Dependencies: {
+  dependencies: {
     commandBus: 'Space.messaging.CommandBus'
   }
 
-  send: (command) -> @commandBus.send command
+  send: -> @commandBus.send.apply(@commandBus, arguments)
 
 }

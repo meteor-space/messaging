@@ -1,21 +1,22 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '2.1.0',
-  git: 'https://github.com/meteor-space/messaging.git',
+  version: '3.0.1',
+  git: 'https://github.com/meteor-space/messaging.git'
 });
 
 Package.onUse(function(api) {
 
-  api.versionsFrom("METEOR@1.0");
+  api.versionsFrom('1.2.0.1');
 
   api.use([
     'coffeescript',
     'underscore',
     'check',
     'ejson',
+    'ecmascript',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@3.1.0'
+    'space:base@4.0.0'
   ]);
 
   // SHARED
@@ -27,21 +28,22 @@ Package.onUse(function(api) {
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
     'source/mixins/application-helpers.coffee',
+    'source/mixins/ejsonable.js'
   ]);
 
   // SERVER
   api.addFiles([
-    'source/mixins/command-handling.coffee',
+    'source/mixins/command-handling.coffee'
   ], 'server');
 
   // SHARED
   api.addFiles([
     'source/helpers.coffee',
-    'source/serializable.coffee',
     'source/value-objects/guid.coffee',
-    'source/event.coffee',
+    'source/serializables/event.js',
+    'source/serializables/command.js',
+    'source/serializables/error.js',
     'source/event_bus.coffee',
-    'source/command.coffee',
     'source/command_bus.coffee',
     'source/controller.coffee',
     'source/tracker.coffee',
@@ -59,25 +61,30 @@ Package.onTest(function(api) {
     'check',
     'ejson',
     'mongo',
-    'underscore',
+    'ecmascript',
+    'space:testing@3.0.1',
+    'space:testing-messaging@3.0.0',
     'space:messaging',
-    'practicalmeteor:munit@2.1.5',
-    'space:testing@1.5.0'
+    'practicalmeteor:munit@2.1.5'
   ]);
 
   api.addFiles([
     'tests/unit/serializable.unit.coffee',
-    'tests/unit/event.unit.coffee',
+    'tests/unit/serializables/event.unit.coffee',
+    'tests/unit/serializables/command.unit.coffee',
+    'tests/unit/serializables/space-error.tests.js',
     'tests/unit/event_bus.unit.coffee',
     'tests/unit/command_bus.unit.coffee',
     'tests/unit/api.unit.coffee',
     'tests/unit/value-objects/guid.unit.coffee',
-    'tests/integration/controller_event_handling.js',
-    'tests/integration/test_app.coffee',
+    'tests/unit/helpers.tests.js',
+    'tests/integration/controller_event_subscribing.js',
+    'tests/integration/test-app.js'
   ]);
 
   api.addFiles([
     'tests/integration/controller_command_handling.js',
+    'tests/integration/handling-api-messages.js'
   ], 'server');
 
 });

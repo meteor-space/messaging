@@ -1,31 +1,17 @@
 Serializable = Space.messaging.Serializable
 global = this
 
-Space.messaging.define = (ParentType, options..., definitions) ->
+defineTypeWithFields = (BaseType, namespace, className, fields) ->
+  if namespace is '' then classPath = className else classPath = "#{namespace}.#{className}"
+  SubType = BaseType.extend(classPath)
+  SubType::fields = -> _.extend BaseType::fields(), fields
+  Space.resolvePath(namespace)[className] = SubType
 
-  if (ParentType is not Serializable) and (ParentType.__super__ is not Serializable)
-    throw new Error 'Type type must extend Space.messaging.Serializable'
+Space.messaging.define = (BaseType, options..., definitions) ->
 
-  if !definitions?
-    throw new Error "Space.messaging.define is missing definitions for #{Type}."
-
-  if options.length is 0
-    namespace = global
-    prefix = ''
-  else if options.length is 1
-    # This only works if the path is globally accessible
-    namespace = Space.resolvePath(options[0])
-    prefix = options[0] + '.'
-  else if options.length is 2
-    namespace = options[0]
-    prefix = options[1] + '.'
-  else
-    throw new Error "Wrong call to Space.messaging.define(Type, [namespace, prefix], definitions)."
-
-  for className, fields of definitions
-    Klass = ParentType.extend(className)
-    Klass.type(prefix + className)
-    Klass.fields = fields
-    namespace[className] = Klass
+  if !BaseType.isSerializable then throw new Error 'BaseType must extend Space.messaging.Serializable'
+  if !definitions? then throw new Error "Space.messaging.define is missing definitions for #{BaseType}."
+  if options.length is 1 then namespace = options[0].toString() else namespace = ''
+  defineTypeWithFields(BaseType, namespace, className, fields) for className, fields of definitions
 
 Space.messaging.defineSerializables = Space.messaging.define

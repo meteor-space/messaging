@@ -2,19 +2,19 @@
 class Space.messaging.EventBus extends Space.Object
 
   _eventHandlers: null
-  _onPublishHooks: null
+  _onPublishCallbacks: null
 
   constructor: ->
     @_eventHandlers = {}
-    @_onPublishHooks = []
+    @_onPublishCallbacks = []
 
-  publish: (event, options={}) ->
+  publish: (event) ->
     eventType = event.typeName()
-    hook(event) for hook in @_onPublishHooks when !options.ignoreHooks
+    callback(event) for callback in @_onPublishCallbacks
     if not @_eventHandlers[eventType]? then return
     handler(event) for handler in @_eventHandlers[eventType]
 
-  onPublish: (handler) -> @_onPublishHooks.push handler
+  onPublish: (handler) -> @_onPublishCallbacks.push handler
 
   subscribeTo: (typeName, handler) -> (@_eventHandlers[typeName] ?= []).push handler
 

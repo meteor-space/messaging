@@ -1,6 +1,6 @@
 class Space.messaging.Tracker extends Space.Object
 
-  Dependencies: {
+  dependencies: {
     tracker: 'Tracker'
     meteor: 'Meteor'
   }

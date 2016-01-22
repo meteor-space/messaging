@@ -1,14 +1,11 @@
 
 class Space.messaging.Api extends Space.Object
 
-  Dependencies: {
-    eventBus: 'Space.messaging.EventBus'
-    commandBus: 'Space.messaging.CommandBus'
-  }
-
   @mixin [
     Space.messaging.DeclarativeMappings
     Space.messaging.StaticHandlers
+    Space.messaging.CommandSending
+    Space.messaging.EventPublishing
   ]
 
   methods: -> []
@@ -29,8 +26,9 @@ class Space.messaging.Api extends Space.Object
     method[name] = body
     Meteor.methods method
 
-  @_setupMethod: (type) =>
+  @_setupMethod: (type) ->
     name = type.toString()
+    @_handlers ?= {}
     handlers = @_handlers
     return (param) ->
       try type = Space.resolvePath(name)

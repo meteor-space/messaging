@@ -1,19 +1,19 @@
 Space.messaging.StaticHandlers = {
 
-  Dependencies: {
+  dependencies: {
     underscore: 'underscore'
   }
 
-  Static: {
+  statics: {
     _handlers: null
     _setupHandler: (name, handler) ->
+      @_ensureHandlersMap()
       @_handlers[name] = original: handler, bound: null
+    _ensureHandlersMap: -> @_handlers ?= {}
   }
 
-  onMixinApplied: -> @_handlers ?= {}
-
   _getHandlerFor: (method) ->
-    @constructor._handlers ?= {}
+    @constructor._ensureHandlersMap()
     @constructor._handlers[method]
 
   _bindHandlersToInstance: ->

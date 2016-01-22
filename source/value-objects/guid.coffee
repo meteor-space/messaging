@@ -1,5 +1,7 @@
 
-class @Guid extends Space.messaging.Serializable
+class @Guid extends Space.Struct
+
+  @mixin [Space.messaging.Ejsonable]
 
   @type 'Guid'
   @fields: id: String
@@ -28,10 +30,11 @@ class @Guid extends Space.messaging.Serializable
 
   # ============== PROTOTYPE ============= #
 
-  # Param <id> can be a string or another Guid instance
-  constructor: (id) ->
-
-    if id?
+  # Param <data> can be a string or an object { id: String }
+  constructor: (data) ->
+    id = null
+    if data?
+      if data.id then id = data.id else id = data
       throw new Error "Invalid guid given: #{id}" unless Guid.isValid(id)
     else
       id = Guid.generate()

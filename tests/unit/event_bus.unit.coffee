@@ -8,15 +8,15 @@ describe 'Space.messaging.EventBus', ->
 
   beforeEach ->
     @eventBus = new EventBus()
-    @handler = sinon.spy()
     @testEvent = new TestEvent()
+    @handler = sinon.spy()
 
   it 'extends space object to be js compatible', ->
     expect(EventBus).to.extend Space.Object
 
-  describe 'subscribing and publishing', ->
+  describe 'subscribing to an event', ->
 
-    it 'allows multiple subscribers for one event', ->
+    it 'allows multiple subscriptions to one event', ->
       first = sinon.spy()
       second = sinon.spy()
       @eventBus.subscribeTo TestEvent, first
@@ -25,3 +25,21 @@ describe 'Space.messaging.EventBus', ->
 
       expect(first).to.have.been.calledWith @testEvent
       expect(second).to.have.been.calledWith @testEvent
+
+  describe 'publishing events', ->
+
+    it 'calls the subscription with the event', ->
+      @eventBus.subscribeTo TestEvent, @handler
+      @eventBus.publish @testEvent
+      expect(@handler).to.have.been.calledWithExactly @testEvent
+
+  describe 'onPublish callbacks', ->
+
+    it.server 'calls all callbacks when publishing an event', ->
+      firstCallback = sinon.spy()
+      secondCallback = sinon.spy()
+      @eventBus.onPublish firstCallback
+      @eventBus.onPublish secondCallback
+      @eventBus.publish @testEvent
+      expect(firstCallback).to.have.been.calledWithExactly @testEvent
+      expect(secondCallback).to.have.been.calledWithExactly @testEvent

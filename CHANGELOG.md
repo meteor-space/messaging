@@ -1,6 +1,19 @@
 Changelog
 =========
 
+## 3.0.0
+### New Features
+- Register a callback with a CommandBus or EventBus instance using  `onSend(callback)` or `onPublish(callback)` respectively. Message will be passed in as the first parameter. 
+
+### Breaking changes
+- This version uses space:base 4.x which includes breaking changes. Please see the [changelog](https://github.com/meteor-space/base/blob/master/CHANGELOG.md).
+- Must be running Meteor 1.2.0.1 or later.
+- `Space.messaging.Event` and `Space.messaging.Command` no longer include
+ default fields `sourceId`/`targetId`, `timestamp`, or `version`.
+ These fields were added to support domain events and commands,
+ but were superfluous for UI events. The drop-in replacement objects are available in [space:domain](https://github.com/meteor-space/domain) as `Space.domain.Event` and `Space.domain.Command`.
+- `Space.messaging.SerializableMixin` renamed to `Space.messaging.Ejsonable`. Best practice is to use this mixin and extend from `Space.Struct` as `Space.messaging.Serializable` will be depreciated in the future.
+
 ## 2.1.0
 This is a continuous breaking changes release because nobody is using 2.0.0 yet.
 - Improved naming of event subscribing / command handling api to `eventSubscriptions`
