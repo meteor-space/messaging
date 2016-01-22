@@ -8,7 +8,10 @@ Changelog
 ### Breaking changes
 - This version uses space:base 4.x which includes breaking changes. Please see the [changelog](https://github.com/meteor-space/base/blob/master/CHANGELOG.md).
 - Must be running Meteor 1.2.0.1 or later.
-
+- `Space.messaging.Event` and `Space.messaging.Command` no longer include
+ default fields `sourceId`/`targetId`, `timestamp`, or `version`.
+ These fields were added to support domain events and commands,
+ but were superfluous for UI events. The drop-in replacement objects are available in [space:domain](https://github.com/meteor-space/domain) as `Space.domain.Event` and `Space.domain.Command`.
 - `Space.messaging.SerializableMixin` renamed to `Space.messaging.Ejsonable`. Best practice is to use this mixin and extend from `Space.Struct` as `Space.messaging.Serializable` will be depreciated in the future.
 
 ## 2.1.0
