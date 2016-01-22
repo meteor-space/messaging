@@ -8,7 +8,19 @@ Space.Struct.extend('Space.messaging.Event', {
   Constructor(params) {
     let data = params || {};
     this._migrateToLatestVersion(data);
+    this._applyDefaultValues(data);
     return Space.Struct.call(this, data);
+  },
+
+  fields() {
+    let fields = Space.Struct.prototype.fields.call(this);
+    // Add default fields to all events
+    fields.eventVersion = Match.Optional(Match.Integer);
+    return fields;
+  },
+
+  _applyDefaultValues(data) {
+    data.eventVersion = this.eventVersion;
   },
 
   _migrateToLatestVersion(data) {
