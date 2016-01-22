@@ -2,9 +2,6 @@ describe("handling api messages", function() {
 
   beforeEach(function() {
     this.command = new MyCommand({
-      targetId: '123',
-      version: 1,
-      timestamp: new Date(),
       value: new MyValue({ name: 'good-value' })
     });
   });
@@ -21,7 +18,7 @@ describe("handling api messages", function() {
   it("receives any values that are compatible with meteor methods", function() {
     let id = '123';
     MyApp.test(MyApi).call('UncheckedMethod', id).expect([
-      new AnotherCommand({ targetId: id })
+      new AnotherCommand({ myCustomTarget: id })
     ]);
   });
 

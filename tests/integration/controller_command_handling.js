@@ -3,11 +3,10 @@ describe("Handling commands", function() {
 
   beforeEach(function() {
     this.myCommand = new MyCommand({
-      targetId: '123',
       value: new MyValue({name: 'test'})
     });
     this.anotherCommand = new AnotherCommand({
-      targetId: '123'
+      myCustomTarget: '123'
     });
   });
 

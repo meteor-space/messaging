@@ -11,7 +11,7 @@ Space.messaging.define(Space.messaging.Event, {
 
 Space.messaging.define(Space.messaging.Command, {
   MyCommand: { value: MyValue },
-  AnotherCommand: {}
+  AnotherCommand: { myCustomTarget: String }
 });
 
 if (Meteor.isServer) {
@@ -28,7 +28,7 @@ if (Meteor.isServer) {
         // Showcase that you can also call your methods "like normal"
         'UncheckedMethod'(_, id) {
           this.send(new AnotherCommand({
-            targetId: id
+            myCustomTarget: id
           }));
         }
       }];
