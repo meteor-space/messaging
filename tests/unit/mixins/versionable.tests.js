@@ -3,8 +3,8 @@ describe("Space.messaging.Versionable", function() {
   const MyVersionableClass = Space.Object.extend({
     mixin: Space.messaging.Versionable,
     schemaVersion: 3,
-    migrateFromVersion1(data) { data.first = 'first'; },
-    migrateFromVersion2(data) { data.second = 'second'; }
+    transformFromVersion1(data) { data.first = 'first'; },
+    transformFromVersion2(data) { data.second = 'second'; }
   });
 
   it('is version 1 by default', function() {
@@ -13,7 +13,7 @@ describe("Space.messaging.Versionable", function() {
     expect(instance.schemaVersion).to.equal(1);
   });
 
-  it('can be migrated from older versions', function() {
+  it('can be transformed from older versions', function() {
     const originalData = { schemaVersion: 1 };
     let instance = new MyVersionableClass(originalData);
     expect(instance.first).to.equal('first');
