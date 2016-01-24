@@ -28,7 +28,8 @@ Package.onUse(function(api) {
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
     'source/mixins/application-helpers.coffee',
-    'source/mixins/ejsonable.js'
+    'source/mixins/ejsonable.js',
+    'source/mixins/versionable.js'
   ]);
 
   // SERVER
@@ -78,6 +79,7 @@ Package.onTest(function(api) {
     'tests/unit/api.unit.coffee',
     'tests/unit/value-objects/guid.unit.coffee',
     'tests/unit/helpers.tests.js',
+    'tests/unit/mixins/versionable.tests.js',
     'tests/integration/controller_event_subscribing.js',
     'tests/integration/test-app.js'
   ]);
