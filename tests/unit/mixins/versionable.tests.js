@@ -25,4 +25,18 @@ describe("Space.messaging.Versionable", function() {
     let copy = EJSON.parse(EJSON.stringify(instance));
     expect(copy.schemaVersion).to.equal(MyVersionableClass.prototype.schemaVersion);
   });
+
+  it("throws an error if a transform method is missing", function() {
+    let MyVersionable = Space.Object.extend({
+      mixin: Space.messaging.Versionable,
+      schemaVersion: 3,
+      transformFromVersion1() {}
+    });
+    const createVersionableWithoutTransformation = function() {
+      return new MyVersionable({ schemaVersion: 1 });
+    };
+    expect(createVersionableWithoutTransformation).to.throw(
+      MyVersionable.prototype.ERRORS.dataTransformMethodMissing(2)
+    );
+  });
 });
