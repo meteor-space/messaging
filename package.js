@@ -24,7 +24,7 @@ Package.onUse(function(api) {
     'source/module.coffee',
     'source/mixins/declarative-mappings.coffee',
     'source/mixins/static-handlers.coffee',
-    'source/mixins/event-subscribing.coffee',
+    'source/mixins/event-subscribing.js',
     'source/mixins/event-publishing.coffee',
     'source/mixins/command-sending.coffee',
     'source/mixins/application-helpers.coffee',
@@ -80,6 +80,7 @@ Package.onTest(function(api) {
     'tests/unit/value-objects/guid.unit.coffee',
     'tests/unit/helpers.tests.js',
     'tests/unit/mixins/versionable.tests.js',
+    'tests/unit/mixins/event-subscribing.tests.js',
     'tests/integration/controller_event_subscribing.js',
     'tests/integration/test-app.js'
   ]);
