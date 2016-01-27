@@ -17,10 +17,10 @@ describe("Handling commands", function() {
     // Define a controller, declare handlers
     MyController = Space.messaging.Controller.extend('MyController', {
       commandHandlers: function() {
-        return [{
+        return {
           'MyCommand': myHandler,
           'AnotherCommand': anotherHandler
-        }];
+        };
       }
     });
 

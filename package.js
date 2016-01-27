@@ -22,7 +22,7 @@ Package.onUse(function(api) {
   // SHARED
   api.addFiles([
     'source/module.coffee',
-    'source/mixins/declarative-mappings.coffee',
+    'source/mixins/declarative-mappings.js',
     'source/mixins/static-handlers.coffee',
     'source/mixins/event-subscribing.js',
     'source/mixins/event-publishing.coffee',
