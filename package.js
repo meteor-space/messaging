@@ -34,7 +34,7 @@ Package.onUse(function(api) {
 
   // SERVER
   api.addFiles([
-    'source/mixins/command-handling.coffee'
+    'source/mixins/command-handling.js'
   ], 'server');
 
   // SHARED
@@ -46,7 +46,7 @@ Package.onUse(function(api) {
     'source/serializables/error.js',
     'source/event_bus.coffee',
     'source/command_bus.coffee',
-    'source/controller.coffee',
+    'source/controller.js',
     'source/tracker.coffee',
     'source/publication.coffee',
     'source/api.coffee'
@@ -86,7 +86,8 @@ Package.onTest(function(api) {
 
   api.addFiles([
     'tests/integration/controller_command_handling.js',
-    'tests/integration/handling-api-messages.js'
+    'tests/integration/handling-api-messages.js',
+    'tests/unit/mixins/command-handling.tests.js'
   ], 'server');
 
 });
