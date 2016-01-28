@@ -1,11 +1,12 @@
 Changelog
 =========
 ## 3.1.0
-- Introduces `Space.messaging.Versionable` mixin to allow any `Space.Struct` to be migrated to new versions as defined by `schemaVersion` using a transformation function such as `transformFromVersionX(data)`. This is particularly important once the instance is persisted.  `eventVersion` in `Space.messaging.Event` is deprecated, but will remain supported until the next major release.
+- Introduces [`Space.messaging.Versionable`](https://github.com/meteor-space/messaging/blob/master/source/mixins/versionable.js) mixin to allow any `Space.Struct` to be migrated to new versions as defined by `schemaVersion` using a transformation function such as `transformFromVersionX(data)`. This is particularly important once an `Ejsonable` `Space.Struct` is persisted.
+  - Any changes to the struct’s fields require the version to be incremented by first adding the property  `schemaVersion`, which by default is set to 1, and then defining a transformation function.
 - Fixes the mixin definition of `EventSubscribing` and `CommandSending`, so that they do not override the handler methods on the host class if mixed in after class creation.
 
 ## 3.0.1
-- Removes default fields from `Space.messaging.Event` making the class more generalised and better suited for more specialized `Space.ui.Event` and `Space.domain.Event` classes.
+- Removes default fields from `Space.messaging.Event` making the class more generalised and better suited for more specialized `Space.ui.Event` and `Space.domain.Event` classes.````
 - Removes default fields from `Space.messaging.Command` making the class more generalised and better suited for more specialized `Space.domain.Command` class.
 
 ## 3.0.0
