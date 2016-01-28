@@ -1,5 +1,12 @@
 Changelog
 =========
+## 3.1.0
+- Introduces `Space.messaging.Versionable` mixin to allow any `Space.Struct` to be migrated to new versions as defined by `schemaVersion` using a transformation function such as `transformFromVersionX(data)`. This is particularly important once the instance is persisted.  `eventVersion` in `Space.messaging.Event` is deprecated, but will remain supported until the next major release.
+- Fixes the mixin definition of `EventSubscribing` and `CommandSending`, so that they do not override the handler methods on the host class if mixed in after class creation.
+
+## 3.0.1
+- Removes default fields from `Space.messaging.Event` making the class more generalised and better suited for more specialized `Space.ui.Event` and `Space.domain.Event` classes.
+- Removes default fields from `Space.messaging.Command` making the class more generalised and better suited for more specialized `Space.domain.Command` class.
 
 ## 3.0.0
 ### New Features
