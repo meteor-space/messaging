@@ -17,19 +17,17 @@ describe("Handling commands", function() {
     // Define a controller, declare handlers
     MyController = Space.messaging.Controller.extend('MyController', {
       commandHandlers: function() {
-        return [{
+        return {
           'MyCommand': myHandler,
           'AnotherCommand': anotherHandler
-        }];
+        };
       }
     });
 
     // Integrate the controller in our test app
     let ControllerTestApp = Space.Application.define('ControllerTestApp', {
       requiredModules: ['Space.messaging'],
-      afterInitialize: function() {
-        this.injector.map('MyController').toSingleton(MyController);
-      }
+      singletons: ['MyController']
     });
 
     // Startup app and send the commands through the bus
