@@ -18,7 +18,7 @@ if (Meteor.isServer) {
 
   this.MyApi = Space.messaging.Api.extend('MyApi', {
     methods() {
-      return [{
+      return {
         // Simulate some simple method validation
         'MyCommand'(_, command) {
           if (command.value.name === 'good-value') {
@@ -31,7 +31,7 @@ if (Meteor.isServer) {
             myCustomTarget: id
           }));
         }
-      }];
+      };
     }
   });
 
