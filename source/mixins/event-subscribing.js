@@ -5,18 +5,14 @@ Space.messaging.EventSubscribing = {
     meteor: 'Meteor'
   },
 
-  _eventHandlers: null,
-
-  onConstruction() {
-    this._eventHandlers = this._eventHandlers || {};
-  },
+  _eventHandlers: {},
 
   onDependenciesReady() {
     this._setupEventSubscribing();
   },
 
   canHandleEvent(event) {
-    this._getEventHandlerFor(event) !== undefined;
+    return this._getEventHandlerFor(event) !== undefined;
   },
 
   subscribe(eventType, handler) {
@@ -58,7 +54,7 @@ Space.messaging.EventSubscribing = {
   },
 
   _getEventHandlerFor(event) {
-    this._eventHandlers[event.typeName()];
+    return this._eventHandlers[event.typeName()];
   },
 
   _onException(error) { throw error; }
