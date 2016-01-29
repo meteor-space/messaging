@@ -1,9 +1,8 @@
 
 describe("Space.messaging.EventSubscribing", function() {
 
-  const EventBus = new Space.messaging.EventBus;
   const EventSubscribing = Space.messaging.EventSubscribing;
-
+  const EventBus = new Space.messaging.EventBus;
   const MyClass = Space.Object.extend({ mixin: EventSubscribing });
   const MyEvent = Space.messaging.Event.extend(
     'Space.messaging.EventSubscribing.__Test__.MyEvent',
