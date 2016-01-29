@@ -14,7 +14,14 @@ describe("Space.messaging.EventSubscribing", function() {
     expect(MyClass.prototype.eventSubscriptions).not.to.exist;
   });
 
-  describe("handling events", function(){
+  it("does not throw error if no handlers have been defined", function() {
+    const createWithoutHandlers = function() {
+      new MyClass({ underscore: _ }).onDependenciesReady();
+    };
+    expect(createWithoutHandlers).not.to.throw(Error);
+  });
+
+  describe("public methods", function() {
 
     beforeEach(function() {
       this.myClassInstance = new MyClass({
@@ -25,34 +32,49 @@ describe("Space.messaging.EventSubscribing", function() {
       this.myEventInstance = new MyEvent();
     });
 
-    it("can handle events when handler functions are subscribed for the type", function() {
-      const handler = sinon.spy();
-      this.myClassInstance.subscribe(MyEvent, handler);
-      expect(this.myClassInstance.canHandleEvent(this.myEventInstance)).to.be.true;
+    describe("canHandleEvent", function() {
+
+      it("returns true if object has a subscribed handler function", function () {
+        const handler = sinon.spy();
+        this.myClassInstance.subscribe(MyEvent, handler);
+        expect(this.myClassInstance.canHandleEvent(this.myEventInstance)).to.be.true;
+      });
+
+      it("returns false if object has no subscribed handler functions", function () {
+        const handler = sinon.spy();
+        expect(this.myClassInstance.canHandleEvent(this.myEventInstance)).to.be.false;
+      });
+
     });
 
-    it("calls the handler when passed an event it can handle", function() {
-      const handler = sinon.spy();
-      this.myClassInstance.subscribe(MyEvent, handler);
-      this.myClassInstance.on(this.myEventInstance);
-      expect(handler).to.have.been.called;
+    describe("subscribe", function() {
+
+      it("subscribes the provided function to handle the specified event sent through the event bus", function () {
+        const handler = sinon.spy();
+        this.myClassInstance.subscribe(MyEvent, handler);
+        expect(this.myClassInstance.eventBus.hasHandlerFor(this.myEventInstance)).to.be.true;
+      });
+
     });
 
-    it("throws an error if the event cannot be handled", function() {
-      const createWithoutHandlers = function() {
+    describe("on", function(){
+
+      it("calls the handler when passed an event it can handle", function() {
+        const handler = sinon.spy();
+        this.myClassInstance.subscribe(MyEvent, handler);
         this.myClassInstance.on(this.myEventInstance);
-      };
-      expect(createWithoutHandlers).to.throw.error;
+        expect(handler).to.have.been.called;
+      });
+
+      it("throws an error if the event cannot be handled", function() {
+        const createWithoutHandlers = function() {
+          this.myClassInstance.on(this.myEventInstance);
+        };
+        expect(createWithoutHandlers).to.throw.error;
+      });
+
     });
 
-  });
-
-
-  it("does not throw error if no handlers have been defined", function() {
-    const createWithoutHandlers = function() {
-      new MyClass({ underscore: _ }).onDependenciesReady();
-    };
-    expect(createWithoutHandlers).not.to.throw(Error);
   });
 
 });
