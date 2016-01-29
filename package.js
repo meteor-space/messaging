@@ -16,7 +16,7 @@ Package.onUse(function(api) {
     'ejson',
     'ecmascript',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@4.1.0'
+    'space:base@4.1.1'
   ]);
 
   // SHARED
@@ -64,7 +64,7 @@ Package.onTest(function(api) {
     'mongo',
     'ecmascript',
     'space:testing@3.0.1',
-    'space:testing-messaging@3.0.0',
+    'space:testing-messaging@3.0.1',
     'space:messaging',
     'practicalmeteor:munit@2.1.5'
   ]);
