@@ -1,5 +1,14 @@
 Changelog
 =========
+## 3.1.1
+### Bug fixes
+- Regression bug with following methods:
+  - `Space.messaging.EventSubscribing.canHandleEvent`
+  - `Space.messaging.EventSubscribing._getEventHandlerFor`
+- Invalid logic in onConstruction callbacks in:
+  - `Space.messaging.EventSubscribing`
+  - `Space.messaging.CommandHandling`
+
 ## 3.1.0
 - Introduces [`Space.messaging.Versionable`](https://github.com/meteor-space/messaging/blob/master/source/mixins/versionable.js) mixin to allow any `Space.Struct` to be migrated to new versions as defined by `schemaVersion` using a transformation function such as `transformFromVersionX(data)`. This is particularly important once an `Ejsonable` `Space.Struct` is persisted.
   - Any changes to the struct’s fields require the version to be incremented by first adding the property  `schemaVersion`, which by default is set to 1, and then defining a transformation function.
