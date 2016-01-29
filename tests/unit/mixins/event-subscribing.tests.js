@@ -37,6 +37,14 @@ describe("Space.messaging.EventSubscribing", function() {
       this.myClassInstance.on(this.myEventInstance);
       expect(handler).to.have.been.called;
     });
+
+    it("throws an error if the event cannot be handled", function() {
+      const createWithoutHandlers = function() {
+        this.myClassInstance.on(this.myEventInstance);
+      };
+      expect(createWithoutHandlers).to.throw.error;
+    });
+
   });
 
 
