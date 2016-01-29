@@ -1,8 +1,8 @@
-const CommandHandling = Space.messaging.CommandHandling;
 
 describe("Space.messaging.CommandHandling", function() {
 
-  let MyClass = Space.Object.extend({ mixin: CommandHandling });
+  const CommandHandling = Space.messaging.CommandHandling;
+  const MyClass = Space.Object.extend({ mixin: CommandHandling });
 
   it("does not provide empty default", function() {
     expect(MyClass.prototype.commandHandlers).not.to.exist;
