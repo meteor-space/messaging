@@ -19,8 +19,12 @@ Space.messaging.CommandHandling = {
     }
   },
 
+  _commandHandlers: null,
+
   onConstruction() {
-    this._commandHandlers = this._commandHandlers || {};
+    if (this._commandHandlers === null) {
+      this._commandHandlers = {};
+    }
   },
 
   onDependenciesReady() {
