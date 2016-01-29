@@ -5,7 +5,14 @@ Space.messaging.EventSubscribing = {
     meteor: 'Meteor'
   },
 
-  _eventHandlers: {},
+  _eventHandlers: null,
+
+  onConstruction() {
+    console.log('in')
+    if (this._eventHandlers === null) {
+      this._eventHandlers = {};
+    }
+  },
 
   onDependenciesReady() {
     this._setupEventSubscribing();
