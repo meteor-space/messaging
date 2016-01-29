@@ -19,12 +19,20 @@ Space.messaging.CommandHandling = {
     }
   },
 
+  _commandHandlers: null,
+
   onConstruction() {
-    this._commandHandlers = this._commandHandlers || {};
+    if (this._commandHandlers === null) {
+      this._commandHandlers = {};
+    }
   },
 
   onDependenciesReady() {
     this._setupCommandHandling();
+  },
+
+  canHandleCommand(command) {
+    return this._getCommandHandlerFor(command) !== undefined;
   },
 
   register(commandType, handler) {
@@ -43,10 +51,6 @@ Space.messaging.CommandHandling = {
       throw new Error(this.ERRORS.noCommandHandlerFound(command.typeName()));
     }
     handler.call(this, command);
-  },
-
-  canHandleCommand(command) {
-    return this._getCommandHandlerFor(command) !== undefined;
   },
 
   _setupCommandHandling() {
