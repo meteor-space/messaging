@@ -31,6 +31,10 @@ Space.messaging.CommandHandling = {
     this._setupCommandHandling();
   },
 
+  canHandleCommand(command) {
+    return this._getCommandHandlerFor(command) !== undefined;
+  },
+
   register(commandType, handler) {
     if (!commandType) {
       throw new Error(this.ERRORS.invalidCommandType(commandType));
@@ -47,10 +51,6 @@ Space.messaging.CommandHandling = {
       throw new Error(this.ERRORS.noCommandHandlerFound(command.typeName()));
     }
     handler.call(this, command);
-  },
-
-  canHandleCommand(command) {
-    return this._getCommandHandlerFor(command) !== undefined;
   },
 
   _setupCommandHandling() {
