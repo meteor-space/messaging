@@ -8,7 +8,6 @@ Space.messaging.EventSubscribing = {
   _eventHandlers: null,
 
   onConstruction() {
-    console.log('in')
     if (this._eventHandlers === null) {
       this._eventHandlers = {};
     }
