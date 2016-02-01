@@ -7,7 +7,7 @@ describe 'Space.messaging.Command', ->
     @command = new Command
 
   it "is Ejsonable", ->
-    expect(Event.hasMixin(Space.messaging.Ejsonable)).to.be.true
+    expect(Command.hasMixin(Space.messaging.Ejsonable)).to.be.true
 
   it "is Versionable", ->
     expect(Command.hasMixin(Space.messaging.Versionable)).to.be.true
