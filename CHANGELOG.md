@@ -1,5 +1,11 @@
 Changelog
 =========
+## vNext
+### New Features
+- `Space.messaging.Command` is now versionable, allowing older versions to be
+ transformed, primarily intended when deserializing from a persistent store. 
+- `Space.Error` is also now versionable when `space:messaging` is installed.
+
 ## 3.1.1
 ### Bug fixes
 - Regression bug with following methods:
