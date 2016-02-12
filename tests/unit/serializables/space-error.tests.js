@@ -10,11 +10,11 @@ describe("Space.Error - messaging", function() {
   });
 
   it("is Versionable", function() {
-     expect(MyCustomError.hasMixin(Space.messaging.Versionable));
+     expect(MyCustomError.hasMixin(Space.messaging.Versionable)).to.be.true;
   });
 
   it("is Ejsonable", function() {
-    expect(MyCustomError.hasMixin(Space.messaging.Ejsonable));
+    expect(MyCustomError.hasMixin(Space.messaging.Ejsonable)).to.be.true;
   });
 
   it("makes Space.Error serializable", function() {
