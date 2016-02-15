@@ -10,7 +10,7 @@ describe("Space.Error - messaging", function() {
   });
 
   it("is Versionable", function() {
-     expect(MyCustomError.hasMixin(Space.messaging.Versionable)).to.be.true;
+    expect(MyCustomError.hasMixin(Space.messaging.Versionable)).to.be.true;
   });
 
   it("is Ejsonable", function() {
