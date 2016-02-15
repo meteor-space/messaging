@@ -1,1 +1,6 @@
-{}
+{
+  "space:base": {
+    "git":"https://github.com/meteor-space/base.git",
+    "version": "bf966d9a85ee1de74222be29b528ee73a143b0df"
+  }
+}
