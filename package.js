@@ -16,7 +16,7 @@ Package.onUse(function(api) {
     'ejson',
     'ecmascript',
     'fongandrew:find-and-modify@0.2.1',
-    'space:base@4.1.1'
+    'space:base@4.1.2'
   ]);
 
   // SHARED
