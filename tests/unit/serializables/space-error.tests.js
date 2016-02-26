@@ -1,4 +1,4 @@
-describe("Space.messaging - Serializable Space.Error", function() {
+describe("Space.Error - messaging", function() {
 
   let MyCustomValue = Space.Struct.extend('MyCustomValue', {
     mixin: [Space.messaging.Ejsonable],
@@ -7,6 +7,14 @@ describe("Space.messaging - Serializable Space.Error", function() {
 
   let MyCustomError = Space.Error.extend('MyCustomError', {
     statics: { fields: { custom: MyCustomValue } }
+  });
+
+  it("is Versionable", function() {
+    expect(MyCustomError.hasMixin(Space.messaging.Versionable)).to.be.true;
+  });
+
+  it("is Ejsonable", function() {
+    expect(MyCustomError.hasMixin(Space.messaging.Ejsonable)).to.be.true;
   });
 
   it("makes Space.Error serializable", function() {
