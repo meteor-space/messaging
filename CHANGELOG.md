@@ -1,6 +1,6 @@
 Changelog
 =========
-## vNext
+## 3.2.0
 ### New Features
 - `Space.messaging.Command` is now versionable, allowing older versions to be
  transformed, primarily intended when deserializing from a persistent store. 
