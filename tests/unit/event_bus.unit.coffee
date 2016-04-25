@@ -26,6 +26,13 @@ describe 'Space.messaging.EventBus', ->
       expect(first).to.have.been.calledWith @testEvent
       expect(second).to.have.been.calledWith @testEvent
 
+    it 'can provide the types of events it can handle', ->
+      subscriber = ->
+      @eventBus.subscribeTo TestEvent, subscriber
+      expect(@eventBus.getHandledEventTypes()).to.deep.equal(
+        ['Space.messaging.__tests__.EventBusStubEvent']
+      )
+
   describe 'publishing events', ->
 
     it 'calls the subscription with the event', ->

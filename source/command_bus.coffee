@@ -37,6 +37,8 @@ class Space.messaging.CommandBus extends Space.Object
 
   getHandlerFor: (commandType) -> @_handlers[commandType]
 
+  getHandledCommandTypes: -> commandType for commandType of @_handlers
+
   hasHandlerFor: (commandType) -> @getHandlerFor(commandType)?
 
   onSend: (handler) -> @_onSendCallbacks.push handler

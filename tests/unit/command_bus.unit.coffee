@@ -24,6 +24,13 @@ describe 'Space.messaging.CommandBus', ->
       registerTwice = => @commandBus.registerHandler TestCommand, second
       expect(registerTwice).to.throw Error
 
+    it 'can provide the types of commands it can handle', ->
+      handler = ->
+      @commandBus.registerHandler TestCommand, handler
+      expect(@commandBus.getHandledCommandTypes()).to.deep.equal(
+        ['Space.messaging.CommandBusStubCommand']
+      )
+
     it 'allows handler registrations to be overridden', ->
       first = sinon.spy()
       second = sinon.spy()
