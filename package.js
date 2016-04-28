@@ -39,7 +39,7 @@ Package.onUse(function(api) {
 
   // SHARED
   api.addFiles([
-    'source/helpers.coffee',
+    'source/helpers.js',
     'source/value-objects/guid.coffee',
     'source/serializables/event.js',
     'source/serializables/command.js',
