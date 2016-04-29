@@ -1,14 +1,3 @@
-const defineTypeWithFields = (definitons, BaseType, namespace, className, fields) => {
-  let classPath = className;
-  if (namespace !== '') classPath = `${namespace}.${className}`;
-  let SubType = BaseType.extend(classPath);
-  SubType.prototype.fields = function() {
-    return _.extend(BaseType.prototype.fields(), fields);
-  };
-  Space.resolvePath(namespace)[className] = SubType;
-  definitons[classPath] = SubType;
-};
-
 Space.messaging.define = (BaseType, ...options) => {
 
   if (!BaseType.isSerializable) {
@@ -39,7 +28,12 @@ Space.messaging.define = (BaseType, ...options) => {
   }
 
   _.each(definitions, (fields, className) => {
-    defineTypeWithFields(subTypes, BaseType, namespace, className, fields);
+    let classPath = className;
+    if (namespace !== '') classPath = `${namespace}.${className}`;
+    let SubType = BaseType.extend(classPath);
+    SubType.prototype.fields = () => _.extend(BaseType.prototype.fields(), fields);
+    Space.resolvePath(namespace)[className] = SubType;
+    subTypes[classPath] = SubType;
   });
 
   return subTypes;
