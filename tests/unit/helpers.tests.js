@@ -18,3 +18,19 @@ describe("Space.messaging.define", function() {
   });
 
 });
+
+describe("Space.messaging.define", function() {
+
+  beforeEach(function() {
+    this.definedSerializables = Space.messaging.define(Space.messaging.Event, {
+      FirstEvent: {},
+      SecondEvent: {}
+    });
+  });
+
+  it("returns object with defined serializables", function() {
+    expect(this.definedSerializables.FirstEvent).to.extend(Space.messaging.Event);
+    expect(this.definedSerializables.SecondEvent).to.extend(Space.messaging.Event);
+  });
+
+});
