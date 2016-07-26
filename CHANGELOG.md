@@ -24,8 +24,9 @@ Changelog
    ``` javascript
    // Importing and using events:
    import events from '../events';
+   const { BankAccountOpened } = events;
    
-   let event = new events.BankAccountOpened({
+   let event = new BankAccountOpened({
      sourceId: new Guid()
      // ...
    });
