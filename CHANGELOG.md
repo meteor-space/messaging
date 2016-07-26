@@ -1,6 +1,6 @@
 Changelog
 =========
-## vNext
+## 3.3.0
 ### New features
 - `Space.messaging.define` helper returns object with defined serializables which makes helper more usable when using ES6 module imports/exports.
    Following implementation is now possible:
