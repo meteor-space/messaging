@@ -32,6 +32,8 @@ Changelog
    });
    
  ```
+ 
+- New method `getHandledCommandTypes()` on `Space.messaging.CommandBus`
 
 ## 3.2.0
 ### New Features
