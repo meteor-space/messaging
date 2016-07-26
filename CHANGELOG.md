@@ -1,5 +1,40 @@
 Changelog
 =========
+## 3.3.0
+### New features
+- `Space.messaging.define` helper returns object with defined serializables which makes helper more usable when using ES6 module imports/exports.
+   Following implementation is now possible:
+   
+   ``` javascript
+   // Defining events:
+   export default Space.messaging.define(Space.domain.Event, {
+   
+     BankAccountOpened: {
+       owner: Contact,
+       balance: Money
+     },
+ 
+     BankAccountCredited: {
+       balance: Money
+     }
+     
+   });
+   ```
+ 
+   ``` javascript
+   // Importing and using events:
+   import events from '../events';
+   const { BankAccountOpened } = events;
+   
+   let event = new BankAccountOpened({
+     sourceId: new Guid()
+     // ...
+   });
+   
+ ```
+ 
+- New method `getHandledCommandTypes()` on `Space.messaging.CommandBus`
+
 ## 3.2.0
 ### New Features
 - `Space.messaging.Command` is now versionable, allowing older versions to be
