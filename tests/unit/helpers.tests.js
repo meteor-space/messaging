@@ -1,36 +1,41 @@
-describe("Space.messaging.define", function() {
+describe("Space.messaging.define", () => {
 
-  const myNamespace = Space.namespace('My.define.Namespace');
+  describe("batch defining serializable objects", () => {
 
-  Space.messaging.define(Space.messaging.Event, myNamespace, {
-    FirstEvent: {},
-    SecondEvent: {}
-  });
-
-  Space.messaging.define(Space.messaging.Event, 'My.define.Namespace', {
-    ThirdEvent: {}
-  });
-
-  it("creates namespaced serializables", function() {
-    expect(myNamespace.FirstEvent).to.extend(Space.messaging.Event);
-    expect(myNamespace.SecondEvent).to.extend(Space.messaging.Event);
-    expect(myNamespace.ThirdEvent).to.extend(Space.messaging.Event);
-  });
-
-});
-
-describe("Space.messaging.define", function() {
-
-  beforeEach(function() {
-    this.definedSerializables = Space.messaging.define(Space.messaging.Event, {
-      FirstEvent: {},
-      SecondEvent: {}
+    it("returns object with defined serializables", () => {
+      const definedSerializables = Space.messaging.define(Space.messaging.Event, {
+        FirstEvent: {},
+        SecondEvent: {}
+      });
+      expect(definedSerializables.FirstEvent).to.extend(Space.messaging.Event);
+      expect(definedSerializables.SecondEvent).to.extend(Space.messaging.Event);
     });
+
   });
 
-  it("returns object with defined serializables", function() {
-    expect(this.definedSerializables.FirstEvent).to.extend(Space.messaging.Event);
-    expect(this.definedSerializables.SecondEvent).to.extend(Space.messaging.Event);
-  });
+  describe("use with a Space.namespace", () => {
+
+    beforeEach(() => {
+      this.myNamespace = Space.namespace('My.define.Namespace');
+    });
+
+    it("creates namespaced serializables when passing a Space.namespace object as the second argument", () => {
+      Space.messaging.define(Space.messaging.Event, this.myNamespace, {
+        FirstEvent: {},
+        SecondEvent: {}
+      });
+      expect(this.myNamespace.FirstEvent).to.extend(Space.messaging.Event);
+      expect(this.myNamespace.SecondEvent).to.extend(Space.messaging.Event);
+    });
+
+    it("creates namespaced serializables when passing the string reference of a Space.namespace as the second argument", () => {
+      Space.messaging.define(Space.messaging.Event, 'My.define.Namespace', {
+        ThirdEvent: {}
+      });
+      expect(this.myNamespace.ThirdEvent).to.extend(Space.messaging.Event);
+    });
+  })
 
 });
+
+
