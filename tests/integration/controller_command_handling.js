@@ -33,13 +33,14 @@ describe("Handling commands", function() {
     // Startup app and send the commands through the bus
     let app = new ControllerTestApp();
     let myController = app.injector.get('MyController');
+    let myCallback = () => {};
     app.start();
     app.commandBus.send(this.myCommand);
-    app.commandBus.send(this.anotherCommand);
+    app.commandBus.send(this.anotherCommand, myCallback);
 
     // Expect that the controller handled the commands
-    expect(myHandler).to.have.been.calledWithExactly(this.myCommand).calledOn(myController);
-    expect(anotherHandler).to.have.been.calledWithExactly(this.anotherCommand).calledOn(myController);
+    expect(myHandler).to.have.been.calledWith(this.myCommand).calledOn(myController);
+    expect(anotherHandler).to.have.been.calledWithExactly(this.anotherCommand, myCallback).calledOn(myController);
 
   });
 });

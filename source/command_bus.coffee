@@ -22,10 +22,10 @@ class Space.messaging.CommandBus extends Space.Object
       if !handler?
         message = "Missing command handler for <#{command.typeName()}>."
         throw new Error message
-      handler(command)
+      handler(command, callback)
     else
       # ON THE CLIENT
-      @api.send command, callback
+      @api.send(command, callback)
 
   registerHandler: (typeName, handler, overrideExisting) ->
     if @_handlers[typeName]? and !overrideExisting
