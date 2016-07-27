@@ -18,7 +18,7 @@ class Space.messaging.CommandBus extends Space.Object
     if @meteor.isServer
       # ON THE SERVER
       handler = @_handlers[command.typeName()]
-      callback(command) for callback in @_onSendCallbacks
+      cb(command) for cb in @_onSendCallbacks
       if !handler?
         message = "Missing command handler for <#{command.typeName()}>."
         throw new Error message
