@@ -1,8 +1,8 @@
-describe("Space.messaging.define", () => {
+describe("Space.messaging.define", function() {
 
-  describe("batch defining serializable objects", () => {
+  describe("batch defining serializable objects", function() {
 
-    it("returns object with defined serializables", () => {
+    it("returns object with defined serializables", function() {
       const definedSerializables = Space.messaging.define(Space.messaging.Event, {
         FirstEvent: {},
         SecondEvent: {}
@@ -13,13 +13,13 @@ describe("Space.messaging.define", () => {
 
   });
 
-  describe("use with a Space.namespace", () => {
+  describe("use with a Space.namespace", function() {
 
-    beforeEach(() => {
+    beforeEach(function() {
       this.myNamespace = Space.namespace('My.define.Namespace');
     });
 
-    it("creates namespaced serializables when passing a Space.namespace object as the second argument", () => {
+    it("creates namespaced serializables when passing a Space.namespace object as the second argument", function() {
       Space.messaging.define(Space.messaging.Event, this.myNamespace, {
         FirstEvent: {},
         SecondEvent: {}
@@ -28,7 +28,7 @@ describe("Space.messaging.define", () => {
       expect(this.myNamespace.SecondEvent).to.extend(Space.messaging.Event);
     });
 
-    it("creates namespaced serializables when passing the string reference of a Space.namespace as the second argument", () => {
+    it("creates namespaced serializables when passing the string reference of a Space.namespace as the second argument", function() {
       Space.messaging.define(Space.messaging.Event, 'My.define.Namespace', {
         ThirdEvent: {}
       });
