@@ -15,7 +15,6 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'ecmascript',
-    'fongandrew:find-and-modify@0.2.2',
     'space:base@4.1.3'
   ]);
 
