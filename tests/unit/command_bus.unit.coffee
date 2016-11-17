@@ -43,7 +43,17 @@ describe 'Space.messaging.CommandBus', ->
     it.server 'calls the registered handler with the command', ->
       @commandBus.registerHandler TestCommand, @handler
       @commandBus.send @testCommand
-      expect(@handler).to.have.been.calledWithExactly @testCommand
+      expect(@handler).to.have.been.calledWith @testCommand
+
+    it.server 'calls the registered handler with an optional callback', ->
+      @commandBus.registerHandler TestCommand, @handler
+      callback = ->
+      @commandBus.send @testCommand, callback
+      expect(@handler).to.have.been.calledWithExactly @testCommand, callback
+
+    it.client 'uses api.send for sending commands with optional callback', ->
+      @commandBus.send @testCommand
+      expect(@api.send).to.have.been.calledWith @testCommand
 
     it.client 'uses api.send for sending commands', ->
       callback = ->
