@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Messaging infrastructure for Space applications.',
   name: 'space:messaging',
-  version: '3.3.0',
+  version: '3.3.1',
   git: 'https://github.com/meteor-space/messaging.git'
 });
 
@@ -15,7 +15,6 @@ Package.onUse(function(api) {
     'check',
     'ejson',
     'ecmascript',
-    'fongandrew:find-and-modify@0.2.2',
     'space:base@4.1.3'
   ]);
 
