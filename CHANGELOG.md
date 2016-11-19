@@ -1,6 +1,6 @@
 Changelog
 =========
-## vNext
+## 3.3.1
 ### Bug fixes
 - The callback passed to `Space.messaging.CommandBus.send` is now mapped through to the server-side command handler. Before this change it was only being passed through on the client.
 - Removed an unused dependency fongandrew:find-and-modify
