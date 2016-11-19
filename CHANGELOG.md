@@ -1,5 +1,10 @@
 Changelog
 =========
+## vNext
+### Bug fixes
+- The callback passed to `Space.messaging.CommandBus.send` is now mapped through to the server-side command handler. Before this change it was only being passed through on the client.
+- Removed an unused dependency fongandrew:find-and-modify
+
 ## 3.3.0
 ### New features
 - `Space.messaging.define` helper returns object with defined serializables which makes helper more usable when using ES6 module imports/exports.
